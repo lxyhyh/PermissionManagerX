@@ -375,4 +375,9 @@
     <item>Write secure system settings (highly privileged).</item>
     <item>Modify system settings.</item>
   </string-array>
+  <string-array name="app_op_desc_labels">
+  </string-array>
+
+  <string-array name="perm_desc_labels">
+  </string-array>
 </resources>

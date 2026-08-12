@@ -375,4 +375,190 @@
     <item>写入受保护的系统设置（权限极高）。</item>
     <item>修改系统设置。</item>
   </string-array>
+<string-array name="app_op_desc_labels">
+    <item>读取通知</item>
+    <item>身体活动识别</item>
+    <item>添加语音留言</item>
+    <item>接听来电</item>
+    <item>助手截屏</item>
+    <item>助手屏幕结构</item>
+    <item>无障碍音量</item>
+    <item>闹钟音量</item>
+    <item>蓝牙音量</item>
+    <item>总音量</item>
+    <item>媒体音量</item>
+    <item>通知音量</item>
+    <item>铃声音量</item>
+    <item>通话音量</item>
+    <item>由安装器管理自动撤销</item>
+    <item>闲置时自动撤销权限</item>
+    <item>无障碍服务</item>
+    <item>蓝牙广播</item>
+    <item>蓝牙连接</item>
+    <item>蓝牙扫描</item>
+    <item>身体传感器</item>
+    <item>拨打电话</item>
+    <item>相机</item>
+    <item>更改 Wi-Fi 状态</item>
+    <item>大致位置</item>
+    <item>精确位置</item>
+    <item>前台服务</item>
+    <item>获取账户</item>
+    <item>使用情况统计</item>
+    <item>GPS</item>
+    <item>跨资料交互</item>
+    <item>旧版存储访问</item>
+    <item>管理外部存储</item>
+    <item>管理进行中的通话</item>
+    <item>模拟位置</item>
+    <item>监视高功耗定位</item>
+    <item>监视定位</item>
+    <item>静音麦克风</item>
+    <item>附近 Wi-Fi 设备</item>
+    <item>邻近基站信息</item>
+    <item>无隔离存储</item>
+    <item>通话相机</item>
+    <item>通话麦克风</item>
+    <item>画中画</item>
+    <item>播放音频</item>
+    <item>发布通知</item>
+    <item>处理外拨电话</item>
+    <item>投影媒体</item>
+    <item>查询所有应用</item>
+    <item>读取日历</item>
+    <item>读取通话记录</item>
+    <item>读取小区广播</item>
+    <item>读取剪贴板</item>
+    <item>读取联系人</item>
+    <item>读取设备标识符</item>
+    <item>读取外部存储</item>
+    <item>读取 SIM 卡短信</item>
+    <item>读取媒体音频</item>
+    <item>读取媒体图片</item>
+    <item>读取媒体视频</item>
+    <item>读取电话号码</item>
+    <item>读取电话状态</item>
+    <item>读取短信</item>
+    <item>接收紧急短信</item>
+    <item>接收彩信</item>
+    <item>接收短信</item>
+    <item>接收 WAP 推送</item>
+    <item>录制音频</item>
+    <item>录制音频输出</item>
+    <item>录制净化音频</item>
+    <item>唤醒词录音</item>
+    <item>请求卸载应用</item>
+    <item>请求安装应用</item>
+    <item>后台运行（不受限）</item>
+    <item>后台运行</item>
+    <item>精确闹钟</item>
+    <item>发送短信</item>
+    <item>付费短信交易</item>
+    <item>启动前台服务</item>
+    <item>悬浮窗</item>
+    <item>豁免后台启动限制</item>
+    <item>豁免省电限制</item>
+    <item>占用音频焦点</item>
+    <item>处理媒体按键</item>
+    <item>显示 Toast</item>
+    <item>点亮屏幕</item>
+    <item>生物识别</item>
+    <item>指纹</item>
+    <item>SIM 认证与设备标识符</item>
+    <item>SIP 通话</item>
+    <item>UWB 测距</item>
+    <item>振动</item>
+    <item>唤醒锁</item>
+    <item>扫描 Wi-Fi</item>
+    <item>写入日历</item>
+    <item>写入通话记录</item>
+    <item>写入剪贴板</item>
+    <item>写入联系人</item>
+    <item>写入外部存储</item>
+    <item>写入 SIM 卡短信</item>
+    <item>写入媒体音频</item>
+    <item>写入媒体图片</item>
+    <item>写入媒体视频</item>
+    <item>修改系统设置</item>
+    <item>写入短信</item>
+    <item>设置壁纸</item>
+  </string-array>
+
+  <string-array name="perm_desc_labels">
+    <item>后台位置</item>
+    <item>大致位置</item>
+    <item>精确位置</item>
+    <item>媒体位置信息</item>
+    <item>网络状态</item>
+    <item>Wi-Fi 状态</item>
+    <item>身体活动识别</item>
+    <item>接听来电</item>
+    <item>无障碍服务</item>
+    <item>设备管理器</item>
+    <item>通知使用权</item>
+    <item>VPN 服务</item>
+    <item>蓝牙</item>
+    <item>蓝牙管理</item>
+    <item>蓝牙广播</item>
+    <item>蓝牙连接</item>
+    <item>蓝牙扫描</item>
+    <item>身体传感器</item>
+    <item>广播短信</item>
+    <item>拨打电话</item>
+    <item>相机</item>
+    <item>更改网络状态</item>
+    <item>更改 Wi-Fi 状态</item>
+    <item>卸载应用</item>
+    <item>前台服务</item>
+    <item>获取账户</item>
+    <item>获取任务信息</item>
+    <item>安装应用</item>
+    <item>互联网</item>
+    <item>结束后台进程</item>
+    <item>管理设备管理器</item>
+    <item>管理外部存储</item>
+    <item>修改音频设置</item>
+    <item>附近 Wi-Fi 设备</item>
+    <item>NFC</item>
+    <item>使用情况统计</item>
+    <item>发布通知</item>
+    <item>处理外拨电话</item>
+    <item>查询所有应用</item>
+    <item>读取日历</item>
+    <item>读取通话记录</item>
+    <item>读取联系人</item>
+    <item>读取外部存储</item>
+    <item>读取媒体音频</item>
+    <item>读取媒体图片</item>
+    <item>读取媒体视频</item>
+    <item>读取电话号码</item>
+    <item>读取电话状态</item>
+    <item>读取短信</item>
+    <item>开机自启</item>
+    <item>接收彩信</item>
+    <item>接收短信</item>
+    <item>接收 WAP 推送</item>
+    <item>录制音频</item>
+    <item>请求卸载应用</item>
+    <item>请求豁免电池优化</item>
+    <item>请求安装应用</item>
+    <item>精确闹钟</item>
+    <item>发送短信</item>
+    <item>设置闹钟</item>
+    <item>设置壁纸</item>
+    <item>悬浮窗</item>
+    <item>生物识别</item>
+    <item>精确闹钟（强制）</item>
+    <item>指纹</item>
+    <item>全屏通知</item>
+    <item>SIP 通话</item>
+    <item>振动</item>
+    <item>唤醒锁</item>
+    <item>写入日历</item>
+    <item>写入通话记录</item>
+    <item>写入联系人</item>
+    <item>写入外部存储</item>
+    <item>修改安全设置</item>
+    <item>修改系统设置</item>
+  </string-array>
 </resources>

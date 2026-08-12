@@ -648,14 +648,17 @@ public enum PackageParser {
             isPolicyFixed,
             flags.providerPkg);
 
+    CharSequence label = null;
     try {
-      PermissionInfo permInfo = mPm.getPermissionInfo(permName, 0);
-      CharSequence label = permInfo.loadLabel(mPm);
-      if (label != null && !label.toString().equals(permName)) {
-        perm.setLabel(label);
-      }
+      label = mPm.getPermissionInfo(permName, 0).loadLabel(mPm);
     } catch (NameNotFoundException e) {
-      // 拿不到系统说明时显示原始名称
+      // 忽略：拿不到系统名称
+    }
+    if (label == null || label.toString().equals(permName)) {
+      label = PermDescProvider.INS.getLabel(permName);
+    }
+    if (label != null && !label.toString().equals(permName)) {
+      perm.setLabel(label);
     }
 
     if (!filterPerms || isNotFilteredOut(perm)) {
@@ -852,16 +855,19 @@ public enum PackageParser {
             isExtraAppOp);
 
     String permName = AppOpsParser.INS.getPermNameForOp(op);
+    CharSequence label = null;
     if (permName != null) {
       try {
-        PermissionInfo permInfo = mPm.getPermissionInfo(permName, 0);
-        CharSequence label = permInfo.loadLabel(mPm);
-        if (label != null && !label.toString().equals(opName)) {
-          perm.setLabel(label);
-        }
+        label = mPm.getPermissionInfo(permName, 0).loadLabel(mPm);
       } catch (NameNotFoundException e) {
-        // 拿不到系统说明时显示原始名称
+        // 忽略：拿不到系统名称
       }
+    }
+    if (label == null || label.toString().equals(opName)) {
+      label = PermDescProvider.INS.getLabel(opName);
+    }
+    if (label != null && !label.toString().equals(opName)) {
+      perm.setLabel(label);
     }
 
     if (!isExtraAppOp) {
