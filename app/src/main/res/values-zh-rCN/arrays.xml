@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="ui_radius_entries">
+    <item>小</item>
+    <item>中</item>
+    <item>大</item>
+  </string-array>
+  <string-array name="ui_radius_values">
+    <item>small</item>
+    <item>mid</item>
+    <item>large</item>
+  </string-array>
+  <string-array name="ui_density_entries">
+    <item>紧凑</item>
+    <item>标准</item>
+    <item>舒适</item>
+  </string-array>
+  <string-array name="ui_density_values">
+    <item>compact</item>
+    <item>normal</item>
+    <item>comfort</item>
+  </string-array>
+</resources>

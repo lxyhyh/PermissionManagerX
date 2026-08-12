@@ -122,9 +122,6 @@
           android:layout_height="wrap_content"
           android:layout_gravity="end"
           android:layout_marginTop="2dp"
-          android:background="@drawable/capsule_bg"
-          android:paddingHorizontal="8dp"
-          android:paddingVertical="2dp"
           android:textColor="?attr/accentColor"
           android:textSize="12sp"
           android:textStyle="bold" />

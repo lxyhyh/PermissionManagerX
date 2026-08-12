@@ -1014,4 +1014,24 @@
     <item order="215">0</item>
   </array>
 
+<string-array name="ui_radius_entries">
+    <item>Small</item>
+    <item>Medium</item>
+    <item>Large</item>
+  </string-array>
+  <string-array name="ui_radius_values">
+    <item>small</item>
+    <item>mid</item>
+    <item>large</item>
+  </string-array>
+  <string-array name="ui_density_entries">
+    <item>Compact</item>
+    <item>Normal</item>
+    <item>Comfortable</item>
+  </string-array>
+  <string-array name="ui_density_values">
+    <item>compact</item>
+    <item>normal</item>
+    <item>comfort</item>
+  </string-array>
 </resources>

@@ -304,4 +304,40 @@
   <string name="pref_package_warn_dang_change_enc_key" translatable="false">pref_package_warn_dang_change_enc</string>
   <bool name="pref_package_warn_dang_change_enc_default">true</bool>
 
+<!-- UI Appearance -->
+  <string name="pref_settings_appearance_cat_title">Appearance</string>
+  <bool name="pref_settings_ui_card_style_default">true</bool>
+  <string name="pref_settings_ui_card_style_key" translatable="false">pref_settings_ui_card_style</string>
+  <string name="pref_settings_ui_card_style_title">Card style</string>
+  <string name="pref_settings_ui_card_style_summary">Rounded card list items (MIUI × Apple style)</string>
+
+  <string name="pref_settings_ui_radius_key" translatable="false">pref_settings_ui_radius</string>
+  <string name="pref_settings_ui_radius_title">Card corner radius</string>
+  <string name="pref_settings_ui_radius_default" translatable="false">large</string>
+  <string name="pref_settings_ui_radius_summary">Small / medium / large corners</string>
+
+  <bool name="pref_settings_ui_dots_default">true</bool>
+  <string name="pref_settings_ui_dots_key" translatable="false">pref_settings_ui_dots</string>
+  <string name="pref_settings_ui_dots_title">Reference status indicator</string>
+  <string name="pref_settings_ui_dots_summary">Show colored indicator for reference state</string>
+
+  <bool name="pref_settings_ui_chip_default">true</bool>
+  <string name="pref_settings_ui_chip_key" translatable="false">pref_settings_ui_chip</string>
+  <string name="pref_settings_ui_chip_title">AppOp mode chip</string>
+  <string name="pref_settings_ui_chip_summary">Show AppOp mode in a capsule chip</string>
+
+  <string name="pref_settings_ui_density_key" translatable="false">pref_settings_ui_density</string>
+  <string name="pref_settings_ui_density_title">List density</string>
+  <string name="pref_settings_ui_density_default" translatable="false">normal</string>
+  <string name="pref_settings_ui_density_summary">Compact / normal / comfortable</string>
+
+  <bool name="pref_settings_ui_big_title_default">true</bool>
+  <string name="pref_settings_ui_big_title_key" translatable="false">pref_settings_ui_big_title</string>
+  <string name="pref_settings_ui_big_title_title">Large title</string>
+  <string name="pref_settings_ui_big_title_summary">Show large toolbar title (Material 3)</string>
+
+  <bool name="pref_settings_ui_ripple_default">true</bool>
+  <string name="pref_settings_ui_ripple_key" translatable="false">pref_settings_ui_ripple</string>
+  <string name="pref_settings_ui_ripple_title">Ripple animation</string>
+  <string name="pref_settings_ui_ripple_summary">Touch ripple feedback on list items</string>
 </resources>

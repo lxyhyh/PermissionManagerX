@@ -25,6 +25,7 @@ import com.mirfatif.permissionmanagerx.main.PackageAdapter;
 import com.mirfatif.permissionmanagerx.parser.Permission;
 import com.mirfatif.permissionmanagerx.pkg.PermissionAdapter.ItemViewHolder;
 import com.mirfatif.permissionmanagerx.util.StringUtils;
+import com.mirfatif.permissionmanagerx.util.UiPrefUtils;
 import com.mirfatif.permissionmanagerx.util.UiUtils;
 
 public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder> {
@@ -50,6 +51,11 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
   public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RvItemPermBinding b = RvItemPermBinding.inflate(inflater, parent, false);
+
+    // 应用外观偏好
+    b.getRoot().setBackgroundResource(UiPrefUtils.getCardBg());
+    b.refIndicationV.setVisibility(UiPrefUtils.shouldShowRefIndicator() ? View.VISIBLE : View.GONE);
+
     return new ItemViewHolder(b);
   }
 
@@ -142,6 +148,13 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
           if (mode != AppOpsManager.MODE_ALLOWED && mode != AppOpsManager.MODE_IGNORED) {
             mB.appOpModeV.setVisibility(View.VISIBLE);
             mB.appOpModeV.setText(perm.getLocalizedPermStateName());
+            if (UiPrefUtils.shouldUseChip()) {
+              mB.appOpModeV.setBackgroundResource(R.drawable.capsule_bg);
+              mB.appOpModeV.setPadding(24, 4, 24, 4);
+            } else {
+              mB.appOpModeV.setBackgroundResource(0);
+              mB.appOpModeV.setPadding(0, 0, 0, 0);
+            }
           } else {
             mB.appOpModeV.setVisibility(View.GONE);
           }

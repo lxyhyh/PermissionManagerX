@@ -136,4 +136,40 @@
   <string name="pref_settings_auto_perm_ref_summary">将权限的所选状态设为引用</string>
   <!-- HelpActivity -->
   <!-- PackageActivity -->
+<!-- 外观设置 -->
+  <string name="pref_settings_appearance_cat_title">外观</string>
+  <bool name="pref_settings_ui_card_style_default">true</bool>
+  <string name="pref_settings_ui_card_style_key" translatable="false">pref_settings_ui_card_style</string>
+  <string name="pref_settings_ui_card_style_title">卡片风格</string>
+  <string name="pref_settings_ui_card_style_summary">圆角卡片列表项（MIUI × 苹果风格）</string>
+
+  <string name="pref_settings_ui_radius_key" translatable="false">pref_settings_ui_radius</string>
+  <string name="pref_settings_ui_radius_title">卡片圆角大小</string>
+  <string name="pref_settings_ui_radius_default" translatable="false">large</string>
+  <string name="pref_settings_ui_radius_summary">小 / 中 / 大圆角</string>
+
+  <bool name="pref_settings_ui_dots_default">true</bool>
+  <string name="pref_settings_ui_dots_key" translatable="false">pref_settings_ui_dots</string>
+  <string name="pref_settings_ui_dots_title">引用状态指示条</string>
+  <string name="pref_settings_ui_dots_summary">显示引用状态的彩色指示条</string>
+
+  <bool name="pref_settings_ui_chip_default">true</bool>
+  <string name="pref_settings_ui_chip_key" translatable="false">pref_settings_ui_chip</string>
+  <string name="pref_settings_ui_chip_title">AppOp 模式胶囊</string>
+  <string name="pref_settings_ui_chip_summary">以胶囊 chip 显示 AppOp 模式</string>
+
+  <string name="pref_settings_ui_density_key" translatable="false">pref_settings_ui_density</string>
+  <string name="pref_settings_ui_density_title">列表密度</string>
+  <string name="pref_settings_ui_density_default" translatable="false">normal</string>
+  <string name="pref_settings_ui_density_summary">紧凑 / 标准 / 舒适</string>
+
+  <bool name="pref_settings_ui_big_title_default">true</bool>
+  <string name="pref_settings_ui_big_title_key" translatable="false">pref_settings_ui_big_title</string>
+  <string name="pref_settings_ui_big_title_title">顶部大标题</string>
+  <string name="pref_settings_ui_big_title_summary">显示大号顶部标题（Material 3）</string>
+
+  <bool name="pref_settings_ui_ripple_default">true</bool>
+  <string name="pref_settings_ui_ripple_key" translatable="false">pref_settings_ui_ripple</string>
+  <string name="pref_settings_ui_ripple_title">水波纹动画</string>
+  <string name="pref_settings_ui_ripple_summary">列表项触摸水波纹反馈</string>
 </resources>

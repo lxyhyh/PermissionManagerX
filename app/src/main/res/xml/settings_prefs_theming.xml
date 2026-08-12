@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-
   <ListPreference
     app:defaultValue="@string/pref_settings_theme_color_default"
-    app:enabled="false"
     app:entries="@array/theme_colors"
     app:entryValues="@array/theme_color_values"
     app:icon="@drawable/color"
     app:key="@string/pref_settings_theme_color_key"
     app:singleLineTitle="false"
     app:title="@string/pref_settings_theme_color_title" />
-
   <ListPreference
     app:defaultValue="@string/pref_settings_dark_theme_default"
     app:entries="@array/dark_theme_modes"
@@ -20,5 +17,49 @@
     app:singleLineTitle="false"
     app:title="@string/pref_settings_dark_theme_title"
     app:useSimpleSummaryProvider="true" />
+
+  <PreferenceCategory app:title="@string/pref_settings_appearance_cat_title">
+    <SwitchPreferenceCompat
+      app:defaultValue="@bool/pref_settings_ui_card_style_default"
+      app:key="@string/pref_settings_ui_card_style_key"
+      app:summary="@string/pref_settings_ui_card_style_summary"
+      app:title="@string/pref_settings_ui_card_style_title" />
+    <ListPreference
+      app:defaultValue="@string/pref_settings_ui_radius_default"
+      app:entries="@array/ui_radius_entries"
+      app:entryValues="@array/ui_radius_values"
+      app:key="@string/pref_settings_ui_radius_key"
+      app:summary="@string/pref_settings_ui_radius_summary"
+      app:title="@string/pref_settings_ui_radius_title"
+      app:useSimpleSummaryProvider="true" />
+    <SwitchPreferenceCompat
+      app:defaultValue="@bool/pref_settings_ui_dots_default"
+      app:key="@string/pref_settings_ui_dots_key"
+      app:summary="@string/pref_settings_ui_dots_summary"
+      app:title="@string/pref_settings_ui_dots_title" />
+    <SwitchPreferenceCompat
+      app:defaultValue="@bool/pref_settings_ui_chip_default"
+      app:key="@string/pref_settings_ui_chip_key"
+      app:summary="@string/pref_settings_ui_chip_summary"
+      app:title="@string/pref_settings_ui_chip_title" />
+    <ListPreference
+      app:defaultValue="@string/pref_settings_ui_density_default"
+      app:entries="@array/ui_density_entries"
+      app:entryValues="@array/ui_density_values"
+      app:key="@string/pref_settings_ui_density_key"
+      app:summary="@string/pref_settings_ui_density_summary"
+      app:title="@string/pref_settings_ui_density_title"
+      app:useSimpleSummaryProvider="true" />
+    <SwitchPreferenceCompat
+      app:defaultValue="@bool/pref_settings_ui_big_title_default"
+      app:key="@string/pref_settings_ui_big_title_key"
+      app:summary="@string/pref_settings_ui_big_title_summary"
+      app:title="@string/pref_settings_ui_big_title_title" />
+    <SwitchPreferenceCompat
+      app:defaultValue="@bool/pref_settings_ui_ripple_default"
+      app:key="@string/pref_settings_ui_ripple_key"
+      app:summary="@string/pref_settings_ui_ripple_summary"
+      app:title="@string/pref_settings_ui_ripple_title" />
+  </PreferenceCategory>
 
 </PreferenceScreen>

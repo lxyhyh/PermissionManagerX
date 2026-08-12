@@ -24,6 +24,7 @@ import com.mirfatif.permissionmanagerx.main.PackageAdapter.ItemViewHolder;
 import com.mirfatif.permissionmanagerx.parser.Package;
 import com.mirfatif.permissionmanagerx.util.ApiUtils;
 import com.mirfatif.permissionmanagerx.util.StringUtils;
+import com.mirfatif.permissionmanagerx.util.UiPrefUtils;
 import com.mirfatif.permissionmanagerx.util.UiUtils;
 import com.mirfatif.permissionmanagerx.util.bg.LiveSingleParamTask;
 import com.mirfatif.permissionmanagerx.util.bg.UiRunner;
@@ -50,6 +51,17 @@ public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
   public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RvItemPkgBinding binding = RvItemPkgBinding.inflate(inflater, parent, false);
+
+    // 应用外观偏好：卡片背景 / 指示条 / 水波纹 / 密度
+    binding.getRoot().setBackgroundResource(UiPrefUtils.getCardBg());
+    binding.refIndicationV.setVisibility(
+        UiPrefUtils.shouldShowRefIndicator() ? View.VISIBLE : View.GONE);
+    View inner = binding.getRoot().getChildAt(1);
+    inner.setBackgroundResource(
+        UiPrefUtils.shouldUseRipple() ? android.R.attr.selectableItemBackground : 0);
+    int pad = UiPrefUtils.dpToPx(UiPrefUtils.getItemPaddingDp());
+    binding.getRoot().setPadding(pad, 0, pad, 0);
+
     return new ItemViewHolder(binding);
   }
 

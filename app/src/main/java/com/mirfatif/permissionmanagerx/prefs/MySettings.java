@@ -130,6 +130,41 @@ public enum MySettings {
     }
   }
 
+  // ============ UI 外观设置 ============
+
+  public boolean shouldUseCardStyle() {
+    return getBoolPref(
+        R.string.pref_settings_ui_card_style_key, R.bool.pref_settings_ui_card_style_default);
+  }
+
+  public String getCardCornerRadius() {
+    return getStringPref(
+        R.string.pref_settings_ui_radius_key, R.string.pref_settings_ui_radius_default);
+  }
+
+  public boolean shouldShowRefIndicator() {
+    return getBoolPref(R.string.pref_settings_ui_dots_key, R.bool.pref_settings_ui_dots_default);
+  }
+
+  public boolean shouldUseChipStyle() {
+    return getBoolPref(R.string.pref_settings_ui_chip_key, R.bool.pref_settings_ui_chip_default);
+  }
+
+  public String getListDensity() {
+    return getStringPref(
+        R.string.pref_settings_ui_density_key, R.string.pref_settings_ui_density_default);
+  }
+
+  public boolean shouldUseBigTitle() {
+    return getBoolPref(
+        R.string.pref_settings_ui_big_title_key, R.bool.pref_settings_ui_big_title_default);
+  }
+
+  public boolean shouldUseRipple() {
+    return getBoolPref(
+        R.string.pref_settings_ui_ripple_key, R.bool.pref_settings_ui_ripple_default);
+  }
+
   public boolean shouldRemindMissingPrivileges() {
     return getBoolPref(
         R.string.pref_settings_privileges_reminder_key,
