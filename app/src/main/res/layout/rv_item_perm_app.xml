@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:layout_marginHorizontal="8dp"
+  android:layout_marginVertical="3dp"
+  android:background="@drawable/card_bg"
+  android:clipToOutline="true"
   android:gravity="center_vertical"
   android:orientation="horizontal"
-  android:paddingStart="12dp"
-  android:paddingTop="8dp"
-  android:paddingEnd="12dp"
-  android:paddingBottom="8dp">
+  android:padding="10dp">
 
   <ImageView
     android:id="@+id/icon_v"
@@ -28,7 +29,8 @@
       android:layout_height="wrap_content"
       android:ellipsize="marquee"
       android:maxLines="1"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+      android:textColor="@color/textPrimary"
+      android:textSize="16sp" />
 
     <TextView
       android:id="@+id/pkg_v"
@@ -36,7 +38,8 @@
       android:layout_height="wrap_content"
       android:ellipsize="marquee"
       android:maxLines="1"
-      android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+      android:textColor="@color/textSecondary"
+      android:textSize="12sp" />
   </LinearLayout>
 
   <TextView

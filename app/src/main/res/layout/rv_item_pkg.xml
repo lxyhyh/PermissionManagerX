@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_marginHorizontal="8dp"
+  android:layout_marginVertical="3dp"
+  android:background="@drawable/card_bg"
+  android:clipToOutline="true"
   android:orientation="horizontal">
 
   <View
@@ -22,27 +26,28 @@
       android:id="@+id/icon_v"
       android:layout_width="48dp"
       android:layout_height="48dp"
-      android:layout_marginStart="8dp"
       android:layout_gravity="center"
+      android:layout_marginStart="12dp"
       tools:ignore="ContentDescription" />
 
     <LinearLayout
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:padding="8dp"
       android:orientation="vertical"
+      android:padding="10dp"
       tools:ignore="NestedWeights">
 
       <TextView
         android:id="@+id/pkg_label_v"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:textColor="@color/textPrimary"
+        android:textSize="16sp" />
 
       <TextView
         android:id="@+id/pkg_name_v"
@@ -51,7 +56,9 @@
         android:layout_margin="1dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:textColor="@color/textSecondary"
+        android:textSize="13sp" />
 
       <TextView
         android:id="@+id/pkg_state_v"
@@ -61,6 +68,8 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAlignment="viewStart"
+        android:textColor="@color/textTertiary"
+        android:textSize="12sp"
         app:autoSizeTextType="uniform" />
 
       <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
@@ -72,15 +81,18 @@
           android:id="@+id/pkg_perm_count_v"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
           android:layout_marginEnd="1dp"
-          android:textAlignment="viewStart" />
+          android:layout_weight="1"
+          android:textAlignment="viewStart"
+          android:textColor="@color/textTertiary"
+          android:textSize="12sp" />
 
         <TextView
           android:id="@+id/date_v"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAlignment="viewStart"
+          android:textColor="@color/textTertiary"
           android:textSize="12sp" />
 
       </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>

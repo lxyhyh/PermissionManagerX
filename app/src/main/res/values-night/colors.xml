@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- 初音绿（深色模式稍深） -->
+  <color name="green">#2BA79E</color>
+  <color name="greenTrans5">#0D2BA79E</color>
+  <color name="greenTrans10">#1A2BA79E</color>
+  <color name="greenTrans20">#332BA79E</color>
+  <color name="greenTrans50">#802BA79E</color>
+  <color name="greenTrans75">#BF2BA79E</color>
 
-  <color name="sharpText">@android:color/white</color>
+  <!-- 备选主题色（深色） -->
+  <color name="blue">#0A84FF</color>
+  <color name="blueTrans5">#0D0A84FF</color>
+  <color name="blueTrans10">#1A0A84FF</color>
+  <color name="blueTrans20">#330A84FF</color>
+  <color name="blueTrans50">#800A84FF</color>
+  <color name="blueTrans75">#BF0A84FF</color>
+  <color name="pink">#FF375F</color>
+  <color name="pinkTrans5">#0DFF375F</color>
+  <color name="pinkTrans10">#1AFF375F</color>
+  <color name="pinkTrans20">#33FF375F</color>
+  <color name="pinkTrans50">#80FF375F</color>
+  <color name="pinkTrans75">#BFFF375F</color>
+  <color name="gray">#8E8E93</color>
+  <color name="grayTrans5">#0D8E8E93</color>
+  <color name="grayTrans10">#1A8E8E93</color>
+  <color name="grayTrans20">#338E8E93</color>
+  <color name="grayTrans50">#808E8E93</color>
+  <color name="grayTrans75">#BF8E8E93</color>
 
-  <!-- Slim switch disabled state. -->
-  <color name="colorControlNormalDisabled">#505050</color>
+  <!-- 背景 / 卡片 / 遮罩 -->
+  <color name="windowBg">#121416</color>
+  <color name="cardBg">#1E2124</color>
+  <color name="cardBgPressed">#2A2D31</color>
+  <color name="darkTransBg">#B3000000</color>
+  <color name="colorControlNormal">#2A2D31</color>
+  <color name="colorControlNormalA50">#802A2D31</color>
+  <color name="colorControlNormalDisabled">#232629</color>
+  <color name="sharpText">#E8EAED</color>
 
+  <!-- 文字层级 -->
+  <color name="textPrimary">#E8EAED</color>
+  <color name="textSecondary">#9AA0A6</color>
+  <color name="textTertiary">#6B7280</color>
+  <color name="textOnCard">#E8EAED</color>
+
+  <!-- 状态色 -->
+  <color name="stateGreen">#32D74B</color>
+  <color name="stateOrange">#FF9F0A</color>
+  <color name="stateRed">#FF453A</color>
+  <!-- 兼容原版引用 -->
+  <color name="orangeState">#FF9F0A</color>
+
+  <!-- 分隔线 -->
+  <color name="dividerColor">#2A2D31</color>
 </resources>
