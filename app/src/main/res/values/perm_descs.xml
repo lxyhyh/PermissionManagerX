@@ -108,7 +108,61 @@
     <item>WRITE_SETTINGS</item>
     <item>WRITE_SMS</item>
     <item>WRITE_WALLPAPER</item>
-  </string-array>
+      <item>ACCEPT_HANDOVER</item>
+    <item>ACCESS_ACCESSIBILITY</item>
+    <item>ACCESS_MEDIA_LOCATION</item>
+    <item>ACCESS_RESTRICTED_SETTINGS</item>
+    <item>ACTIVATE_PLATFORM_VPN</item>
+    <item>ACTIVATE_VPN</item>
+    <item>ACTIVITY_RECOGNITION_SOURCE</item>
+    <item>ARCHIVE_ICON_OVERLAY</item>
+    <item>CAMERA_SANDBOXED</item>
+    <item>CAPTURE_CONSENTLESS_BUGREPORT_ON_USERDEBUG_BUILD</item>
+    <item>COARSE_LOCATION_SOURCE</item>
+    <item>CONTROL_AUDIO</item>
+    <item>CONTROL_AUDIO_PARTIAL</item>
+    <item>CREATE_ACCESSIBILITY_OVERLAY</item>
+    <item>EMERGENCY_LOCATION</item>
+    <item>ENABLE_MOBILE_DATA_BY_USER</item>
+    <item>ESTABLISH_VPN_MANAGER</item>
+    <item>ESTABLISH_VPN_SERVICE</item>
+    <item>EYE_TRACKING_COARSE</item>
+    <item>EYE_TRACKING_FINE</item>
+    <item>FACE_TRACKING</item>
+    <item>FINE_LOCATION_SOURCE</item>
+    <item>FOREGROUND_SERVICE_SPECIAL_USE</item>
+    <item>HAND_TRACKING</item>
+    <item>HEAD_TRACKING</item>
+    <item>INSTANT_APP_START_FOREGROUND</item>
+    <item>LOADER_USAGE_STATS</item>
+    <item>MANAGE_CREDENTIALS</item>
+    <item>MANAGE_IPSEC_TUNNELS</item>
+    <item>MANAGE_MEDIA</item>
+    <item>MEDIA_ROUTING_CONTROL</item>
+    <item>RANGING</item>
+    <item>RAPID_CLEAR_NOTIFICATIONS_BY_LISTENER</item>
+    <item>READ_HEART_RATE</item>
+    <item>READ_MEDIA_VISUAL_USER_SELECTED</item>
+    <item>READ_OXYGEN_SATURATION</item>
+    <item>READ_SKIN_TEMPERATURE</item>
+    <item>READ_SYSTEM_GRAMMATICAL_GENDER</item>
+    <item>READ_WRITE_HEALTH_DATA</item>
+    <item>RECEIVE_AMBIENT_TRIGGER_AUDIO</item>
+    <item>RECEIVE_EXPLICIT_USER_INTERACTION_AUDIO</item>
+    <item>RECEIVE_SANDBOX_TRIGGER_AUDIO</item>
+    <item>RECEIVE_SENSITIVE_NOTIFICATIONS</item>
+    <item>RECORD_AUDIO_SANDBOXED</item>
+    <item>RECORD_INCOMING_PHONE_AUDIO</item>
+    <item>RUN_USER_INITIATED_JOBS</item>
+    <item>SCENE_UNDERSTANDING_COARSE</item>
+    <item>SCENE_UNDERSTANDING_FINE</item>
+    <item>SYSTEM_EXEMPT_FROM_DISMISSIBLE_NOTIFICATIONS</item>
+    <item>SYSTEM_EXEMPT_FROM_HIBERNATION</item>
+    <item>SYSTEM_EXEMPT_FROM_SUSPENSION</item>
+    <item>UNARCHIVAL_CONFIRMATION</item>
+    <item>USE_FULL_SCREEN_INTENT</item>
+    <item>WRITE_SYSTEM_PREFERENCES</item>
+</string-array>
 
   <string-array name="app_op_descs">
     <item>Read the notifications posted by other apps.</item>
@@ -217,7 +271,61 @@
     <item>Modify system settings.</item>
     <item>Write (send) SMS messages.</item>
     <item>Set the wallpaper.</item>
-  </string-array>
+      <item>Accept a phone call handover from another device.</item>
+    <item>Access accessibility features.</item>
+    <item>Read location embedded in media files.</item>
+    <item>Access restricted settings.</item>
+    <item>Activate the platform VPN.</item>
+    <item>Activate VPN.</item>
+    <item>Use the activity recognition data source.</item>
+    <item>Show archived app icon overlay.</item>
+    <item>Use the camera in sandboxed mode.</item>
+    <item>Capture bug report without consent (userdebug builds).</item>
+    <item>Use the coarse location data source.</item>
+    <item>Control audio playback.</item>
+    <item>Partially control audio playback.</item>
+    <item>Create accessibility overlays.</item>
+    <item>Access location during emergency.</item>
+    <item>Enable mobile data by user action.</item>
+    <item>Establish VPN as manager.</item>
+    <item>Establish VPN service.</item>
+    <item>Coarse eye tracking data.</item>
+    <item>Fine eye tracking data.</item>
+    <item>Face tracking data.</item>
+    <item>Use the fine location data source.</item>
+    <item>Run a special use foreground service.</item>
+    <item>Hand tracking data.</item>
+    <item>Head tracking data.</item>
+    <item>Start foreground from an instant app.</item>
+    <item>Read usage stats via loader.</item>
+    <item>Manage credentials.</item>
+    <item>Manage IPsec tunnels.</item>
+    <item>Manage media.</item>
+    <item>Control media routing.</item>
+    <item>Use ranging (distance measurement).</item>
+    <item>Rapidly clear notifications via listener.</item>
+    <item>Read heart rate data.</item>
+    <item>Read user-selected photos and videos.</item>
+    <item>Read blood oxygen saturation.</item>
+    <item>Read skin temperature.</item>
+    <item>Read system grammatical gender setting.</item>
+    <item>Read and write health data.</item>
+    <item>Receive ambient trigger audio.</item>
+    <item>Receive explicit user interaction audio.</item>
+    <item>Receive sandbox trigger audio.</item>
+    <item>Receive sensitive notifications.</item>
+    <item>Record audio in sandboxed mode.</item>
+    <item>Record incoming phone call audio.</item>
+    <item>Run user-initiated jobs.</item>
+    <item>Coarse scene understanding.</item>
+    <item>Fine scene understanding.</item>
+    <item>Exempt from dismissible notification restrictions.</item>
+    <item>Exempt from hibernation.</item>
+    <item>Exempt from suspension.</item>
+    <item>Confirm app unarchival.</item>
+    <item>Use full-screen intents.</item>
+    <item>Write system preferences.</item>
+</string-array>
 
   <!-- 清单权限说明数据：与 perm_desc_names 一一对应 -->
   <string-array name="perm_desc_names">
@@ -376,7 +484,61 @@
     <item>Modify system settings.</item>
   </string-array>
   <string-array name="app_op_desc_labels">
-  </string-array>
+      <item>ACCEPT_HANDOVER</item>
+    <item>ACCESS_ACCESSIBILITY</item>
+    <item>ACCESS_MEDIA_LOCATION</item>
+    <item>ACCESS_RESTRICTED_SETTINGS</item>
+    <item>ACTIVATE_PLATFORM_VPN</item>
+    <item>ACTIVATE_VPN</item>
+    <item>ACTIVITY_RECOGNITION_SOURCE</item>
+    <item>ARCHIVE_ICON_OVERLAY</item>
+    <item>CAMERA_SANDBOXED</item>
+    <item>CAPTURE_CONSENTLESS_BUGREPORT_ON_USERDEBUG_BUILD</item>
+    <item>COARSE_LOCATION_SOURCE</item>
+    <item>CONTROL_AUDIO</item>
+    <item>CONTROL_AUDIO_PARTIAL</item>
+    <item>CREATE_ACCESSIBILITY_OVERLAY</item>
+    <item>EMERGENCY_LOCATION</item>
+    <item>ENABLE_MOBILE_DATA_BY_USER</item>
+    <item>ESTABLISH_VPN_MANAGER</item>
+    <item>ESTABLISH_VPN_SERVICE</item>
+    <item>EYE_TRACKING_COARSE</item>
+    <item>EYE_TRACKING_FINE</item>
+    <item>FACE_TRACKING</item>
+    <item>FINE_LOCATION_SOURCE</item>
+    <item>FOREGROUND_SERVICE_SPECIAL_USE</item>
+    <item>HAND_TRACKING</item>
+    <item>HEAD_TRACKING</item>
+    <item>INSTANT_APP_START_FOREGROUND</item>
+    <item>LOADER_USAGE_STATS</item>
+    <item>MANAGE_CREDENTIALS</item>
+    <item>MANAGE_IPSEC_TUNNELS</item>
+    <item>MANAGE_MEDIA</item>
+    <item>MEDIA_ROUTING_CONTROL</item>
+    <item>RANGING</item>
+    <item>RAPID_CLEAR_NOTIFICATIONS_BY_LISTENER</item>
+    <item>READ_HEART_RATE</item>
+    <item>READ_MEDIA_VISUAL_USER_SELECTED</item>
+    <item>READ_OXYGEN_SATURATION</item>
+    <item>READ_SKIN_TEMPERATURE</item>
+    <item>READ_SYSTEM_GRAMMATICAL_GENDER</item>
+    <item>READ_WRITE_HEALTH_DATA</item>
+    <item>RECEIVE_AMBIENT_TRIGGER_AUDIO</item>
+    <item>RECEIVE_EXPLICIT_USER_INTERACTION_AUDIO</item>
+    <item>RECEIVE_SANDBOX_TRIGGER_AUDIO</item>
+    <item>RECEIVE_SENSITIVE_NOTIFICATIONS</item>
+    <item>RECORD_AUDIO_SANDBOXED</item>
+    <item>RECORD_INCOMING_PHONE_AUDIO</item>
+    <item>RUN_USER_INITIATED_JOBS</item>
+    <item>SCENE_UNDERSTANDING_COARSE</item>
+    <item>SCENE_UNDERSTANDING_FINE</item>
+    <item>SYSTEM_EXEMPT_FROM_DISMISSIBLE_NOTIFICATIONS</item>
+    <item>SYSTEM_EXEMPT_FROM_HIBERNATION</item>
+    <item>SYSTEM_EXEMPT_FROM_SUSPENSION</item>
+    <item>UNARCHIVAL_CONFIRMATION</item>
+    <item>USE_FULL_SCREEN_INTENT</item>
+    <item>WRITE_SYSTEM_PREFERENCES</item>
+</string-array>
 
   <string-array name="perm_desc_labels">
   </string-array>

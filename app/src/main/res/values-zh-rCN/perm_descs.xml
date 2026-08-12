@@ -108,7 +108,61 @@
     <item>WRITE_SETTINGS</item>
     <item>WRITE_SMS</item>
     <item>WRITE_WALLPAPER</item>
-  </string-array>
+      <item>ACCEPT_HANDOVER</item>
+    <item>ACCESS_ACCESSIBILITY</item>
+    <item>ACCESS_MEDIA_LOCATION</item>
+    <item>ACCESS_RESTRICTED_SETTINGS</item>
+    <item>ACTIVATE_PLATFORM_VPN</item>
+    <item>ACTIVATE_VPN</item>
+    <item>ACTIVITY_RECOGNITION_SOURCE</item>
+    <item>ARCHIVE_ICON_OVERLAY</item>
+    <item>CAMERA_SANDBOXED</item>
+    <item>CAPTURE_CONSENTLESS_BUGREPORT_ON_USERDEBUG_BUILD</item>
+    <item>COARSE_LOCATION_SOURCE</item>
+    <item>CONTROL_AUDIO</item>
+    <item>CONTROL_AUDIO_PARTIAL</item>
+    <item>CREATE_ACCESSIBILITY_OVERLAY</item>
+    <item>EMERGENCY_LOCATION</item>
+    <item>ENABLE_MOBILE_DATA_BY_USER</item>
+    <item>ESTABLISH_VPN_MANAGER</item>
+    <item>ESTABLISH_VPN_SERVICE</item>
+    <item>EYE_TRACKING_COARSE</item>
+    <item>EYE_TRACKING_FINE</item>
+    <item>FACE_TRACKING</item>
+    <item>FINE_LOCATION_SOURCE</item>
+    <item>FOREGROUND_SERVICE_SPECIAL_USE</item>
+    <item>HAND_TRACKING</item>
+    <item>HEAD_TRACKING</item>
+    <item>INSTANT_APP_START_FOREGROUND</item>
+    <item>LOADER_USAGE_STATS</item>
+    <item>MANAGE_CREDENTIALS</item>
+    <item>MANAGE_IPSEC_TUNNELS</item>
+    <item>MANAGE_MEDIA</item>
+    <item>MEDIA_ROUTING_CONTROL</item>
+    <item>RANGING</item>
+    <item>RAPID_CLEAR_NOTIFICATIONS_BY_LISTENER</item>
+    <item>READ_HEART_RATE</item>
+    <item>READ_MEDIA_VISUAL_USER_SELECTED</item>
+    <item>READ_OXYGEN_SATURATION</item>
+    <item>READ_SKIN_TEMPERATURE</item>
+    <item>READ_SYSTEM_GRAMMATICAL_GENDER</item>
+    <item>READ_WRITE_HEALTH_DATA</item>
+    <item>RECEIVE_AMBIENT_TRIGGER_AUDIO</item>
+    <item>RECEIVE_EXPLICIT_USER_INTERACTION_AUDIO</item>
+    <item>RECEIVE_SANDBOX_TRIGGER_AUDIO</item>
+    <item>RECEIVE_SENSITIVE_NOTIFICATIONS</item>
+    <item>RECORD_AUDIO_SANDBOXED</item>
+    <item>RECORD_INCOMING_PHONE_AUDIO</item>
+    <item>RUN_USER_INITIATED_JOBS</item>
+    <item>SCENE_UNDERSTANDING_COARSE</item>
+    <item>SCENE_UNDERSTANDING_FINE</item>
+    <item>SYSTEM_EXEMPT_FROM_DISMISSIBLE_NOTIFICATIONS</item>
+    <item>SYSTEM_EXEMPT_FROM_HIBERNATION</item>
+    <item>SYSTEM_EXEMPT_FROM_SUSPENSION</item>
+    <item>UNARCHIVAL_CONFIRMATION</item>
+    <item>USE_FULL_SCREEN_INTENT</item>
+    <item>WRITE_SYSTEM_PREFERENCES</item>
+</string-array>
 
   <string-array name="app_op_descs">
     <item>读取其他应用发布的通知内容。</item>
@@ -217,7 +271,61 @@
     <item>修改系统设置。</item>
     <item>发送短信。</item>
     <item>设置壁纸。</item>
-  </string-array>
+      <item>接受从其他设备转接过来的通话。</item>
+    <item>访问无障碍相关功能。</item>
+    <item>读取媒体文件中嵌入的位置信息。</item>
+    <item>访问受限的系统设置。</item>
+    <item>激活系统平台 VPN。</item>
+    <item>激活 VPN 连接。</item>
+    <item>使用身体活动识别的数据源。</item>
+    <item>在已归档应用的图标上显示标记。</item>
+    <item>以沙箱模式使用相机。</item>
+    <item>在 userdebug 版本上无需确认抓取错误报告。</item>
+    <item>使用大致位置的数据源。</item>
+    <item>控制音频播放。</item>
+    <item>部分控制音频播放。</item>
+    <item>创建无障碍悬浮层。</item>
+    <item>在紧急情况下访问位置。</item>
+    <item>由用户操作开启移动数据。</item>
+    <item>以管理者身份建立 VPN。</item>
+    <item>建立 VPN 服务。</item>
+    <item>获取粗略的眼动追踪数据。</item>
+    <item>获取精确的眼动追踪数据。</item>
+    <item>获取面部追踪数据。</item>
+    <item>使用精确位置的数据源。</item>
+    <item>运行特殊用途的前台服务。</item>
+    <item>获取手部追踪数据。</item>
+    <item>获取头部追踪数据。</item>
+    <item>免安装（instant）应用启动前台组件。</item>
+    <item>通过数据加载器读取使用情况统计。</item>
+    <item>管理设备上的凭据。</item>
+    <item>管理 IPsec 隧道。</item>
+    <item>管理设备上的媒体内容。</item>
+    <item>控制媒体输出路由。</item>
+    <item>使用测距功能（距离测量）。</item>
+    <item>通过通知监听器快速清除通知。</item>
+    <item>读取心率数据。</item>
+    <item>读取用户自行选择的照片和视频。</item>
+    <item>读取血氧饱和度数据。</item>
+    <item>读取皮肤温度数据。</item>
+    <item>读取系统语法性别设置。</item>
+    <item>读取和写入健康数据。</item>
+    <item>接收环境触发音频。</item>
+    <item>接收用户显式交互的音频。</item>
+    <item>接收沙箱触发音频。</item>
+    <item>接收敏感内容的通知。</item>
+    <item>以沙箱模式录制音频。</item>
+    <item>录制来电通话的音频。</item>
+    <item>运行由用户发起的后台任务。</item>
+    <item>获取粗略的场景理解数据。</item>
+    <item>获取精确的场景理解数据。</item>
+    <item>豁免通知可被关闭的限制。</item>
+    <item>豁免系统休眠限制。</item>
+    <item>豁免系统挂起限制。</item>
+    <item>Confirm app unarchival.</item>
+    <item>Use full-screen intents.</item>
+    <item>Write system preferences.</item>
+</string-array>
 
   <!-- 清单权限说明数据：与 perm_desc_names 一一对应 -->
   <string-array name="perm_desc_names">
@@ -482,7 +590,61 @@
     <item>修改系统设置</item>
     <item>写入短信</item>
     <item>设置壁纸</item>
-  </string-array>
+      <item>接受通话转接</item>
+    <item>访问无障碍功能</item>
+    <item>媒体位置信息</item>
+    <item>受限设置</item>
+    <item>平台 VPN</item>
+    <item>VPN</item>
+    <item>身体活动数据源</item>
+    <item>归档图标标记</item>
+    <item>相机（沙箱）</item>
+    <item>免确认抓取错误报告</item>
+    <item>大致位置数据源</item>
+    <item>控制音频</item>
+    <item>部分音频控制</item>
+    <item>创建无障碍悬浮层</item>
+    <item>紧急位置</item>
+    <item>开启移动数据</item>
+    <item>VPN 管理</item>
+    <item>VPN 服务</item>
+    <item>粗略眼动追踪</item>
+    <item>精确眼动追踪</item>
+    <item>面部追踪</item>
+    <item>精确位置数据源</item>
+    <item>特殊用途前台服务</item>
+    <item>手部追踪</item>
+    <item>头部追踪</item>
+    <item>免安装应用前台启动</item>
+    <item>加载器使用统计</item>
+    <item>管理凭据</item>
+    <item>管理 IPsec 隧道</item>
+    <item>管理媒体</item>
+    <item>控制媒体路由</item>
+    <item>测距</item>
+    <item>快速清除通知</item>
+    <item>读取心率</item>
+    <item>读取用户选择的媒体</item>
+    <item>读取血氧</item>
+    <item>读取皮肤温度</item>
+    <item>读取语法性别设置</item>
+    <item>读写健康数据</item>
+    <item>环境触发音频</item>
+    <item>用户交互音频</item>
+    <item>沙箱触发音频</item>
+    <item>接收敏感通知</item>
+    <item>录制音频（沙箱）</item>
+    <item>录制来电音频</item>
+    <item>用户发起的任务</item>
+    <item>粗略场景理解</item>
+    <item>精确场景理解</item>
+    <item>豁免通知关闭限制</item>
+    <item>豁免休眠</item>
+    <item>豁免挂起</item>
+    <item>确认恢复归档应用</item>
+    <item>全屏通知</item>
+    <item>写入系统偏好</item>
+</string-array>
 
   <string-array name="perm_desc_labels">
     <item>后台位置</item>
