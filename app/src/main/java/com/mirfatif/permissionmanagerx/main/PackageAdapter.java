@@ -57,8 +57,9 @@ public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
     binding.refIndicationV.setVisibility(
         UiPrefUtils.shouldShowRefIndicator() ? View.VISIBLE : View.GONE);
     View inner = binding.getRoot().getChildAt(1);
-    inner.setBackgroundResource(
-        UiPrefUtils.shouldUseRipple() ? android.R.attr.selectableItemBackground : 0);
+    if (inner != null && !UiPrefUtils.shouldUseRipple()) {
+      inner.setBackgroundResource(0);
+    }
     int pad = UiPrefUtils.dpToPx(UiPrefUtils.getItemPaddingDp());
     binding.getRoot().setPadding(pad, 0, pad, 0);
 

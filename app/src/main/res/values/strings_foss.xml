@@ -497,15 +497,17 @@
   <string name="locale_cn">Chinese</string>
   <string name="locale_tr">Turkish</string>
 
-  <string name="theme_color_green">Green</string>
-  <string name="theme_color_blue">Blue</string>
+  <string name="theme_color_green">Geek Purple</string>
+  <string name="theme_color_blue">Info Blue</string>
   <string name="theme_color_pink">Pink</string>
   <string name="theme_color_gray">Gray</string>
+  <string name="theme_color_miku">Miku Green</string>
 
   <string name="theme_color_green_val" translatable="false">green</string>
   <string name="theme_color_blue_val" translatable="false">blue</string>
   <string name="theme_color_pink_val" translatable="false">pink</string>
   <string name="theme_color_gray_val" translatable="false">gray</string>
+  <string name="theme_color_miku_val" translatable="false">miku</string>
 
   <string name="dark_theme_mode_system">Follow system</string>
   <string name="dark_theme_mode_light">Light</string>

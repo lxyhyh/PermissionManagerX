@@ -50,16 +50,16 @@
         android:textSize="16sp" />
 
       <TextView
-        android:id="@+id/pkg_name_v"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="viewStart"
-        android:textColor="@color/textSecondary"
-        android:textSize="13sp" />
-
+      android:id="@+id/pkg_name_v"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="1dp"
+      android:ellipsize="end"
+      android:fontFamily="@font/font_mono"
+      android:maxLines="1"
+      android:textAlignment="viewStart"
+      android:textColor="@color/textSecondary"
+      android:textSize="12sp" />
       <TextView
         android:id="@+id/pkg_state_v"
         android:layout_width="match_parent"

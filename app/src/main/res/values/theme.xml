@@ -1,5 +1,13 @@
-<resources>
-
-  <style name="AppTheme" parent="BaseTheme" />
-
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <style name="AppTheme" parent="BaseTheme">
+    <item name="android:windowBackground">@color/windowBg</item>
+    <item name="android:colorBackground">@color/windowBg</item>
+    <item name="android:textColorPrimary">@color/textPrimary</item>
+    <item name="android:textColorSecondary">@color/textSecondary</item>
+    <item name="android:textColorTertiary">@color/textTertiary</item>
+    <item name="android:fontFamily">@font/font_outfit</item>
+    <item name="dialogCornerRadius">16dp</item>
+    <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+  </style>
 </resources>

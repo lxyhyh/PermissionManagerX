@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- ============ 初音绿主题色（覆盖依赖库默认 teal） ============ -->
-  <color name="green">#39C5BB</color>
-  <color name="greenTrans5">#0D39C5BB</color>
-  <color name="greenTrans10">#1A39C5BB</color>
-  <color name="greenTrans20">#3339C5BB</color>
-  <color name="greenTrans50">#8039C5BB</color>
-  <color name="greenTrans75">#BF39C5BB</color>
+  <!-- ============ GeekOS 极客风设计系统（深色基底） ============ -->
+  <!-- 基底色 -->
+  <color name="windowBg">#0A0A0F</color>
+  <color name="cardBg">#1A1A1F</color>
+  <color name="cardBgPressed">#2A2A2F</color>
+  <color name="geekBorder">#14FFFFFF</color>
+  <color name="dividerColor">#0AFFFFFF</color>
+  <color name="darkTransBg">#B3000000</color>
+
+  <!-- 品牌色：极客紫（默认） -->
+  <color name="green">#A78BFA</color>
+  <color name="greenTrans5">#0DA78BFA</color>
+  <color name="greenTrans10">#1AA78BFA</color>
+  <color name="greenTrans20">#33A78BFA</color>
+  <color name="greenTrans50">#80A78BFA</color>
+  <color name="greenTrans75">#BFA78BFA</color>
 
   <!-- 备选主题色 -->
-  <color name="blue">#007AFF</color>
-  <color name="blueTrans5">#0D007AFF</color>
-  <color name="blueTrans10">#1A007AFF</color>
-  <color name="blueTrans20">#33007AFF</color>
-  <color name="blueTrans50">#80007AFF</color>
-  <color name="blueTrans75">#BF007AFF</color>
-  <color name="pink">#FF2D55</color>
-  <color name="pinkTrans5">#0DFF2D55</color>
-  <color name="pinkTrans10">#1AFF2D55</color>
-  <color name="pinkTrans20">#33FF2D55</color>
-  <color name="pinkTrans50">#80FF2D55</color>
-  <color name="pinkTrans75">#BFFF2D55</color>
-  <color name="gray">#8E8E93</color>
-  <color name="grayTrans5">#0D8E8E93</color>
-  <color name="grayTrans10">#1A8E8E93</color>
-  <color name="grayTrans20">#338E8E93</color>
-  <color name="grayTrans50">#808E8E93</color>
-  <color name="grayTrans75">#BF8E8E93</color>
+  <color name="blue">#60A5FA</color>
+  <color name="blueTrans5">#0D60A5FA</color>
+  <color name="blueTrans10">#1A60A5FA</color>
+  <color name="blueTrans20">#3360A5FA</color>
+  <color name="blueTrans50">#8060A5FA</color>
+  <color name="blueTrans75">#BF60A5FA</color>
+  <color name="pink">#F472B6</color>
+  <color name="pinkTrans5">#0DF472B6</color>
+  <color name="pinkTrans10">#1AF472B6</color>
+  <color name="pinkTrans20">#33F472B6</color>
+  <color name="pinkTrans50">#80F472B6</color>
+  <color name="pinkTrans75">#BFF472B6</color>
+  <color name="gray">#9CA3AF</color>
+  <color name="grayTrans5">#0D9CA3AF</color>
+  <color name="grayTrans10">#1A9CA3AF</color>
+  <color name="grayTrans20">#339CA3AF</color>
+  <color name="grayTrans50">#809CA3AF</color>
+  <color name="grayTrans75">#BF9CA3AF</color>
 
-  <!-- ============ 背景 / 卡片 / 遮罩（覆盖依赖库） ============ -->
-  <color name="windowBg">#F7F8FA</color>
-  <color name="cardBg">#FFFFFF</color>
-  <color name="cardBgPressed">#F2F3F5</color>
-  <color name="darkTransBg">#99000000</color>
-  <color name="colorControlNormal">#E4E6EA</color>
-  <color name="colorControlNormalA50">#80E4E6EA</color>
-  <color name="colorControlNormalDisabled">#EEF0F3</color>
-  <color name="sharpText">#1C1E21</color>
+  <!-- 初音绿（保留备选） -->
+  <color name="miku">#39C5BB</color>
+  <color name="mikuTrans5">#0D39C5BB</color>
+  <color name="mikuTrans10">#1A39C5BB</color>
+  <color name="mikuTrans20">#3339C5BB</color>
+  <color name="mikuTrans50">#8039C5BB</color>
+  <color name="mikuTrans75">#BF39C5BB</color>
 
-  <!-- ============ 文字层级（M3 type token） ============ -->
-  <color name="textPrimary">#1C1E21</color>
-  <color name="textSecondary">#6B7280</color>
-  <color name="textTertiary">#9CA3AF</color>
-  <color name="textOnCard">#1C1E21</color>
+  <!-- 文字（GeekOS） -->
+  <color name="textPrimary">#F5F5F5</color>
+  <color name="textSecondary">#9CA3AF</color>
+  <color name="textTertiary">#6B7280</color>
+  <color name="textOnCard">#F5F5F5</color>
+  <color name="sharpText">#F5F5F5</color>
 
-  <!-- ============ 状态色（苹果系） ============ -->
-  <color name="stateGreen">#34C759</color>
-  <color name="stateOrange">#FF9500</color>
-  <color name="stateRed">#FF3B30</color>
+  <!-- 语义色（GeekOS） -->
+  <color name="stateGreen">#22C55E</color>
+  <color name="stateOrange">#F59E0B</color>
+  <color name="stateRed">#EF4444</color>
+  <color name="stateInfo">#60A5FA</color>
   <!-- 兼容原版引用 -->
-  <color name="orangeState">#FF9500</color>
+  <color name="orangeState">#F59E0B</color>
 
-  <!-- 分隔线 -->
-  <color name="dividerColor">#EEF0F3</color>
+  <!-- 控件 -->
+  <color name="colorControlNormal">#2A2A2F</color>
+  <color name="colorControlNormalA50">#802A2A2F</color>
+  <color name="colorControlNormalDisabled">#232629</color>
 </resources>

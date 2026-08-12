@@ -69,6 +69,7 @@
           android:layout_height="wrap_content"
           android:layout_margin="1dp"
           android:ellipsize="end"
+          android:fontFamily="@font/font_mono"
           android:maxLines="1"
           android:textAlignment="viewStart"
           android:textColor="@color/textSecondary"
