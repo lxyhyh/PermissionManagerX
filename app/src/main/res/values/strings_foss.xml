@@ -659,4 +659,12 @@
   <string name="crowdin_comment_break_strings_28" translatable="false">Crowdin comment break</string>
   <string name="help_dir_name">en</string>
 
+  <!-- Permission view -->
+  <string name="perm_view_menu_item">Permission View</string>
+  <string name="perm_view_title">Permission View</string>
+  <string name="perm_view_allow_all">Allow All</string>
+  <string name="perm_view_deny_all">Deny All</string>
+  <string name="perm_view_batch_done">Batch operation done</string>
+  <string name="perm_view_skipped">Skipped %1$d unchangeable item(s)</string>
+  <string name="perm_view_empty">No permissions loaded. Make sure Root / ADB access is granted and app list is built.</string>
 </resources>

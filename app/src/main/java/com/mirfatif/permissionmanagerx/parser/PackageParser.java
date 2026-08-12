@@ -344,9 +344,13 @@ public enum PackageParser {
       postLivePkgList(mPkgList, isFinal);
       if (isFinal) {
         sendListCompleted(PostListStatus.FINAL, mPkgList.size());
+        PermListView.INS.rebuild(mPkgList);
       }
     } else {
       handleSearchQuery(isFinal ? PostListStatus.FINAL : PostListStatus.NOT_FINAL);
+      if (isFinal) {
+        PermListView.INS.rebuild(mPkgList);
+      }
     }
   }
 

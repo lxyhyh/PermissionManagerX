@@ -571,4 +571,13 @@
 
   <!-- Locale -->
   <string name="help_dir_name">cn</string>
+
+  <!-- 权限视图 -->
+  <string name="perm_view_menu_item">权限视图</string>
+  <string name="perm_view_title">权限视图</string>
+  <string name="perm_view_allow_all">全部允许</string>
+  <string name="perm_view_deny_all">全部禁用</string>
+  <string name="perm_view_batch_done">批量操作完成</string>
+  <string name="perm_view_skipped">跳过了 %1$d 个不可更改的项目</string>
+  <string name="perm_view_empty">暂无权限数据。请确认已授予 Root / ADB 访问权限并已加载应用列表。</string>
 </resources>

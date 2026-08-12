@@ -51,6 +51,12 @@
     <activity
       android:name=".fwk.AboutActivityM"
       android:parentActivityName=".fwk.MainActivityM" />
+    <activity
+      android:name=".fwk.PermListActivityM"
+      android:parentActivityName=".fwk.MainActivityM" />
+    <activity
+      android:name=".fwk.PermAppsActivityM"
+      android:parentActivityName=".fwk.PermListActivityM" />
 
     <activity
       android:name=".fwk.HelpActivityM"

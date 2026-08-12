@@ -20,8 +20,12 @@
       android:icon="@drawable/filter"
       android:orderInCategory="3"
       android:title="@string/filter_menu_item" />
+  <item
+      android:id="@+id/action_perm_summary"
+      android:icon="@drawable/permission"
+      android:orderInCategory="4"
+      android:title="@string/perm_view_menu_item" />
   </group>
-
   <group android:id="@+id/group1.5">
     <item
       android:id="@+id/action_sched_check"
@@ -31,12 +35,6 @@
     <item
       android:id="@+id/action_perm_watcher"
       android:orderInCategory="6"
-      android:visible="false" />
-
-    <item
-      android:id="@+id/action_perm_summary"
-      android:enabled="false"
-      android:orderInCategory="7"
       android:visible="false" />
   </group>
 

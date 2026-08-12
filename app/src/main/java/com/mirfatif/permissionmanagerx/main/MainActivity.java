@@ -47,6 +47,7 @@ import com.mirfatif.permissionmanagerx.main.PackageAdapter.PkgAdapterCallback;
 import com.mirfatif.permissionmanagerx.parser.AppOpsParser;
 import com.mirfatif.permissionmanagerx.parser.Package;
 import com.mirfatif.permissionmanagerx.parser.PackageParser;
+import com.mirfatif.permissionmanagerx.permview.PermListActivity;
 import com.mirfatif.permissionmanagerx.pkg.PackageActivity;
 import com.mirfatif.permissionmanagerx.prefs.AppUpdate;
 import com.mirfatif.permissionmanagerx.prefs.MySettings;
@@ -631,6 +632,11 @@ public class MainActivity extends OnBackPressedCallback {
 
     if (item.getItemId() == R.id.action_filter) {
       mA.startActivity(new Intent(App.getCxt(), FilterSettingsActivityM.class));
+      return true;
+    }
+
+    if (item.getItemId() == R.id.action_perm_summary) {
+      PermListActivity.start(mA);
       return true;
     }
 
