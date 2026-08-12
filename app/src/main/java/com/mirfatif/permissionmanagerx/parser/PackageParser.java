@@ -648,6 +648,16 @@ public enum PackageParser {
             isPolicyFixed,
             flags.providerPkg);
 
+    try {
+      PermissionInfo permInfo = mPm.getPermissionInfo(permName, 0);
+      CharSequence label = permInfo.loadLabel(mPm);
+      if (label != null && !label.toString().equals(permName)) {
+        perm.setLabel(label);
+      }
+    } catch (NameNotFoundException e) {
+      // 拿不到系统说明时显示原始名称
+    }
+
     if (!filterPerms || isNotFilteredOut(perm)) {
       String refState = PermsDb.INS.getRef(pkgInfo.packageName, permName, false, false);
 
@@ -840,6 +850,19 @@ public enum PackageParser {
             accessTime,
             dependsOn,
             isExtraAppOp);
+
+    String permName = AppOpsParser.INS.getPermNameForOp(op);
+    if (permName != null) {
+      try {
+        PermissionInfo permInfo = mPm.getPermissionInfo(permName, 0);
+        CharSequence label = permInfo.loadLabel(mPm);
+        if (label != null && !label.toString().equals(opName)) {
+          perm.setLabel(label);
+        }
+      } catch (NameNotFoundException e) {
+        // 拿不到系统说明时显示原始名称
+      }
+    }
 
     if (!isExtraAppOp) {
       processedAppOps.add(op);

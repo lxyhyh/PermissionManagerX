@@ -5,6 +5,7 @@ import static com.mirfatif.permissionmanagerx.util.ApiUtils.getString;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -97,7 +98,13 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
 
       mB.iconV.setImageResource(perm.getIconResId());
 
-      mB.permNameV.setText(perm.getPermNameString());
+      CharSequence permName = perm.getLabel();
+      if (permName == null) {
+        permName = perm.getPermNameString();
+      } else if (perm.isAppOp() && perm.hasDependsOnPerm()) {
+        permName = TextUtils.concat(permName, " (", perm.getDependsOnName(), ")");
+      }
+      mB.permNameV.setText(permName);
       mB.appOpsTimeV.setVisibility(View.GONE);
 
       if (perm.isCritical() && perm.isChangeable()) {

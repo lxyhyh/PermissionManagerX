@@ -31,11 +31,12 @@ class PermDetailDialog {
     PermDetailsDialogBinding b = PermDetailsDialogBinding.inflate(mA.mA.getLayoutInflater());
 
     CharSequence name = perm.getName();
-    b.permNameV.setText(name);
+    CharSequence label = perm.getLabel();
+    b.permNameV.setText(label != null ? label : name);
     b.permNameV.setSelected(true);
 
-    if (!name.equals(perm.getName())) {
-      b.permNameSubV.setText(perm.getName());
+    if (label != null && !name.equals(label.toString())) {
+      b.permNameSubV.setText(name);
       b.permNameSubV.setSelected(true);
       b.permNameSubV.setVisibility(View.VISIBLE);
     }

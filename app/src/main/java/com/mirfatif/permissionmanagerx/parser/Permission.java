@@ -195,6 +195,16 @@ public class Permission {
     return mPermissionName;
   }
 
+  private CharSequence mLabel;
+
+  public CharSequence getLabel() {
+    return mLabel;
+  }
+
+  void setLabel(CharSequence label) {
+    mLabel = label;
+  }
+
   public boolean isGranted() {
     return mGranted;
   }

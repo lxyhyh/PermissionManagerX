@@ -160,6 +160,18 @@ public enum AppOpsParser {
     return i >= 0 ? i : null;
   }
 
+  public String getPermNameForOp(int op) {
+    return mListsLock.withReadLock(
+        () -> {
+          for (Map.Entry<String, Integer> entry : mPermToOpCodeMap.entrySet()) {
+            if (entry.getValue() == op) {
+              return entry.getKey();
+            }
+          }
+          return null;
+        });
+  }
+
   public int getAppOpModeCount() {
     return mListsLock.withReadLock(mAppOpsModes::size);
   }
