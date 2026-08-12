@@ -9,6 +9,7 @@ import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.base.AlertDialogFragment;
 import com.mirfatif.permissionmanagerx.databinding.PermDetailsDialogBinding;
 import com.mirfatif.permissionmanagerx.fwk.MyLinearLayout;
+import com.mirfatif.permissionmanagerx.parser.PermDescProvider;
 import com.mirfatif.permissionmanagerx.parser.Permission;
 import com.mirfatif.permissionmanagerx.util.UiUtils;
 import java.util.ArrayList;
@@ -46,6 +47,12 @@ class PermDetailDialog {
     }
 
     b.protLevelV.setText(perm.getLocalizedProtLevelString());
+
+    String desc = PermDescProvider.INS.getDesc(perm.getName());
+    if (desc != null) {
+      b.permDescV.setText(desc);
+      b.permDescV.setVisibility(View.VISIBLE);
+    }
 
     List<CharSequence> permList = new ArrayList<>();
     AtomicInteger preCheckedIndex = new AtomicInteger();

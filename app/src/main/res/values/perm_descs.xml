@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- 权限说明数据：与 app_op_desc_names 一一对应 -->
+  <string-array name="app_op_desc_names">
+    <item>ACCESS_NOTIFICATIONS</item>
+    <item>ACTIVITY_RECOGNITION</item>
+    <item>ADD_VOICEMAIL</item>
+    <item>ANSWER_PHONE_CALLS</item>
+    <item>ASSIST_SCREENSHOT</item>
+    <item>ASSIST_STRUCTURE</item>
+    <item>AUDIO_ACCESSIBILITY_VOLUME</item>
+    <item>AUDIO_ALARM_VOLUME</item>
+    <item>AUDIO_BLUETOOTH_VOLUME</item>
+    <item>AUDIO_MASTER_VOLUME</item>
+    <item>AUDIO_MEDIA_VOLUME</item>
+    <item>AUDIO_NOTIFICATION_VOLUME</item>
+    <item>AUDIO_RING_VOLUME</item>
+    <item>AUDIO_VOICE_VOLUME</item>
+    <item>AUTO_REVOKE_MANAGED_BY_INSTALLER</item>
+    <item>AUTO_REVOKE_PERMISSIONS_IF_UNUSED</item>
+    <item>BIND_ACCESSIBILITY_SERVICE</item>
+    <item>BLUETOOTH_ADVERTISE</item>
+    <item>BLUETOOTH_CONNECT</item>
+    <item>BLUETOOTH_SCAN</item>
+    <item>BODY_SENSORS</item>
+    <item>CALL_PHONE</item>
+    <item>CAMERA</item>
+    <item>CHANGE_WIFI_STATE</item>
+    <item>COARSE_LOCATION</item>
+    <item>FINE_LOCATION</item>
+    <item>FOREGROUND_SERVICE</item>
+    <item>GET_ACCOUNTS</item>
+    <item>GET_USAGE_STATS</item>
+    <item>GPS</item>
+    <item>INTERACT_ACROSS_PROFILES</item>
+    <item>LEGACY_STORAGE</item>
+    <item>MANAGE_EXTERNAL_STORAGE</item>
+    <item>MANAGE_ONGOING_CALLS</item>
+    <item>MOCK_LOCATION</item>
+    <item>MONITOR_HIGH_POWER_LOCATION</item>
+    <item>MONITOR_LOCATION</item>
+    <item>MUTE_MICROPHONE</item>
+    <item>NEARBY_WIFI_DEVICES</item>
+    <item>NEIGHBORING_CELLS</item>
+    <item>NO_ISOLATED_STORAGE</item>
+    <item>PHONE_CALL_CAMERA</item>
+    <item>PHONE_CALL_MICROPHONE</item>
+    <item>PICTURE_IN_PICTURE</item>
+    <item>PLAY_AUDIO</item>
+    <item>POST_NOTIFICATION</item>
+    <item>PROCESS_OUTGOING_CALLS</item>
+    <item>PROJECT_MEDIA</item>
+    <item>QUERY_ALL_PACKAGES</item>
+    <item>READ_CALENDAR</item>
+    <item>READ_CALL_LOG</item>
+    <item>READ_CELL_BROADCASTS</item>
+    <item>READ_CLIPBOARD</item>
+    <item>READ_CONTACTS</item>
+    <item>READ_DEVICE_IDENTIFIERS</item>
+    <item>READ_EXTERNAL_STORAGE</item>
+    <item>READ_ICC_SMS</item>
+    <item>READ_MEDIA_AUDIO</item>
+    <item>READ_MEDIA_IMAGES</item>
+    <item>READ_MEDIA_VIDEO</item>
+    <item>READ_PHONE_NUMBERS</item>
+    <item>READ_PHONE_STATE</item>
+    <item>READ_SMS</item>
+    <item>RECEIVE_EMERGECY_SMS</item>
+    <item>RECEIVE_MMS</item>
+    <item>RECEIVE_SMS</item>
+    <item>RECEIVE_WAP_PUSH</item>
+    <item>RECORD_AUDIO</item>
+    <item>RECORD_AUDIO_OUTPUT</item>
+    <item>RECORD_AUDIO_SANITIZED</item>
+    <item>RECORD_AUDIO_HOTWORD</item>
+    <item>REQUEST_DELETE_PACKAGES</item>
+    <item>REQUEST_INSTALL_PACKAGES</item>
+    <item>RUN_ANY_IN_BACKGROUND</item>
+    <item>RUN_IN_BACKGROUND</item>
+    <item>SCHEDULE_EXACT_ALARM</item>
+    <item>SEND_SMS</item>
+    <item>SMS_FINANCIAL_TRANSACTIONS</item>
+    <item>START_FOREGROUND</item>
+    <item>SYSTEM_ALERT_WINDOW</item>
+    <item>SYSTEM_EXEMPT_FROM_ACTIVITY_BG_START_RESTRICTION</item>
+    <item>SYSTEM_EXEMPT_FROM_POWER_RESTRICTIONS</item>
+    <item>TAKE_AUDIO_FOCUS</item>
+    <item>TAKE_MEDIA_BUTTONS</item>
+    <item>TOAST_WINDOW</item>
+    <item>TURN_SCREEN_ON</item>
+    <item>USE_BIOMETRIC</item>
+    <item>USE_FINGERPRINT</item>
+    <item>USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER</item>
+    <item>USE_SIP</item>
+    <item>UWB_RANGING</item>
+    <item>VIBRATE</item>
+    <item>WAKE_LOCK</item>
+    <item>WIFI_SCAN</item>
+    <item>WRITE_CALENDAR</item>
+    <item>WRITE_CALL_LOG</item>
+    <item>WRITE_CLIPBOARD</item>
+    <item>WRITE_CONTACTS</item>
+    <item>WRITE_EXTERNAL_STORAGE</item>
+    <item>WRITE_ICC_SMS</item>
+    <item>WRITE_MEDIA_AUDIO</item>
+    <item>WRITE_MEDIA_IMAGES</item>
+    <item>WRITE_MEDIA_VIDEO</item>
+    <item>WRITE_SETTINGS</item>
+    <item>WRITE_SMS</item>
+    <item>WRITE_WALLPAPER</item>
+  </string-array>
+
+  <string-array name="app_op_descs">
+    <item>Read the notifications posted by other apps.</item>
+    <item>Detect the user\'s physical activity (walking, driving, etc.).</item>
+    <item>Add voicemails to the user\'s voicemail inbox.</item>
+    <item>Answer incoming phone calls.</item>
+    <item>Capture the screen content as an assistant screenshot.</item>
+    <item>Retrieve the screen structure as an assistant (what is shown on screen).</item>
+    <item>Adjust the accessibility volume.</item>
+    <item>Adjust the alarm volume.</item>
+    <item>Adjust the Bluetooth volume.</item>
+    <item>Adjust the master volume.</item>
+    <item>Adjust the media volume.</item>
+    <item>Adjust the notification volume.</item>
+    <item>Adjust the ring volume.</item>
+    <item>Adjust the voice call volume.</item>
+    <item>Let the installer app manage auto-revocation of unused permissions.</item>
+    <item>Let the system auto-revoke permissions that have not been used for a long time.</item>
+    <item>Run as an accessibility service (can observe and control the screen).</item>
+    <item>Advertise this device over Bluetooth LE.</item>
+    <item>Connect to Bluetooth devices.</item>
+    <item>Scan for nearby Bluetooth devices.</item>
+    <item>Read data from body sensors (heart rate etc.).</item>
+    <item>Initiate phone calls directly.</item>
+    <item>Use the camera.</item>
+    <item>Toggle Wi-Fi on or off.</item>
+    <item>Access the approximate location.</item>
+    <item>Access the precise location.</item>
+    <item>Run as a foreground service (visible notification).</item>
+    <item>Access the accounts stored on the device.</item>
+    <item>Read app usage statistics (how long apps are used).</item>
+    <item>Access location via GPS satellite.</item>
+    <item>Interact across users or work profiles.</item>
+    <item>Access files with legacy (pre-scoped-storage) rules.</item>
+    <item>Access all files on shared storage.</item>
+    <item>Manage ongoing phone calls.</item>
+    <item>Feed fake (mock) location data.</item>
+    <item>Monitor high-power location requests from apps.</item>
+    <item>Monitor location requests from apps.</item>
+    <item>Mute the microphone globally.</item>
+    <item>Access nearby Wi-Fi devices.</item>
+    <item>Read the current serving cell information.</item>
+    <item>Bypass scoped storage isolation (debug use).</item>
+    <item>Use the camera during an ongoing phone call.</item>
+    <item>Use the microphone during an ongoing phone call.</item>
+    <item>Enter picture-in-picture mode.</item>
+    <item>Play audio.</item>
+    <item>Post notifications.</item>
+    <item>Observe outgoing phone calls.</item>
+    <item>Capture (project) media sessions for casting.</item>
+    <item>Query the list of all installed apps.</item>
+    <item>Read calendar events.</item>
+    <item>Read the call log.</item>
+    <item>Receive emergency cell broadcast messages.</item>
+    <item>Read the clipboard content.</item>
+    <item>Read the contacts.</item>
+    <item>Read device identifiers (IMEI, serial etc.).</item>
+    <item>Read files from shared storage.</item>
+    <item>Read SMS from the SIM card.</item>
+    <item>Read audio files from shared storage.</item>
+    <item>Read image files from shared storage.</item>
+    <item>Read video files from shared storage.</item>
+    <item>Read the phone numbers of the device.</item>
+    <item>Read phone state (network, call state etc.).</item>
+    <item>Read SMS messages.</item>
+    <item>Receive emergency SMS messages.</item>
+    <item>Receive MMS messages.</item>
+    <item>Receive SMS messages.</item>
+    <item>Receive WAP push messages.</item>
+    <item>Record audio with the microphone.</item>
+    <item>Capture audio that is being played on the device.</item>
+    <item>Capture sanitized audio (without sensitive content).</item>
+    <item>Listen for hotword (voice assistant trigger) audio.</item>
+    <item>Request uninstalling apps.</item>
+    <item>Request installing apps (unknown sources).</item>
+    <item>Run in background without any restriction.</item>
+    <item>Run in background when the app is idle.</item>
+    <item>Schedule exact alarms (at an exact time).</item>
+    <item>Send SMS messages.</item>
+    <item>Send premium SMS (may cost money).</item>
+    <item>Start a foreground service from background.</item>
+    <item>Draw overlays on top of other apps.</item>
+    <item>Exempt from background activity start restrictions.</item>
+    <item>Exempt from battery (power) restrictions.</item>
+    <item>Take audio focus from other apps.</item>
+    <item>Handle media buttons (play/pause keys).</item>
+    <item>Show toast messages.</item>
+    <item>Turn the screen on.</item>
+    <item>Use biometric (fingerprint/face) authentication.</item>
+    <item>Use fingerprint authentication.</item>
+    <item>Use SIM authentication together with device identifiers.</item>
+    <item>Make SIP (internet) calls.</item>
+    <item>Measure distance with UWB (ultra-wideband) ranging.</item>
+    <item>Control vibration.</item>
+    <item>Keep the device awake (prevent sleep).</item>
+    <item>Scan for Wi-Fi networks.</item>
+    <item>Write calendar events.</item>
+    <item>Write the call log.</item>
+    <item>Write to the clipboard.</item>
+    <item>Write (modify) contacts.</item>
+    <item>Write files to shared storage.</item>
+    <item>Write SMS to the SIM card.</item>
+    <item>Write audio files to shared storage.</item>
+    <item>Write image files to shared storage.</item>
+    <item>Write video files to shared storage.</item>
+    <item>Modify system settings.</item>
+    <item>Write (send) SMS messages.</item>
+    <item>Set the wallpaper.</item>
+  </string-array>
+
+  <!-- 清单权限说明数据：与 perm_desc_names 一一对应 -->
+  <string-array name="perm_desc_names">
+    <item>android.permission.ACCESS_BACKGROUND_LOCATION</item>
+    <item>android.permission.ACCESS_COARSE_LOCATION</item>
+    <item>android.permission.ACCESS_FINE_LOCATION</item>
+    <item>android.permission.ACCESS_MEDIA_LOCATION</item>
+    <item>android.permission.ACCESS_NETWORK_STATE</item>
+    <item>android.permission.ACCESS_WIFI_STATE</item>
+    <item>android.permission.ACTIVITY_RECOGNITION</item>
+    <item>android.permission.ANSWER_PHONE_CALLS</item>
+    <item>android.permission.BIND_ACCESSIBILITY_SERVICE</item>
+    <item>android.permission.BIND_DEVICE_ADMIN</item>
+    <item>android.permission.BIND_NOTIFICATION_LISTENER_SERVICE</item>
+    <item>android.permission.BIND_VPN_SERVICE</item>
+    <item>android.permission.BLUETOOTH</item>
+    <item>android.permission.BLUETOOTH_ADMIN</item>
+    <item>android.permission.BLUETOOTH_ADVERTISE</item>
+    <item>android.permission.BLUETOOTH_CONNECT</item>
+    <item>android.permission.BLUETOOTH_SCAN</item>
+    <item>android.permission.BODY_SENSORS</item>
+    <item>android.permission.BROADCAST_SMS</item>
+    <item>android.permission.CALL_PHONE</item>
+    <item>android.permission.CAMERA</item>
+    <item>android.permission.CHANGE_NETWORK_STATE</item>
+    <item>android.permission.CHANGE_WIFI_STATE</item>
+    <item>android.permission.DELETE_PACKAGES</item>
+    <item>android.permission.FOREGROUND_SERVICE</item>
+    <item>android.permission.GET_ACCOUNTS</item>
+    <item>android.permission.GET_TASKS</item>
+    <item>android.permission.INSTALL_PACKAGES</item>
+    <item>android.permission.INTERNET</item>
+    <item>android.permission.KILL_BACKGROUND_PROCESSES</item>
+    <item>android.permission.MANAGE_DEVICE_ADMINS</item>
+    <item>android.permission.MANAGE_EXTERNAL_STORAGE</item>
+    <item>android.permission.MODIFY_AUDIO_SETTINGS</item>
+    <item>android.permission.NEARBY_WIFI_DEVICES</item>
+    <item>android.permission.NFC</item>
+    <item>android.permission.PACKAGE_USAGE_STATS</item>
+    <item>android.permission.POST_NOTIFICATIONS</item>
+    <item>android.permission.PROCESS_OUTGOING_CALLS</item>
+    <item>android.permission.QUERY_ALL_PACKAGES</item>
+    <item>android.permission.READ_CALENDAR</item>
+    <item>android.permission.READ_CALL_LOG</item>
+    <item>android.permission.READ_CONTACTS</item>
+    <item>android.permission.READ_EXTERNAL_STORAGE</item>
+    <item>android.permission.READ_MEDIA_AUDIO</item>
+    <item>android.permission.READ_MEDIA_IMAGES</item>
+    <item>android.permission.READ_MEDIA_VIDEO</item>
+    <item>android.permission.READ_PHONE_NUMBERS</item>
+    <item>android.permission.READ_PHONE_STATE</item>
+    <item>android.permission.READ_SMS</item>
+    <item>android.permission.RECEIVE_BOOT_COMPLETED</item>
+    <item>android.permission.RECEIVE_MMS</item>
+    <item>android.permission.RECEIVE_SMS</item>
+    <item>android.permission.RECEIVE_WAP_PUSH</item>
+    <item>android.permission.RECORD_AUDIO</item>
+    <item>android.permission.REQUEST_DELETE_PACKAGES</item>
+    <item>android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</item>
+    <item>android.permission.REQUEST_INSTALL_PACKAGES</item>
+    <item>android.permission.SCHEDULE_EXACT_ALARM</item>
+    <item>android.permission.SEND_SMS</item>
+    <item>android.permission.SET_ALARM</item>
+    <item>android.permission.SET_WALLPAPER</item>
+    <item>android.permission.SYSTEM_ALERT_WINDOW</item>
+    <item>android.permission.USE_BIOMETRIC</item>
+    <item>android.permission.USE_EXACT_ALARM</item>
+    <item>android.permission.USE_FINGERPRINT</item>
+    <item>android.permission.USE_FULL_SCREEN_INTENT</item>
+    <item>android.permission.USE_SIP</item>
+    <item>android.permission.VIBRATE</item>
+    <item>android.permission.WAKE_LOCK</item>
+    <item>android.permission.WRITE_CALENDAR</item>
+    <item>android.permission.WRITE_CALL_LOG</item>
+    <item>android.permission.WRITE_CONTACTS</item>
+    <item>android.permission.WRITE_EXTERNAL_STORAGE</item>
+    <item>android.permission.WRITE_SECURE_SETTINGS</item>
+    <item>android.permission.WRITE_SETTINGS</item>
+  </string-array>
+
+  <string-array name="perm_desc_descs">
+    <item>Access location at any time, including while the app is in background.</item>
+    <item>Access the approximate location (city-level).</item>
+    <item>Access the precise location (GPS-level).</item>
+    <item>Read location data embedded in photos and videos.</item>
+    <item>Check whether a network connection exists.</item>
+    <item>Read Wi-Fi connection information.</item>
+    <item>Detect the user\'s physical activity.</item>
+    <item>Answer incoming phone calls.</item>
+    <item>Run as an accessibility service (can observe and control the screen).</item>
+    <item>Act as a device administrator (lock/wipe device etc.).</item>
+    <item>Read notifications posted by all apps.</item>
+    <item>Provide a VPN tunnel for all traffic.</item>
+    <item>Pair and connect to Bluetooth devices.</item>
+    <item>Change Bluetooth settings and discover devices.</item>
+    <item>Advertise this device over Bluetooth LE.</item>
+    <item>Connect to Bluetooth devices.</item>
+    <item>Scan for nearby Bluetooth devices.</item>
+    <item>Read data from body sensors (heart rate etc.).</item>
+    <item>Broadcast SMS messages.</item>
+    <item>Initiate phone calls without dialer UI.</item>
+    <item>Take pictures and record video.</item>
+    <item>Change network connectivity state.</item>
+    <item>Toggle Wi-Fi on or off.</item>
+    <item>Uninstall apps.</item>
+    <item>Run a foreground service.</item>
+    <item>Access the accounts stored on the device.</item>
+    <item>Get information about running tasks (legacy).</item>
+    <item>Install apps (system-level).</item>
+    <item>Access the internet.</item>
+    <item>Kill background processes of other apps.</item>
+    <item>Manage device administrators.</item>
+    <item>Access all files on shared storage.</item>
+    <item>Modify global audio settings.</item>
+    <item>Access nearby Wi-Fi devices.</item>
+    <item>Communicate with NFC tags.</item>
+    <item>Read app usage statistics.</item>
+    <item>Post notifications.</item>
+    <item>Observe outgoing phone calls.</item>
+    <item>Query the list of all installed apps.</item>
+    <item>Read calendar events and details.</item>
+    <item>Read the call log.</item>
+    <item>Read the contacts.</item>
+    <item>Read files from shared storage.</item>
+    <item>Read audio files from shared storage.</item>
+    <item>Read image files from shared storage.</item>
+    <item>Read video files from shared storage.</item>
+    <item>Read the phone numbers of the device.</item>
+    <item>Read phone state (network, call state etc.).</item>
+    <item>Read SMS messages.</item>
+    <item>Run automatically at device boot.</item>
+    <item>Receive MMS messages.</item>
+    <item>Receive SMS messages.</item>
+    <item>Receive WAP push messages.</item>
+    <item>Record audio with the microphone.</item>
+    <item>Request uninstalling apps.</item>
+    <item>Ask to be exempted from battery optimizations.</item>
+    <item>Request installing apps (unknown sources).</item>
+    <item>Schedule alarms at an exact time.</item>
+    <item>Send SMS messages.</item>
+    <item>Set alarms.</item>
+    <item>Set the wallpaper.</item>
+    <item>Draw overlays on top of other apps.</item>
+    <item>Use biometric authentication.</item>
+    <item>Schedule exact alarms even if the system denies exact alarms.</item>
+    <item>Use fingerprint authentication.</item>
+    <item>Show full-screen intents (e.g. incoming call screen).</item>
+    <item>Make SIP (internet) calls.</item>
+    <item>Control vibration.</item>
+    <item>Keep the device awake (prevent sleep).</item>
+    <item>Write calendar events.</item>
+    <item>Write the call log.</item>
+    <item>Modify contacts.</item>
+    <item>Write files to shared storage.</item>
+    <item>Write secure system settings (highly privileged).</item>
+    <item>Modify system settings.</item>
+  </string-array>
+</resources>
