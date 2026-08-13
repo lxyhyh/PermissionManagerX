@@ -9,13 +9,13 @@
   <color name="dividerColor">#0AFFFFFF</color>
   <color name="darkTransBg">#B3000000</color>
 
-  <!-- 品牌色：极客紫（默认） -->
-  <color name="green">#A78BFA</color>
-  <color name="greenTrans5">#0DA78BFA</color>
-  <color name="greenTrans10">#1AA78BFA</color>
-  <color name="greenTrans20">#33A78BFA</color>
-  <color name="greenTrans50">#80A78BFA</color>
-  <color name="greenTrans75">#BFA78BFA</color>
+  <!-- 品牌色：初音绿（默认） -->
+  <color name="green">#39C5BB</color>
+  <color name="greenTrans5">#0D39C5BB</color>
+  <color name="greenTrans10">#1A39C5BB</color>
+  <color name="greenTrans20">#3339C5BB</color>
+  <color name="greenTrans50">#8039C5BB</color>
+  <color name="greenTrans75">#BF39C5BB</color>
 
   <!-- 备选主题色 -->
   <color name="blue">#60A5FA</color>
@@ -36,14 +36,6 @@
   <color name="grayTrans20">#339CA3AF</color>
   <color name="grayTrans50">#809CA3AF</color>
   <color name="grayTrans75">#BF9CA3AF</color>
-
-  <!-- 初音绿（保留备选） -->
-  <color name="miku">#39C5BB</color>
-  <color name="mikuTrans5">#0D39C5BB</color>
-  <color name="mikuTrans10">#1A39C5BB</color>
-  <color name="mikuTrans20">#3339C5BB</color>
-  <color name="mikuTrans50">#8039C5BB</color>
-  <color name="mikuTrans75">#BF39C5BB</color>
 
   <!-- 文字（GeekOS） -->
   <color name="textPrimary">#F5F5F5</color>
