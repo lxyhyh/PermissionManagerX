@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- ============================================================ -->
-  <!-- GeekOS 设计系统 · 颜色 Token（深色 = 夜间模式）                -->
-  <!-- 仅覆盖与浅色模式不同的 Token；品牌色/语义色两种模式共用         -->
-  <!-- ============================================================ -->
-
-  <!-- —— 基底层 —— -->
-  <color name="windowBg">#0A0A0F</color>
-  <color name="cardBg">#1A1A1F</color>
-  <color name="cardBgPressed">#2A2A2F</color>
-  <color name="geekBorder">#14FFFFFF</color>
-  <color name="dividerColor">#0AFFFFFF</color>
+  <!-- —— 基底层（夜间，深灰低饱和） —— -->
+  <color name="windowBg">#000000</color>
+  <color name="cardBg">#1C1C1E</color>
+  <color name="cardBgPressed">#2C2C2E</color>
+  <color name="geekBorder">#14000000</color>
+  <color name="dividerColor">#3A3A3C</color>
   <color name="darkTransBg">#B3000000</color>
 
-  <!-- —— 文字层 —— -->
-  <color name="textPrimary">#F5F5F5</color>
-  <color name="textSecondary">#9CA3AF</color>
-  <color name="textTertiary">#6B7280</color>
-  <color name="textOnCard">#F5F5F5</color>
-  <color name="textOnPrimary">#1A1A1F</color>
-  <color name="sharpText">#F5F5F5</color>
+  <!-- —— 文字层（夜间） —— -->
+  <color name="textPrimary">#FFFFFF</color>
+  <color name="textSecondary">#8E8E93</color>
+  <color name="textTertiary">#48484A</color>
+  <color name="textOnCard">#FFFFFF</color>
+  <color name="textOnPrimary">#1A1A1A</color>
+  <color name="sharpText">#FFFFFF</color>
 
-  <!-- —— 控件层 —— -->
-  <color name="colorControlNormal">#2A2A2F</color>
-  <color name="colorControlNormalA50">#802A2A2F</color>
+  <!-- —— 控件层（夜间） —— -->
+  <color name="colorControlNormal">#2C2C2E</color>
+  <color name="colorControlNormalA50">#802C2C2E</color>
   <color name="colorControlNormalDisabled">#232629</color>
 </resources>

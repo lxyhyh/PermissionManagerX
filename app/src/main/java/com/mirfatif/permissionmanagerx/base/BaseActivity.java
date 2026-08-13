@@ -32,16 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
   }
 
-  /** 按外观设置应用主题色 ThemeOverlay（修复：主题色切换从未生效）。 */
+  /** 应用主题色：仅支持初音绿（默认）或跟随系统动态取色。 */
   private void applyThemeColor() {
-    int overlay = R.style.ThemeOverlayGreen;
-    String v = MySettings.INS.getThemeColorValue();
-    if ("blue".equals(v)) {
-      overlay = R.style.ThemeOverlayBlue;
-    } else if ("pink".equals(v)) {
-      overlay = R.style.ThemeOverlayPink;
-    } else if ("gray".equals(v)) {
-      overlay = R.style.ThemeOverlayGray;
+    String color = MySettings.INS.getThemeColorValue();
+    int overlay = R.style.ThemeOverlaySystem;
+    if ("green".equals(color)) {
+      overlay = R.style.ThemeOverlayGreen;
     }
     getTheme().applyStyle(overlay, true);
   }

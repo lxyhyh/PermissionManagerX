@@ -443,6 +443,7 @@
   <string name="theme_color_blue">信息蓝</string>
   <string name="theme_color_pink">粉色</string>
   <string name="theme_color_gray">灰色</string>
+  <string name="theme_color_system">跟随系统</string>
 
   <string name="dark_theme_mode_system">跟随系统</string>
   <string name="dark_theme_mode_light">浅色</string>

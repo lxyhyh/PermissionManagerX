@@ -54,14 +54,9 @@ public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RvItemPkgBinding binding = RvItemPkgBinding.inflate(inflater, parent, false);
 
-    // 应用外观偏好：卡片背景 / 指示条 / 水波纹 / 密度
+    // 固定新设计风格：卡片背景 / 指示条 / 水波纹 / 密度
     binding.getRoot().setBackgroundResource(UiPrefUtils.getCardBg());
-    binding.refIndicationV.setVisibility(
-        UiPrefUtils.shouldShowRefIndicator() ? View.VISIBLE : View.GONE);
-    View inner = binding.getRoot().getChildAt(1);
-    if (inner != null && !UiPrefUtils.shouldUseRipple()) {
-      inner.setBackgroundResource(0);
-    }
+    binding.refIndicationV.setVisibility(View.VISIBLE);
     int pad = UiPrefUtils.dpToPx(UiPrefUtils.getItemPaddingDp());
     binding.getRoot().setPadding(pad, 0, pad, 0);
 

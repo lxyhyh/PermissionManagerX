@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- GeekOS 胶囊 chip：accent-soft 底（跟随主题色） -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
-  <corners android:radius="999dp" />
-  <solid android:color="?attr/accentTrans20Color" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+  <corners android:radius="12dp" />
+  <solid android:color="@color/greenTrans10" />
 </shape>

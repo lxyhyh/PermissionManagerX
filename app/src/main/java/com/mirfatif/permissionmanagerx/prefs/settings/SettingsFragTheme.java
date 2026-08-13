@@ -44,14 +44,7 @@ public class SettingsFragTheme extends PreferenceFragmentCompat
 
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     if (Objects.requireNonNull(key).equals(getString(R.string.pref_settings_theme_color_key))
-        || key.equals(getString(R.string.pref_settings_dark_theme_key))
-        || key.equals(getString(R.string.pref_settings_ui_card_style_key))
-        || key.equals(getString(R.string.pref_settings_ui_radius_key))
-        || key.equals(getString(R.string.pref_settings_ui_dots_key))
-        || key.equals(getString(R.string.pref_settings_ui_chip_key))
-        || key.equals(getString(R.string.pref_settings_ui_density_key))
-        || key.equals(getString(R.string.pref_settings_ui_big_title_key))
-        || key.equals(getString(R.string.pref_settings_ui_ripple_key))) {
+        || Objects.requireNonNull(key).equals(getString(R.string.pref_settings_dark_theme_key))) {
       mA.recreate();
       MySettings.INS.recreateMainActivity();
     }

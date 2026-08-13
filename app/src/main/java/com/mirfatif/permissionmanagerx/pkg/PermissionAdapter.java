@@ -52,9 +52,9 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RvItemPermBinding b = RvItemPermBinding.inflate(inflater, parent, false);
 
-    // 应用外观偏好
+    // 固定新设计风格
     b.getRoot().setBackgroundResource(UiPrefUtils.getCardBg());
-    b.refIndicationV.setVisibility(UiPrefUtils.shouldShowRefIndicator() ? View.VISIBLE : View.GONE);
+    b.refIndicationV.setVisibility(View.VISIBLE);
 
     return new ItemViewHolder(b);
   }
@@ -148,13 +148,8 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
           if (mode != AppOpsManager.MODE_ALLOWED && mode != AppOpsManager.MODE_IGNORED) {
             mB.appOpModeV.setVisibility(View.VISIBLE);
             mB.appOpModeV.setText(perm.getLocalizedPermStateName());
-            if (UiPrefUtils.shouldUseChip()) {
-              mB.appOpModeV.setBackgroundResource(R.drawable.chip_bg);
-              mB.appOpModeV.setPadding(8, 2, 8, 2);
-            } else {
-              mB.appOpModeV.setBackgroundResource(0);
-              mB.appOpModeV.setPadding(0, 0, 0, 0);
-            }
+            mB.appOpModeV.setBackgroundResource(R.drawable.chip_bg);
+            mB.appOpModeV.setPadding(8, 2, 8, 2);
           } else {
             mB.appOpModeV.setVisibility(View.GONE);
           }

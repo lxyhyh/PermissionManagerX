@@ -2,9 +2,8 @@ package com.mirfatif.permissionmanagerx.zhx.design;
 
 import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;
-import com.mirfatif.permissionmanagerx.prefs.MySettings;
 
-/** 外观设置的统一读取入口：各列表/页面按此工具应用 UI 偏好。 */
+/** 外观统一读取入口：自 UI 全面改版后固定为新设计风格，不再跟随用户偏好开关。 */
 public class UiPrefUtils {
 
   private UiPrefUtils() {}
@@ -13,50 +12,33 @@ public class UiPrefUtils {
     return (int) (dp * App.getCxt().getResources().getDisplayMetrics().density);
   }
 
-  /** 当前列表项背景 drawable；卡片风格关闭时返回 0（无背景）。 */
+  /** 固定为卡片风格（20dp 圆角）。 */
   public static int getCardBg() {
-    if (!MySettings.INS.shouldUseCardStyle()) {
-      return 0;
-    }
-    String radius = MySettings.INS.getCardCornerRadius();
-    if ("small".equals(radius)) {
-      return R.drawable.card_bg_small;
-    }
-    if ("mid".equals(radius)) {
-      return R.drawable.card_bg_mid;
-    }
     return R.drawable.card_bg;
   }
 
-  /** 列表项内容内边距（dp）：compact=6 / normal=10 / comfort=14 */
+  /** 固定列表项内边距（dp）。 */
   public static int getItemPaddingDp() {
-    String density = MySettings.INS.getListDensity();
-    if ("compact".equals(density)) {
-      return 6;
-    }
-    if ("comfort".equals(density)) {
-      return 14;
-    }
     return 10;
   }
 
-  /** 是否显示水波纹反馈背景。 */
+  /** 固定显示水波纹反馈。 */
   public static boolean shouldUseRipple() {
-    return MySettings.INS.shouldUseRipple();
+    return true;
   }
 
-  /** 是否显示引用状态指示条。 */
+  /** 固定显示引用状态指示条。 */
   public static boolean shouldShowRefIndicator() {
-    return MySettings.INS.shouldShowRefIndicator();
+    return true;
   }
 
-  /** 是否用胶囊 chip 显示 AppOp 模式。 */
+  /** 固定用胶囊 chip 显示 AppOp 模式。 */
   public static boolean shouldUseChip() {
-    return MySettings.INS.shouldUseChipStyle();
+    return true;
   }
 
-  /** 顶部标题是否用大字号。 */
+  /** 固定用大标题。 */
   public static boolean shouldUseBigTitle() {
-    return MySettings.INS.shouldUseBigTitle();
+    return true;
   }
 }

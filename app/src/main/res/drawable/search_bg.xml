@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- GeekOS 搜索栏：胶囊（radius-full）+ surface-variant 底（文档 search-bar） -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
-  <corners android:radius="@dimen/radius_full" />
-  <solid android:color="@color/cardBgPressed" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed="true">
+    <shape android:shape="rectangle">
+      <corners android:radius="22dp" />
+      <solid android:color="@color/cardBgPressed" />
+    </shape>
+  </item>
+  <item>
+    <shape android:shape="rectangle">
+      <corners android:radius="22dp" />
+      <solid android:color="@color/cardBg" />
+    </shape>
+  </item>
+</selector>

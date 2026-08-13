@@ -98,30 +98,8 @@
     <item name="accentTrans50Color">@color/greenTrans50</item>
     <item name="accentTrans75Color">@color/greenTrans75</item>
   </style>
-  <style name="ThemeOverlayBlue" parent="">
-    <item name="accentColor">@color/blue</item>
-    <item name="accentTrans5Color">@color/blueTrans5</item>
-    <item name="accentTrans10Color">@color/blueTrans10</item>
-    <item name="accentTrans20Color">@color/blueTrans20</item>
-    <item name="accentTrans50Color">@color/blueTrans50</item>
-    <item name="accentTrans75Color">@color/blueTrans75</item>
-  </style>
-  <style name="ThemeOverlayPink" parent="">
-    <item name="accentColor">@color/pink</item>
-    <item name="accentTrans5Color">@color/pinkTrans5</item>
-    <item name="accentTrans10Color">@color/pinkTrans10</item>
-    <item name="accentTrans20Color">@color/pinkTrans20</item>
-    <item name="accentTrans50Color">@color/pinkTrans50</item>
-    <item name="accentTrans75Color">@color/pinkTrans75</item>
-  </style>
-  <style name="ThemeOverlayGray" parent="">
-    <item name="accentColor">@color/gray</item>
-    <item name="accentTrans5Color">@color/grayTrans5</item>
-    <item name="accentTrans10Color">@color/grayTrans10</item>
-    <item name="accentTrans20Color">@color/grayTrans20</item>
-    <item name="accentTrans50Color">@color/grayTrans50</item>
-    <item name="accentTrans75Color">@color/grayTrans75</item>
-  </style>
+  <!-- 跟随系统动态取色 -->
+  <style name="ThemeOverlaySystem" parent="" />
   <!-- ============== 设置分组标题（GeekOS 分割文字近似：12sp/600/次级色） ============== -->
   <style name="PrefCategoryGeekOS" parent="Preference.Category">
     <item name="android:textColor">@color/textSecondary</item>
