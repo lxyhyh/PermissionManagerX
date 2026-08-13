@@ -13,6 +13,21 @@
       style="@style/ListSeparator"
       android:background="?attr/accentColor" />
 
+    <!-- GeekOS 顶部大标题（文档 section-title，外观设置可开关） -->
+    <TextView
+      android:id="@+id/big_title_v"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:letterSpacing="-0.02"
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp"
+      android:paddingTop="16dp"
+      android:paddingBottom="8dp"
+      android:textColor="@color/textPrimary"
+      android:textSize="32sp"
+      android:textStyle="bold"
+      android:visibility="gone" />
+
     <com.mirfatif.permissionmanagerx.fwk.MyCoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"

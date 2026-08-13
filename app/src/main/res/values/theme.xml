@@ -19,5 +19,6 @@
     <item name="colorSurface">@color/cardBg</item>
     <item name="colorBackgroundFloating">@color/cardBg</item>
     <item name="android:colorBackgroundFloating">@color/cardBg</item>
+    <item name="preferenceCategoryStyle">@style/PrefCategoryGeekOS</item>
   </style>
 </resources>

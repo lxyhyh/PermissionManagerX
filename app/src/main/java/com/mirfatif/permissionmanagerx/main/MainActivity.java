@@ -64,6 +64,7 @@ import com.mirfatif.permissionmanagerx.util.bg.LiveSchedParamTask;
 import com.mirfatif.permissionmanagerx.util.bg.LiveSchedTask;
 import com.mirfatif.permissionmanagerx.util.bg.LiveTasksQueue;
 import com.mirfatif.permissionmanagerx.util.bg.LiveTasksQueueTyped;
+import com.mirfatif.permissionmanagerx.zhx.design.UiPrefUtils;
 import com.mirfatif.permissionmanagerx.zhx.permview.PermListActivity;
 import com.mirfatif.privtasks.util.bg.BgRunner;
 import com.mirfatif.privtasks.util.bg.NotifyWaiter;
@@ -126,6 +127,12 @@ public class MainActivity extends OnBackPressedCallback {
     mB = ActivityMainBinding.inflate(mA.getLayoutInflater());
     mB.movCont.setData(new Data());
     mA.setContentView(mB);
+
+    // GeekOS 顶部大标题（文档 section-title，外观设置可开关）
+    if (UiPrefUtils.shouldUseBigTitle()) {
+      mB.bigTitleV.setVisibility(View.VISIBLE);
+      mB.bigTitleV.setText(R.string.app_name);
+    }
 
     ((CoordinatorLayout.LayoutParams) mB.moveUpCont.getLayoutParams())
         .setBehavior(new MoveUpBehavior(mSnackBarLayoutCls, mB.movCont.getRoot()));
