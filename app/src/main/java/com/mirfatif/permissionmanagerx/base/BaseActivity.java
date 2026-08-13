@@ -25,9 +25,25 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected synchronized void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    applyThemeColor();
+
     if (!setNightTheme()) {
       onCreated(savedInstanceState);
     }
+  }
+
+  /** 按外观设置应用主题色 ThemeOverlay（修复：主题色切换从未生效）。 */
+  private void applyThemeColor() {
+    int overlay = R.style.ThemeOverlayGreen;
+    String v = MySettings.INS.getThemeColorValue();
+    if ("blue".equals(v)) {
+      overlay = R.style.ThemeOverlayBlue;
+    } else if ("pink".equals(v)) {
+      overlay = R.style.ThemeOverlayPink;
+    } else if ("gray".equals(v)) {
+      overlay = R.style.ThemeOverlayGray;
+    }
+    getTheme().applyStyle(overlay, true);
   }
 
   protected abstract void onCreated(Bundle savedInstanceState);

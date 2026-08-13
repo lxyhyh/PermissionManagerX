@@ -89,4 +89,38 @@
     <item name="android:textColor">@color/active_disabled</item>
   </style>
 
+  <!-- ============== 主题色 ThemeOverlay（修复：外观设置切换主题色） ============== -->
+  <style name="ThemeOverlayGreen" parent="">
+    <item name="accentColor">@color/green</item>
+    <item name="accentTrans5Color">@color/greenTrans5</item>
+    <item name="accentTrans10Color">@color/greenTrans10</item>
+    <item name="accentTrans20Color">@color/greenTrans20</item>
+    <item name="accentTrans50Color">@color/greenTrans50</item>
+    <item name="accentTrans75Color">@color/greenTrans75</item>
+  </style>
+  <style name="ThemeOverlayBlue" parent="">
+    <item name="accentColor">@color/blue</item>
+    <item name="accentTrans5Color">@color/blueTrans5</item>
+    <item name="accentTrans10Color">@color/blueTrans10</item>
+    <item name="accentTrans20Color">@color/blueTrans20</item>
+    <item name="accentTrans50Color">@color/blueTrans50</item>
+    <item name="accentTrans75Color">@color/blueTrans75</item>
+  </style>
+  <style name="ThemeOverlayPink" parent="">
+    <item name="accentColor">@color/pink</item>
+    <item name="accentTrans5Color">@color/pinkTrans5</item>
+    <item name="accentTrans10Color">@color/pinkTrans10</item>
+    <item name="accentTrans20Color">@color/pinkTrans20</item>
+    <item name="accentTrans50Color">@color/pinkTrans50</item>
+    <item name="accentTrans75Color">@color/pinkTrans75</item>
+  </style>
+  <style name="ThemeOverlayGray" parent="">
+    <item name="accentColor">@color/gray</item>
+    <item name="accentTrans5Color">@color/grayTrans5</item>
+    <item name="accentTrans10Color">@color/grayTrans10</item>
+    <item name="accentTrans20Color">@color/grayTrans20</item>
+    <item name="accentTrans50Color">@color/grayTrans50</item>
+    <item name="accentTrans75Color">@color/grayTrans75</item>
+  </style>
+
 </resources>

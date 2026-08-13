@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GeekOS 空状态图标容器：64dp 圆形 + accent-soft 底（文档 empty-state-icon） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="oval">
+  <solid android:color="?attr/accentTrans20Color" />
+</shape>

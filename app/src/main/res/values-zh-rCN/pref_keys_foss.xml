@@ -138,7 +138,7 @@
   <!-- PackageActivity -->
 <!-- 外观设置 -->
   <string name="pref_settings_appearance_cat_title">外观</string>
-  <bool name="pref_settings_ui_card_style_default">true</bool>
+  <bool name="pref_settings_ui_card_style_default">false</bool>
   <string name="pref_settings_ui_card_style_key" translatable="false">pref_settings_ui_card_style</string>
   <string name="pref_settings_ui_card_style_title">卡片风格</string>
   <string name="pref_settings_ui_card_style_summary">圆角卡片列表项（MIUI × 苹果风格）</string>

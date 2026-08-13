@@ -85,7 +85,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:background="@drawable/note_box_bg"
+    android:padding="12dp"
     android:textAppearance="@style/TextAppearance.AppCompat.Small"
+    android:textColor="@color/textSecondary"
     android:visibility="gone" />
 
 </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>

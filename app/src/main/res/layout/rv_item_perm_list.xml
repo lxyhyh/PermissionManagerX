@@ -2,14 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginHorizontal="8dp"
-  android:layout_marginVertical="3dp"
-  android:background="@drawable/card_bg"
-  android:clipToOutline="true"
+  android:background="@drawable/list_item_bg"
   android:gravity="center_vertical"
   android:orientation="horizontal">
 
-  <!-- GeekOS 图标容器：accent-soft 底 + 圆角 -->
+  <!-- GeekOS 列表图标容器：40dp + accent-soft 底 + 圆角 12dp -->
   <FrameLayout
     android:layout_width="40dp"
     android:layout_height="40dp"
@@ -29,7 +26,9 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingVertical="16dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="8dp">
 
     <TextView
       android:id="@+id/name_v"
@@ -38,12 +37,13 @@
       android:ellipsize="marquee"
       android:maxLines="1"
       android:textColor="@color/textPrimary"
-      android:textSize="16sp" />
+      android:textSize="14sp" />
 
     <TextView
       android:id="@+id/sub_v"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
       android:ellipsize="marquee"
       android:maxLines="1"
       android:textColor="@color/textTertiary"

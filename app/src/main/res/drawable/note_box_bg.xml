@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GeekOS 提示框背景（文档 note-box）：accent-soft 底 + 左侧 3dp accent 条 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="?attr/accentTrans20Color" />
+    </shape>
+  </item>
+  <item android:gravity="start" android:width="3dp">
+    <shape android:shape="rectangle">
+      <solid android:color="?attr/accentColor" />
+    </shape>
+  </item>
+</layer-list>

@@ -13,10 +13,10 @@ public class UiPrefUtils {
     return (int) (dp * App.getCxt().getResources().getDisplayMetrics().density);
   }
 
-  /** 当前卡片背景 drawable；卡片风格关闭时返回 0（无背景）。 */
+  /** 当前列表项背景 drawable；卡片风格关闭时返回分割线列表背景（GeekOS list-item）。 */
   public static int getCardBg() {
     if (!MySettings.INS.shouldUseCardStyle()) {
-      return 0;
+      return R.drawable.list_item_bg;
     }
     String radius = MySettings.INS.getCardCornerRadius();
     if ("small".equals(radius)) {

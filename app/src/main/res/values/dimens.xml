@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================ -->
+<!-- GeekOS 设计系统 · 间距与圆角 Token（源自设计文档）              -->
+<!-- space: 4/8/12/16/20/24/32；radius: 4/8/12/16/20/24/999       -->
+<!-- 所有布局一律引用此处，禁止写死 dp 数值                          -->
+<!-- ============================================================ -->
+<resources>
+  <!-- 间距 -->
+  <dimen name="space_1">4dp</dimen>
+  <dimen name="space_2">8dp</dimen>
+  <dimen name="space_3">12dp</dimen>
+  <dimen name="space_4">16dp</dimen>
+  <dimen name="space_5">20dp</dimen>
+  <dimen name="space_6">24dp</dimen>
+  <dimen name="space_8">32dp</dimen>
+
+  <!-- 圆角 -->
+  <dimen name="radius_sm">4dp</dimen>
+  <dimen name="radius_md">8dp</dimen>
+  <dimen name="radius_lg">12dp</dimen>
+  <dimen name="radius_xl">16dp</dimen>
+  <dimen name="radius_2xl">20dp</dimen>
+  <dimen name="radius_3xl">24dp</dimen>
+  <dimen name="radius_full">999dp</dimen>
+</resources>

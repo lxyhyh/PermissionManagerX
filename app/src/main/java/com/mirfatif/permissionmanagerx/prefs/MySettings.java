@@ -120,6 +120,12 @@ public enum MySettings {
     }
   }
 
+  /** 外观设置的主题色取值：green / blue / pink / gray。 */
+  public String getThemeColorValue() {
+    return getStringPref(
+        R.string.pref_settings_theme_color_key, R.string.pref_settings_theme_color_default);
+  }
+
   public String getDarkThemeMode() {
     try {
       return getStringPref(
