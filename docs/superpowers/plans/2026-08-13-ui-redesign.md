@@ -2,9 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 将 PMX 全部界面重新设计为「MIUI X / HyperOS + Apple iOS」混合现代风格：大圆角连续曲线卡片（squircle）、低饱和底色+多彩图标、扁平图标、毛玻璃质感语义、克制排版；同时**移除全部主题色切换（绿/蓝/粉/灰）与外观偏好开关**，统一固定为初音绿（#39C5BB）主题。
+**Goal:** 将 PMX 全部界面重新设计为「MIUI X / HyperOS + Apple iOS」混合现代风格：大圆角连续曲线卡片（squircle）、低饱和底色+多彩图标、扁平图标、克制排版（本次**不做毛玻璃**，纯色低饱和）；同时**移除蓝/粉/灰主题色与全部外观偏好开关**，主题色收敛为两项：**初音绿（#39C5BB，默认）+ 跟随系统（动态取色）**。
 
-**Architecture:** 本次改版严格遵循现有「设计系统资源模块」架构——所有颜色/圆角/主题集中在 `res/values*` 资源文件，外观唯一读取入口为 `zhx.design.UiPrefUtils`。因此改版分两条主线并行：(1) 重写颜色 Token、圆角 Token、主题/样式、drawable；(2) 移除外观偏好开关的 UI 与逻辑，将所有读取点固定为初音绿 + 新卡片风格。不做任何数据层/守护进程改动。
+**Architecture:** 本次改版严格遵循现有「设计系统资源模块」架构——所有颜色/圆角/主题集中在 `res/values*` 资源文件，外观唯一读取入口为 `zhx.design.UiPrefUtils`。因此改版分两条主线并行：(1) 重写颜色 Token、圆角 Token、主题/样式、drawable；(2) 移除蓝/粉/灰主题色与外型偏好开关，主题色保留「初音绿/跟随系统」两项，其余读取点固定为新卡片风格。不做任何数据层/守护进程改动。
+
+**用户已确认的决策：** ✅ 主题色保留一项附加选项（跟随系统）；✅ 默认固定组合（卡片开/密度10dp/水波纹开/指示条开/chip开/大标题开）；✅ 保留夜间模式开关；✅ 卡片圆角 20dp；✅ 不做毛玻璃。
 
 **Tech Stack:** Android XML 资源（colors/dimens/styles/theme/drawable/layout）、Java（MySettings、UiPrefUtils、BaseActivity、PackageAdapter、PermissionAdapter、MainActivity、SettingsFragTheme）、AppCompat + Material + RecyclerView。
 
@@ -262,35 +264,57 @@ git commit -m "feat(ui): 重写卡片/搜索/胶囊/chip 背景为大圆角"
 
 ---
 
-## Task 4: 移除主题色切换（固定初音绿）
+## Task 4: 主题色收敛为初音绿 + 跟随系统（移除蓝/粉/灰）
 
 **Files:**
 - Modify: `app/src/main/java/com/mirfatif/permissionmanagerx/base/BaseActivity.java`
 - Modify: `app/src/main/res/values/styles.xml`
 - Modify: `app/src/main/res/values/arrays.xml`
 
-- [ ] **Step 1: 简化 `BaseActivity.applyThemeColor()`**
+- [ ] **Step 1: 重写 `BaseActivity.applyThemeColor()`**
 
-  删除读取 `getThemeColorValue()` 与 Blue/Pink/Gray 分支，固定应用 `ThemeOverlayGreen`。
+  删除 Blue/Pink/Gray 分支。根据 `getThemeColorValue()` 返回值，仅在两值间选择：`green`（初音绿）或 `system`（跟随系统动态取色）。
 
 ```java
-  /** 固定应用初音绿主题（已移除多主题色切换）。 */
+  /** 应用主题色：仅支持初音绿（默认）或跟随系统动态取色。 */
   private void applyThemeColor() {
-    getTheme().applyStyle(R.style.ThemeOverlayGreen, true);
+    String color = MySettings.INS.getThemeColorValue();
+    int overlay = R.style.ThemeOverlaySystem;
+    if ("green".equals(color)) {
+      overlay = R.style.ThemeOverlayGreen;
+    }
+    getTheme().applyStyle(overlay, true);
   }
 ```
 
-- [ ] **Step 2: 从 `styles.xml` 删除 `ThemeOverlayBlue/Pink/Gray`，仅保留 `ThemeOverlayGreen`**
+- [ ] **Step 2: 从 `styles.xml` 删除 `ThemeOverlayBlue/Pink/Gray`，新增 `ThemeOverlaySystem`**
 
-  删除 `ThemeOverlayBlue`、`ThemeOverlayPink`、`ThemeOverlayGray` 三个 style 块（第 101-124 行），保留 `ThemeOverlayGreen`。
+  删除 `ThemeOverlayBlue`、`ThemeOverlayPink`、`ThemeOverlayGray` 三个 style 块；保留 `ThemeOverlayGreen`；新增 `ThemeOverlaySystem`（动态取色，继承 `ThemeOverlay.Material3.DynamicColors.Light/Dark` 或 `ThemeOverlay.MaterialComponents` 变体，随 main 主题浅深自动切换）。
 
-- [ ] **Step 3: 从 `arrays.xml` 删除 `theme_colors` 与 `theme_color_values`**
+```xml
+  <!-- 跟随系统动态取色 -->
+  <style name="ThemeOverlaySystem" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+```
 
-  删除第 290-303 行附近的两个 string-array（内容：绿/蓝/粉/灰 名称与值）。
+- [ ] **Step 3: 重写 `arrays.xml` 的 `theme_colors` 与 `theme_color_values`（两值）**
+
+  将两个 string-array 改为仅两项：初音绿 + 跟随系统。
+
+```xml
+  <string-array name="theme_colors">
+    <item>初音绿</item>
+    <item>跟随系统</item>
+  </string-array>
+
+  <string-array name="theme_color_values">
+    <item>green</item>
+    <item>system</item>
+  </string-array>
+```
 
 - [ ] **Step 4: 验证无残留引用**
 
-  运行：`grep -rn "ThemeOverlayBlue\|ThemeOverlayPink\|ThemeOverlayGray\|theme_color_values\|theme_colors" app/src/main`
+  运行：`grep -rn "ThemeOverlayBlue\|ThemeOverlayPink\|ThemeOverlayGray" app/src/main`
   预期：无匹配（SettingsFragTheme 与 settings_prefs 在 Task 5 处理）。
 
 - [ ] **Step 5: Commit**
@@ -362,17 +386,18 @@ public class UiPrefUtils {
 }
 ```
 
-- [ ] **Step 2: 从 `MySettings` 移除外观/主题色方法**
+- [ ] **Step 2: 从 `MySettings` 移除外观方法（保留主题色与夜间方法）**
 
-  删除 `getThemeColorValue()`、`shouldUseCardStyle()`、`getCardCornerRadius()`、`shouldShowRefIndicator()`、`shouldUseChipStyle()`、`getListDensity()`、`shouldUseBigTitle()`、`shouldUseRipple()`（第 123-172 行）。保留 `getDarkThemeMode()`（夜间模式）。若删后有未使用 import，一并清理。
+  删除 `shouldUseCardStyle()`、`getCardCornerRadius()`、`shouldShowRefIndicator()`、`shouldUseChipStyle()`、`getListDensity()`、`shouldUseBigTitle()`、`shouldUseRipple()`（第 123-172 行）。**保留** `getThemeColorValue()`/`setThemeColorValue()`（仍在两值间切换）与 `getDarkThemeMode()`（夜间模式）。若删后有未使用 import，一并清理。
 
 - [ ] **Step 3: 简化 `SettingsFragTheme.onSharedPreferenceChanged`**
 
-  仅保留夜间模式触发的刷新逻辑，删除 card/radius/dots/chip/density/big_title/ripple 分支。
+  仅保留主题色与夜间模式触发的刷新逻辑，删除 card/radius/dots/chip/density/big_title/ripple 分支。
 
 ```java
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    if (Objects.requireNonNull(key).equals(getString(R.string.pref_settings_dark_theme_key))) {
+    if (Objects.requireNonNull(key).equals(getString(R.string.pref_settings_theme_color_key))
+        || Objects.requireNonNull(key).equals(getString(R.string.pref_settings_dark_theme_key))) {
       mA.recreate();
       MySettings.INS.recreateMainActivity();
     }
@@ -381,11 +406,20 @@ public class UiPrefUtils {
 
 - [ ] **Step 4: 精简 `settings_prefs_theming.xml`**
 
-  删除 `theme_color` ListPreference 与整个 `<PreferenceCategory>`（外观）分组，仅保留 `dark_theme` ListPreference。
+  保留 `theme_color` ListPreference（数组已是两项：初音绿/跟随系统）与 `dark_theme` ListPreference；删除整个 `<PreferenceCategory>`（外观：card/radius/dots/chip/density/big_title/ripple）分组。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+  <ListPreference
+    app:defaultValue="@string/pref_settings_theme_color_default"
+    app:entries="@array/theme_colors"
+    app:entryValues="@array/theme_color_values"
+    app:icon="@drawable/palette"
+    app:key="@string/pref_settings_theme_color_key"
+    app:singleLineTitle="false"
+    app:title="@string/pref_settings_theme_color_title"
+    app:useSimpleSummaryProvider="true" />
   <ListPreference
     app:defaultValue="@string/pref_settings_dark_theme_default"
     app:entries="@array/dark_theme_modes"
@@ -398,9 +432,9 @@ public class UiPrefUtils {
 </PreferenceScreen>
 ```
 
-- [ ] **Step 5: 从 `pref_keys_foss.xml` 删除外观键（保留 dark_theme）**
+- [ ] **Step 5: 从 `pref_keys_foss.xml` 删除外观键（保留 theme_color 与 dark_theme）**
 
-  删除与 `pref_settings_theme_color`、`pref_settings_ui_card_style`、`pref_settings_ui_radius`、`pref_settings_ui_dots`、`pref_settings_ui_chip`、`pref_settings_ui_density`、`pref_settings_ui_big_title`、`pref_settings_ui_ripple` 相关的**字符串键**（第 270-343 行附近）。保留 `pref_settings_dark_theme` 键。若这些键在其他 `.xml`（如 `values-*/pref_keys_foss.xml`）也存在，需先确认生成逻辑，避免 aapt2 报错——先只改默认 `values/`，如构建报未定义再补其他。
+  删除与 `pref_settings_ui_card_style`、`pref_settings_ui_radius`、`pref_settings_ui_dots`、`pref_settings_ui_chip`、`pref_settings_ui_density`、`pref_settings_ui_big_title`、`pref_settings_ui_ripple` 相关的**字符串键**（第 270-343 行附近）。**保留** `pref_settings_theme_color_*` 与 `pref_settings_dark_theme_*` 键。若这些键在其他 `.xml`（如 `values-*/pref_keys_foss.xml`）也存在，需先确认生成逻辑，避免 aapt2 报错——先只改默认 `values/`，如构建报未定义再补其他。
 
 - [ ] **Step 6: 验证编译**
 
@@ -548,7 +582,7 @@ git commit -m "feat(ui): 关键布局重排为 iOS 分组卡片风"
 
 - [ ] **Step 2: 更新设计文档**
 
-  将引言从「GeekOS」更新为「初音绿（Miku）· MIUI X + Apple 现代混合」设计系统；更新开头「设计系统资源模块」对 `colors.xml`/`theme.xml`/`styles.xml`/`dimens.xml`/drawable 的职责描述；删除关于「多主题色切换」与「外观偏好开关」的说明；在第 27-39 行 Token 表格中更新为新初音绿配色；在第二节模块划分中说明 `UiPrefUtils` 已固定为固定样式。
+  将引言从「GeekOS」更新为「初音绿（Miku）· MIUI X + Apple 现代混合」设计系统；更新开头「设计系统资源模块」对 `colors.xml`/`theme.xml`/`styles.xml`/`dimens.xml`/drawable 的职责描述；删除关于「多主题色切换（蓝/粉/灰）」与「外观偏好开关」的说明，改为「主题色两项：初音绿/跟随系统」；在第 27-39 行 Token 表格中更新为新初音绿配色；在第二节模块划分中说明 `UiPrefUtils` 已固定为固定样式。
 
 - [ ] **Step 3: Commit**
 
@@ -564,12 +598,12 @@ git commit -m "docs(ui): 更新设计系统文档为初音绿 MIUI/iOS 混合风
 **1. Spec 覆盖：**
 - 全部界面 → Task 1-3（全局 Token/drawable）+ Task 7（关键布局）+ 已有布局引用 Token 自动生效。所有界面通过 `?attr/accentColor` 与 `@color/*` 全局换肤，无需逐一改每个 Activity。
 - MIUI X + Apple 混合风格 → Task 1（低饱和底色/语义色）、Task 2-3（大圆角）、Task 7（分组卡片）。
-- 移除多主题色切换 → Task 4。
-- 移除外观偏好开关 → Task 5-6。
-- 固定初音绿 → Task 1/4。
+- 移除蓝/粉/灰主题色 + 外观偏好开关 → Task 4-6。
+- 保留主题色两项（初音绿/跟随系统）→ Task 4/5。
+- 固定初音绿（默认）→ Task 1/4。
 
 **2. Placeholder scan：** 所有 Step 均含具体代码或命令，无 TBD/TODO。`chip_bg.xml`、`gray` 引用、`values-*/pref_keys_foss.xml` 标记为「若存在/若报错」的场景已给出明确处理路径。
 
-**3. 类型一致性：** `UiPrefUtils` 方法签名在 Task 5 保持一致；`R.drawable.chip_bg`、`R.style.ThemeOverlayGreen`、`pref_settings_dark_theme_key` 等引用与现有代码一致。`getDarkThemeMode()` 保留（夜间模式仍可用）。
+**3. 类型一致性：** `UiPrefUtils` 方法签名在 Task 5 保持一致；`R.drawable.chip_bg`、`R.style.ThemeOverlayGreen`/`ThemeOverlaySystem`、`pref_settings_theme_color_key`/`pref_settings_dark_theme_key` 等引用与现有代码一致。`getThemeColorValue()`/`setThemeColorValue()` 与 `getDarkThemeMode()` 均保留（两值主题色 + 夜间模式仍可用）。
 
 **风险提示：** Task 6 Step 4 若 `gray` 被多处引用，删除后 aapt2 会报错；已在 Step 中给出「加回 `gray` 别名」的兜底。Task 7 布局微调不影响功能，可独立回退。
