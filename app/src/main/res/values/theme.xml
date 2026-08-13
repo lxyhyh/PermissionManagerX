@@ -9,5 +9,15 @@
     <item name="android:fontFamily">@font/font_outfit</item>
     <item name="dialogCornerRadius">16dp</item>
     <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
+    <!-- AppCompat 命名空间桥接：深色基底下所有 AppCompat 控件文字/背景改为 GeekOS 配色 -->
+    <item name="textColorPrimary">@color/textPrimary</item>
+    <item name="textColorSecondary">@color/textSecondary</item>
+    <item name="textColorHint">@color/textTertiary</item>
+    <item name="android:textColorHint">@color/textTertiary</item>
+    <item name="colorControlNormal">@color/colorControlNormal</item>
+    <item name="colorSurface">@color/cardBg</item>
+    <item name="colorBackgroundFloating">@color/cardBg</item>
+    <item name="android:colorBackgroundFloating">@color/cardBg</item>
   </style>
 </resources>

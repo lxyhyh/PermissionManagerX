@@ -4,20 +4,29 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <!-- GeekOS 卡片式搜索框 -->
   <EditText
     android:id="@+id/search_v"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/search_bg"
     android:hint="@string/search_menu_item"
     android:inputType="text"
     android:maxLines="1"
-    android:padding="10dp" />
+    android:padding="12dp"
+    android:textColor="@color/textPrimary"
+    android:textColorHint="@color/textTertiary"
+    android:textSize="14sp" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="0dp"
+    android:layout_marginTop="4dp"
     android:layout_weight="1"
+    android:clipToPadding="false"
     android:scrollbars="vertical" />
 
   <TextView
@@ -27,5 +36,6 @@
     android:gravity="center"
     android:padding="24dp"
     android:text="@string/perm_view_empty"
+    android:textColor="@color/textSecondary"
     android:visibility="gone" />
 </LinearLayout>

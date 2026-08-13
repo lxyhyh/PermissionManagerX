@@ -4,11 +4,14 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <!-- GeekOS 胶囊批量按钮：允许=主题色实心，禁用=描边 -->
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="6dp">
+    android:paddingHorizontal="8dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="4dp">
 
     <Button
       android:id="@+id/allow_all_v"
@@ -16,7 +19,13 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="4dp"
       android:layout_weight="1"
-      android:text="@string/perm_view_allow_all" />
+      android:background="@drawable/capsule_fill"
+      android:backgroundTint="?attr/accentColor"
+      android:stateListAnimator="@null"
+      android:text="@string/perm_view_allow_all"
+      android:textColor="#0A0A0F"
+      android:textSize="14sp"
+      android:textStyle="bold" />
 
     <Button
       android:id="@+id/deny_all_v"
@@ -24,13 +33,20 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="4dp"
       android:layout_weight="1"
-      android:text="@string/perm_view_deny_all" />
+      android:background="@drawable/capsule_outline"
+      android:stateListAnimator="@null"
+      android:text="@string/perm_view_deny_all"
+      android:textColor="?attr/accentColor"
+      android:textSize="14sp"
+      android:textStyle="bold" />
   </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="0dp"
+    android:layout_marginTop="4dp"
     android:layout_weight="1"
+    android:clipToPadding="false"
     android:scrollbars="vertical" />
 </LinearLayout>

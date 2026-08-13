@@ -9,4 +9,12 @@
   <attr name="accentTrans50Color" format="color" />
   <attr name="accentTrans75Color" format="color" />
 
+  <!-- AppCompat 主题属性桥接声明（与 appcompat-resources 相同格式，解决 aapt2 链接不到的问题） -->
+  <attr name="textColorPrimary" format="color" />
+  <attr name="textColorSecondary" format="color" />
+  <attr name="textColorHint" format="color" />
+  <attr name="colorControlNormal" format="color" />
+  <attr name="colorSurface" format="color" />
+  <attr name="colorBackgroundFloating" format="color" />
+
 </resources>
