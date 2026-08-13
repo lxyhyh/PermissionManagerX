@@ -33,7 +33,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="4dp"
       android:layout_weight="1"
-      android:background="@drawable/capsule_outline"
+      android:background="@drawable/capsule_accent_outline"
       android:paddingHorizontal="20dp"
       android:stateListAnimator="@null"
       android:text="@string/perm_view_deny_all"
