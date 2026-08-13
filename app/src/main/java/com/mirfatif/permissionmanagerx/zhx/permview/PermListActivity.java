@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;
+import com.mirfatif.permissionmanagerx.base.BaseActivity;
 import com.mirfatif.permissionmanagerx.databinding.ActivityPermListBinding;
 import com.mirfatif.permissionmanagerx.fwk.PermListActivityM;
+import com.mirfatif.permissionmanagerx.parser.PackageParser;
 import com.mirfatif.permissionmanagerx.zhx.i18n.PermDescProvider;
 import com.mirfatif.permissionmanagerx.zhx.permview.PermListView.PermListItem;
 import java.util.ArrayList;
@@ -23,13 +24,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class PermListActivity {
-
-  private final FragmentActivity mA;
+  private final BaseActivity mA;
   private ActivityPermListBinding mB;
   private final List<PermListItem> mFiltered = new ArrayList<>();
   private PermAdapter mAdapter;
 
-  public PermListActivity(FragmentActivity act) {
+  public PermListActivity(BaseActivity act) {
     mA = act;
   }
 
@@ -39,14 +39,13 @@ public class PermListActivity {
 
   public void onCreated() {
     mB = ActivityPermListBinding.inflate(mA.getLayoutInflater());
-    mA.setContentView(mB.getRoot());
-
+    // 走 BaseActivity.setContentView(ViewBinding)：Android 15+ edge-to-edge 状态栏适配
+    mA.setContentView(mB);
     mA.setTitle(R.string.perm_view_title);
 
     mB.recyclerView.setLayoutManager(new LinearLayoutManager(mA));
     mAdapter = new PermAdapter();
     mB.recyclerView.setAdapter(mAdapter);
-
     mB.searchV.addTextChangedListener(
         new TextWatcher() {
           public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
@@ -57,6 +56,9 @@ public class PermListActivity {
 
           public void afterTextChanged(Editable s) {}
         });
+
+    // 包列表加载/刷新完成后自动刷新本页（修复：权限视图不显示权限列表）
+    PackageParser.INS.getPkgListLive().observe(mA, pkgs -> refresh());
 
     refresh();
   }

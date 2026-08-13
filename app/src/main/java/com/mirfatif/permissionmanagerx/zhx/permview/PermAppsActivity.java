@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;
 import com.mirfatif.permissionmanagerx.base.AlertDialogFragment;
+import com.mirfatif.permissionmanagerx.base.BaseActivity;
 import com.mirfatif.permissionmanagerx.databinding.ActivityPermAppsBinding;
 import com.mirfatif.permissionmanagerx.fwk.PermAppsActivityM;
 import com.mirfatif.permissionmanagerx.parser.AppOpsParser;
@@ -31,15 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PermAppsActivity {
-
-  private final FragmentActivity mA;
+  private final BaseActivity mA;
   private ActivityPermAppsBinding mB;
   private String mPermName;
   private boolean mIsAppOp;
   private final List<AppEntry> mEntries = new ArrayList<>();
   private AppAdapter mAdapter;
 
-  public PermAppsActivity(FragmentActivity act) {
+  public PermAppsActivity(BaseActivity act) {
     mA = act;
   }
 
@@ -52,7 +51,8 @@ public class PermAppsActivity {
 
   public void onCreated() {
     mB = ActivityPermAppsBinding.inflate(mA.getLayoutInflater());
-    mA.setContentView(mB.getRoot());
+    // 走 BaseActivity.setContentView(ViewBinding)：Android 15+ edge-to-edge 状态栏适配
+    mA.setContentView(mB);
 
     mPermName = mA.getIntent().getStringExtra("perm_name");
     mIsAppOp = mA.getIntent().getBooleanExtra("is_app_op", false);
