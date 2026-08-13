@@ -18,10 +18,12 @@ import com.mirfatif.permissionmanagerx.base.AlertDialogFragment;
 import com.mirfatif.permissionmanagerx.databinding.ActivityPermAppsBinding;
 import com.mirfatif.permissionmanagerx.fwk.PermAppsActivityM;
 import com.mirfatif.permissionmanagerx.parser.AppOpsParser;
+import com.mirfatif.permissionmanagerx.parser.PackageParser;
 import com.mirfatif.permissionmanagerx.parser.PermDescProvider;
 import com.mirfatif.permissionmanagerx.parser.PermListView;
 import com.mirfatif.permissionmanagerx.parser.PermListView.AppEntry;
 import com.mirfatif.permissionmanagerx.parser.PermListView.PermListItem;
+import com.mirfatif.permissionmanagerx.privs.DaemonHandler;
 import com.mirfatif.permissionmanagerx.privs.DaemonIface;
 import com.mirfatif.permissionmanagerx.util.UserUtils;
 import com.mirfatif.permissionmanagerx.util.bg.UiRunner;
@@ -66,6 +68,9 @@ public class PermAppsActivity {
     mB.allowAllV.setOnClickListener(v -> batch(true));
     mB.denyAllV.setOnClickListener(v -> batch(false));
 
+    // 包列表刷新完成后自动刷新本页（修复 M1：改完权限界面不刷新）
+    PackageParser.INS.getPkgListLive().observe(mA, pkgs -> refresh());
+
     refresh();
   }
 
@@ -83,6 +88,10 @@ public class PermAppsActivity {
   private void batch(boolean grant) {
     BgRunner.execute(
         () -> {
+          // 修复 M2'：守护进程不在线时提示并中止，避免“假成功”
+          if (!DaemonHandler.INS.isDaemonAlive(true, true)) {
+            return;
+          }
           int skipped = 0;
           for (AppEntry entry : new ArrayList<>(mEntries)) {
             if (!entry.perm.isChangeable() || !entry.pkg.isChangeable()) {
@@ -116,6 +125,8 @@ public class PermAppsActivity {
                       mA.getString(R.string.perm_view_skipped, skippedCount));
                 }
                 refresh();
+                // 触发重解析 → 聚合视图重建 → 主界面列表同步刷新（修复 M1）
+                PackageParser.INS.updatePkgList();
               });
         });
   }
@@ -123,6 +134,10 @@ public class PermAppsActivity {
   private void setEntry(AppEntry entry, int mode) {
     BgRunner.execute(
         () -> {
+          // 修复 M2'：守护进程不在线时提示并中止，避免“假成功”
+          if (!DaemonHandler.INS.isDaemonAlive(true, false)) {
+            return;
+          }
           if (!entry.perm.isChangeable() || !entry.pkg.isChangeable()) {
             return;
           }
@@ -136,7 +151,12 @@ public class PermAppsActivity {
             DaemonIface.INS.setPermState(
                 mode != 0, entry.pkg.getName(), mPermName, UserUtils.getUserId(entry.pkg.getUid()));
           }
-          UiRunner.post(this::refresh);
+          UiRunner.post(
+              () -> {
+                refresh();
+                // 触发重解析 → 聚合视图重建 → 本页状态刷新（修复 M1）
+                PackageParser.INS.updatePkgList();
+              });
         });
   }
 
