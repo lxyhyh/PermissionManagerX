@@ -21,11 +21,11 @@
       android:layout_weight="1"
       android:background="@drawable/capsule_fill"
       android:backgroundTint="?attr/accentColor"
+      android:paddingHorizontal="20dp"
       android:stateListAnimator="@null"
       android:text="@string/perm_view_allow_all"
       android:textColor="@color/textOnPrimary"
-      android:textSize="14sp"
-      android:textStyle="bold" />
+      android:textSize="14sp" />
 
     <Button
       android:id="@+id/deny_all_v"
@@ -33,12 +33,12 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="4dp"
       android:layout_weight="1"
-      android:background="@drawable/capsule_outline"
+      android:background="@drawable/capsule_accent_outline"
+      android:paddingHorizontal="20dp"
       android:stateListAnimator="@null"
       android:text="@string/perm_view_deny_all"
       android:textColor="?attr/accentColor"
-      android:textSize="14sp"
-      android:textStyle="bold" />
+      android:textSize="14sp" />
   </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView

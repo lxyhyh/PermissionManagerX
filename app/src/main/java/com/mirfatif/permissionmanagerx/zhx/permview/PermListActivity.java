@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -98,6 +99,10 @@ public class PermListActivity {
       }
       holder.nameV.setText(label);
 
+      if (!item.apps.isEmpty() && item.apps.get(0).perm.getIconResId() != 0) {
+        holder.iconV.setImageResource(item.apps.get(0).perm.getIconResId());
+      }
+
       String protLevel = "";
       if (!item.apps.isEmpty() && item.apps.get(0).perm.getLocalizedProtLevelString() != null) {
         protLevel = item.apps.get(0).perm.getLocalizedProtLevelString().toString();
@@ -118,10 +123,12 @@ public class PermListActivity {
     }
 
     class VH extends RecyclerView.ViewHolder {
+      final ImageView iconV;
       final TextView nameV, subV;
 
       VH(View v) {
         super(v);
+        iconV = v.findViewById(R.id.icon_v);
         nameV = v.findViewById(R.id.name_v);
         subV = v.findViewById(R.id.sub_v);
       }

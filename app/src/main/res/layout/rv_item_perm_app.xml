@@ -3,7 +3,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginHorizontal="8dp"
-  android:layout_marginVertical="3dp"
+  android:layout_marginVertical="4dp"
   android:background="@drawable/card_bg"
   android:clipToOutline="true"
   android:gravity="center_vertical"
@@ -12,8 +12,8 @@
 
   <ImageView
     android:id="@+id/icon_v"
-    android:layout_width="32dp"
-    android:layout_height="32dp"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
     android:layout_marginEnd="10dp"
     android:importantForAccessibility="no" />
 
@@ -46,7 +46,11 @@
     android:id="@+id/state_v"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/chip_bg"
     android:maxLines="1"
-    android:textColor="@color/textSecondary"
-    android:textSize="12sp" />
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="4dp"
+    android:textColor="?attr/accentColor"
+    android:textSize="12sp"
+    android:textStyle="bold" />
 </LinearLayout>

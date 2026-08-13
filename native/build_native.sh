@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 [ -n "$ANDROID_NDK" ]
-BIN="$ANDROID_NDK"/toolchains/llvm/prebuilt/linux-x86_64/bin
+BIN="$ANDROID_NDK"/toolchains/llvm/prebuilt/linux-aarch64/bin
 
 [ "$1" = '-f' ] && FORCE=true || FORCE=false
 
