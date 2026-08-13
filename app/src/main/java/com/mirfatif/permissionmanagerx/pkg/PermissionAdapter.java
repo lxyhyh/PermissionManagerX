@@ -150,7 +150,7 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
             mB.appOpModeV.setText(perm.getLocalizedPermStateName());
             if (UiPrefUtils.shouldUseChip()) {
               mB.appOpModeV.setBackgroundResource(R.drawable.chip_bg);
-              mB.appOpModeV.setPadding(24, 4, 24, 4);
+              mB.appOpModeV.setPadding(8, 2, 8, 2);
             } else {
               mB.appOpModeV.setBackgroundResource(0);
               mB.appOpModeV.setPadding(0, 0, 0, 0);

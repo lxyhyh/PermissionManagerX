@@ -667,4 +667,5 @@
   <string name="perm_view_batch_done">Batch operation done</string>
   <string name="perm_view_skipped">Skipped %1$d unchangeable item(s)</string>
   <string name="perm_view_empty">No permissions loaded. Make sure Root / ADB access is granted and app list is built.</string>
+  <string name="perm_view_empty_desc">Try another keyword or clear the search</string>
 </resources>

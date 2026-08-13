@@ -306,7 +306,7 @@
 
 <!-- UI Appearance -->
   <string name="pref_settings_appearance_cat_title">Appearance</string>
-  <bool name="pref_settings_ui_card_style_default">false</bool>
+  <bool name="pref_settings_ui_card_style_default">true</bool>
   <string name="pref_settings_ui_card_style_key" translatable="false">pref_settings_ui_card_style</string>
   <string name="pref_settings_ui_card_style_title">Card style</string>
   <string name="pref_settings_ui_card_style_summary">Rounded card list items (MIUI × Apple style)</string>
