@@ -28,8 +28,6 @@
   <color name="textOnCard">#1A1A1A</color>
   <color name="textOnPrimary">#FFFFFF</color>
   <color name="sharpText">#1A1A1A</color>
-  <!-- 控件文字禁用态（Spinner/CustomButton/崩溃报告仍引用） -->
-  <color name="active_disabled">#8E8E93</color>
 
   <!-- —— 语义色（两模式共用） —— -->
   <color name="stateGreen">#34C759</color>
