@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- ============ GeekOS 极客风设计系统（深色基底） ============ -->
-  <!-- 基底色 -->
-  <color name="windowBg">#0A0A0F</color>
-  <color name="cardBg">#1A1A1F</color>
-  <color name="cardBgPressed">#2A2A2F</color>
-  <color name="geekBorder">#14FFFFFF</color>
-  <color name="dividerColor">#0AFFFFFF</color>
-  <color name="darkTransBg">#B3000000</color>
+  <!-- ============================================================ -->
+  <!-- GeekOS 设计系统 · 颜色 Token（浅色 = 默认模式）                -->
+  <!-- 结构遵循 GeekOS 规范：基底 / 表面 / 文字 / 品牌 / 语义 / 控件   -->
+  <!-- 深色模式的值在 values-night/colors.xml 中覆盖同名 Token        -->
+  <!-- ============================================================ -->
 
-  <!-- 品牌色：初音绿（默认） -->
+  <!-- —— 基底层 —— -->
+  <color name="windowBg">#F4F5F7</color>
+  <color name="cardBg">#FFFFFF</color>
+  <color name="cardBgPressed">#E9EBEE</color>
+  <color name="geekBorder">#14000000</color>
+  <color name="dividerColor">#0F000000</color>
+  <color name="darkTransBg">#66000000</color>
+
+  <!-- —— 品牌色：初音绿（默认主题色） —— -->
   <color name="green">#39C5BB</color>
   <color name="greenTrans5">#0D39C5BB</color>
   <color name="greenTrans10">#1A39C5BB</color>
@@ -17,7 +22,7 @@
   <color name="greenTrans50">#8039C5BB</color>
   <color name="greenTrans75">#BF39C5BB</color>
 
-  <!-- 备选主题色 -->
+  <!-- —— 备选主题色 —— -->
   <color name="blue">#60A5FA</color>
   <color name="blueTrans5">#0D60A5FA</color>
   <color name="blueTrans10">#1A60A5FA</color>
@@ -37,23 +42,23 @@
   <color name="grayTrans50">#809CA3AF</color>
   <color name="grayTrans75">#BF9CA3AF</color>
 
-  <!-- 文字（GeekOS） -->
-  <color name="textPrimary">#F5F5F5</color>
-  <color name="textSecondary">#9CA3AF</color>
-  <color name="textTertiary">#6B7280</color>
-  <color name="textOnCard">#F5F5F5</color>
-  <color name="sharpText">#F5F5F5</color>
+  <!-- —— 文字层 —— -->
+  <color name="textPrimary">#1A1A1F</color>
+  <color name="textSecondary">#6B7280</color>
+  <color name="textTertiary">#9CA3AF</color>
+  <color name="textOnCard">#1A1A1F</color>
+  <color name="textOnPrimary">#1A1A1F</color>
+  <color name="sharpText">#1A1A1F</color>
 
-  <!-- 语义色（GeekOS） -->
+  <!-- —— 语义色（两种模式共用） —— -->
   <color name="stateGreen">#22C55E</color>
   <color name="stateOrange">#F59E0B</color>
   <color name="stateRed">#EF4444</color>
   <color name="stateInfo">#60A5FA</color>
-  <!-- 兼容原版引用 -->
   <color name="orangeState">#F59E0B</color>
 
-  <!-- 控件 -->
-  <color name="colorControlNormal">#2A2A2F</color>
-  <color name="colorControlNormalA50">#802A2A2F</color>
-  <color name="colorControlNormalDisabled">#232629</color>
+  <!-- —— 控件层 —— -->
+  <color name="colorControlNormal">#E9EBEE</color>
+  <color name="colorControlNormalA50">#80E9EBEE</color>
+  <color name="colorControlNormalDisabled">#F0F1F3</color>
 </resources>

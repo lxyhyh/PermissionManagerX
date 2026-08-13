@@ -91,7 +91,7 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
       if (perm.isReferenced() == null) {
         mB.refIndicationV.setBackgroundColor(PackageAdapter.ORANGE);
       } else if (Boolean.FALSE.equals(perm.isReferenced())) {
-        mB.refIndicationV.setBackgroundColor(Color.RED);
+        mB.refIndicationV.setBackgroundColor(PackageAdapter.RED);
         if (perm.isAppOp()) {
           String state = Permission.getLocalizedAppOpModeName(perm.getReference());
           mB.appOpsRefStateV.setText(
@@ -99,7 +99,7 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
           mB.appOpsRefStateV.setVisibility(View.VISIBLE);
         }
       } else {
-        mB.refIndicationV.setBackgroundColor(Color.GREEN);
+        mB.refIndicationV.setBackgroundColor(PackageAdapter.GREEN);
       }
 
       mB.iconV.setImageResource(perm.getIconResId());

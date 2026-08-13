@@ -23,7 +23,7 @@
       android:backgroundTint="?attr/accentColor"
       android:stateListAnimator="@null"
       android:text="@string/perm_view_allow_all"
-      android:textColor="#0A0A0F"
+      android:textColor="@color/textOnPrimary"
       android:textSize="14sp"
       android:textStyle="bold" />
 

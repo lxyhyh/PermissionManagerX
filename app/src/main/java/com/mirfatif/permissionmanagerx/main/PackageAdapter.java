@@ -37,6 +37,8 @@ public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
   private final PkgAdapterCallback mCallback;
 
   public static final int ORANGE = App.getCxt().getColor(R.color.orangeState);
+  public static final int RED = App.getCxt().getColor(R.color.stateRed);
+  public static final int GREEN = App.getCxt().getColor(R.color.stateGreen);
 
   public PackageAdapter(LifecycleOwner owner, PkgAdapterCallback callback) {
     super(new DiffUtilItemCallBack(), owner, TAG);
@@ -94,9 +96,9 @@ public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
         if (pkg.isReferenced() == null) {
           mB.refIndicationV.setBackgroundColor(ORANGE);
         } else if (Boolean.FALSE.equals(pkg.isReferenced())) {
-          mB.refIndicationV.setBackgroundColor(Color.RED);
+          mB.refIndicationV.setBackgroundColor(RED);
         } else {
-          mB.refIndicationV.setBackgroundColor(Color.GREEN);
+          mB.refIndicationV.setBackgroundColor(GREEN);
         }
         mB.refIndicationV.setVisibility(View.VISIBLE);
       } else {
