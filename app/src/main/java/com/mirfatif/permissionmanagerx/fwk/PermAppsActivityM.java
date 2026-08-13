@@ -2,7 +2,7 @@ package com.mirfatif.permissionmanagerx.fwk;
 
 import android.os.Bundle;
 import com.mirfatif.permissionmanagerx.base.BaseActivity;
-import com.mirfatif.permissionmanagerx.permview.PermAppsActivity;
+import com.mirfatif.permissionmanagerx.zhx.permview.PermAppsActivity;
 
 public class PermAppsActivityM extends BaseActivity {
 

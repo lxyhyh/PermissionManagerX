@@ -24,10 +24,10 @@ import com.mirfatif.permissionmanagerx.main.PackageAdapter.ItemViewHolder;
 import com.mirfatif.permissionmanagerx.parser.Package;
 import com.mirfatif.permissionmanagerx.util.ApiUtils;
 import com.mirfatif.permissionmanagerx.util.StringUtils;
-import com.mirfatif.permissionmanagerx.util.UiPrefUtils;
 import com.mirfatif.permissionmanagerx.util.UiUtils;
 import com.mirfatif.permissionmanagerx.util.bg.LiveSingleParamTask;
 import com.mirfatif.permissionmanagerx.util.bg.UiRunner;
+import com.mirfatif.permissionmanagerx.zhx.design.UiPrefUtils;
 
 public class PackageAdapter extends MyListAdapter<Package, ItemViewHolder> {
 

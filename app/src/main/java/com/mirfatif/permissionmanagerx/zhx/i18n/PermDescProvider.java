@@ -1,4 +1,4 @@
-package com.mirfatif.permissionmanagerx.parser;
+package com.mirfatif.permissionmanagerx.zhx.i18n;
 
 import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;

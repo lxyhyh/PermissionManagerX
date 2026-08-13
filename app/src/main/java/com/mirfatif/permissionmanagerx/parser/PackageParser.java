@@ -30,6 +30,8 @@ import com.mirfatif.permissionmanagerx.util.ApiUtils;
 import com.mirfatif.permissionmanagerx.util.UserUtils;
 import com.mirfatif.permissionmanagerx.util.bg.LiveEvent;
 import com.mirfatif.permissionmanagerx.util.bg.UiRunner;
+import com.mirfatif.permissionmanagerx.zhx.i18n.PermDescProvider;
+import com.mirfatif.permissionmanagerx.zhx.permview.PermListView;
 import com.mirfatif.privtasks.Constants;
 import com.mirfatif.privtasks.HiddenSdkIntConstants;
 import com.mirfatif.privtasks.bind.MyPackageOps;

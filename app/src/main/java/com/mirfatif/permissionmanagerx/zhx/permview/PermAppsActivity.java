@@ -1,4 +1,4 @@
-package com.mirfatif.permissionmanagerx.permview;
+package com.mirfatif.permissionmanagerx.zhx.permview;
 
 import android.app.Activity;
 import android.app.AppOpsManager;
@@ -19,14 +19,13 @@ import com.mirfatif.permissionmanagerx.databinding.ActivityPermAppsBinding;
 import com.mirfatif.permissionmanagerx.fwk.PermAppsActivityM;
 import com.mirfatif.permissionmanagerx.parser.AppOpsParser;
 import com.mirfatif.permissionmanagerx.parser.PackageParser;
-import com.mirfatif.permissionmanagerx.parser.PermDescProvider;
-import com.mirfatif.permissionmanagerx.parser.PermListView;
-import com.mirfatif.permissionmanagerx.parser.PermListView.AppEntry;
-import com.mirfatif.permissionmanagerx.parser.PermListView.PermListItem;
 import com.mirfatif.permissionmanagerx.privs.DaemonHandler;
 import com.mirfatif.permissionmanagerx.privs.DaemonIface;
 import com.mirfatif.permissionmanagerx.util.UserUtils;
 import com.mirfatif.permissionmanagerx.util.bg.UiRunner;
+import com.mirfatif.permissionmanagerx.zhx.i18n.PermDescProvider;
+import com.mirfatif.permissionmanagerx.zhx.permview.PermListView.AppEntry;
+import com.mirfatif.permissionmanagerx.zhx.permview.PermListView.PermListItem;
 import com.mirfatif.privtasks.util.bg.BgRunner;
 import java.util.ArrayList;
 import java.util.List;

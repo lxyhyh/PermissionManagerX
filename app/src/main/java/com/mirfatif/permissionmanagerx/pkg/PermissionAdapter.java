@@ -25,8 +25,8 @@ import com.mirfatif.permissionmanagerx.main.PackageAdapter;
 import com.mirfatif.permissionmanagerx.parser.Permission;
 import com.mirfatif.permissionmanagerx.pkg.PermissionAdapter.ItemViewHolder;
 import com.mirfatif.permissionmanagerx.util.StringUtils;
-import com.mirfatif.permissionmanagerx.util.UiPrefUtils;
 import com.mirfatif.permissionmanagerx.util.UiUtils;
+import com.mirfatif.permissionmanagerx.zhx.design.UiPrefUtils;
 
 public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder> {
 

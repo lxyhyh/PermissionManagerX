@@ -1,5 +1,7 @@
-package com.mirfatif.permissionmanagerx.parser;
+package com.mirfatif.permissionmanagerx.zhx.permview;
 
+import com.mirfatif.permissionmanagerx.parser.Package;
+import com.mirfatif.permissionmanagerx.parser.Permission;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package com.mirfatif.permissionmanagerx.util;
+package com.mirfatif.permissionmanagerx.zhx.design;
 
 import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;
