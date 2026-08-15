@@ -77,8 +77,17 @@
   .phone[data-w="360"] { --pw: 360px; }
   .phone[data-w="360"] .list-card { padding: 11px 12px; }
   .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
+  .phone[data-w="360"] .collapsing-toolbar { padding-left: 16px; padding-right: 16px; }
   .phone[data-w="360"] .collapsing-toolbar .ct-title { font-size: 22px; }
-  .phone[data-w="360"] .chips { padding-left: 10px; padding-right: 10px; }
+  .phone[data-w="360"] .chips { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="360"] .search-bar { margin-left: 16px; margin-right: 16px; }
+  .phone[data-w="360"] .list-area { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="360"] .detail-body .group-card { margin-left: 16px; margin-right: 16px; }
+  .phone[data-w="360"] .group-header { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="360"] .group-body { padding-left: 18px !important; padding-right: 18px !important; }
+  .phone[data-w="360"] .setting-group { margin-left: 16px; margin-right: 16px; }
+  .phone[data-w="360"] .setting-group .group-header { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="360"] .setting-group .setting-row { padding-left: 18px; padding-right: 18px; }
   .phone[data-w="360"] .detail-key { width: 60px; font-size: 12px; }
   .phone[data-w="360"] .detail-val { font-size: 13px; }
 
@@ -87,17 +96,13 @@
   .phone[data-w="412"] .list-area,
   .phone[data-w="412"] .detail-body,
   .phone[data-w="412"] .collapsing-toolbar,
-  .phone[data-w="412"] .chips { padding-left: 16px; padding-right: 16px; }
-  .phone[data-w="412"] .search-bar { margin-left: 16px; margin-right: 16px; }
-  .phone[data-w="412"] .setting-group { margin-left: 16px; margin-right: 16px; }
+  .phone[data-w="412"] .chips { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="412"] .search-bar { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="412"] .setting-group { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="412"] .detail-body .group-card { margin-left: 18px; margin-right: 18px; }
 
   .phone[data-w="440"] { --pw: 440px; }
-  .phone[data-w="440"] .list-area,
-  .phone[data-w="440"] .detail-body,
-  .phone[data-w="440"] .collapsing-toolbar,
-  .phone[data-w="440"] .chips { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="440"] .search-bar { margin-left: 18px; margin-right: 18px; }
-  .phone[data-w="440"] .setting-group { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="440"] .detail-body .group-card { margin-left: 18px; margin-right: 18px; }
   .phone[data-w="440"] .detail-val { font-size: 14px; }
   .phone[data-w="440"] .setting-label { font-size: 14px; }
   .phone[data-w="440"] .app-name { font-size: 15px; }
@@ -337,6 +342,7 @@
     background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
   }
   .group-body { padding: 0 16px 8px; }
+  /* detail-row 左右 padding 跟 setting-row 一致 20px，图标首字母与 group-header 对齐 */
   .detail-row {
     display:flex; align-items: center; gap: 12px; padding: 11px 0;
     border-bottom: 1px solid var(--line);
@@ -350,15 +356,6 @@
     background: var(--brand-10); color: var(--brand-dark);
     display:flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 800;
   }
-  /* 开关、状态标签、箭头等一律推到行尾右边缘对齐 */
-  .detail-row .ios-switch, .detail-row .perm-mode,
-  .setting-row .ios-switch, .setting-row .setting-arrow, .setting-row .setting-val {
-    margin-left: auto;
-  }
-  /* 同一行有多个右侧元素时（perm-mode + switch），auto 留给最后一个（switch） */
-  .detail-row .perm-mode + .ios-switch { margin-left: 8px; }
-
-  /* Switch 激活色改为初音绿渐变发光 */
   .ios-switch {
     width: 44px; height: 26px; border-radius: 999px; background: #E9E9EA;
     position: relative; flex:none; transition: background .2s;
@@ -375,6 +372,14 @@
   }
   .ios-switch.on::after { left: 20px; }
 
+  /* 开关、状态标签、箭头等一律推到行尾右边缘对齐 */
+  .detail-row .ios-switch, .detail-row .perm-mode,
+  .setting-row .ios-switch, .setting-row .setting-arrow, .setting-row .setting-val {
+    margin-left: auto;
+  }
+  /* 同一行有多个右侧元素时（perm-mode + switch），auto 留给最后一个（switch） */
+  .detail-row .perm-mode + .ios-switch { margin-left: 8px; }
+
   /* 权限模式标签 */
   .perm-mode {
     padding: 3px 9px; border-radius: 999px; font-size: 10.5px; font-weight: 700;
@@ -384,14 +389,25 @@
   .perm-mode.f { background: rgba(255,159,10,.12); color:#9A5E00; }
 
   /* ===== 设置页 ===== */
-  .setting-group { background: var(--card); border-radius: var(--radius-lg); margin: 0 14px 12px; overflow: hidden;
+  .setting-group {
+    background: var(--card); border-radius: var(--radius-lg); margin: 0 18px 12px; overflow: hidden;
     border: 1px solid rgba(57,197,187,.08); box-shadow: 0 2px 8px rgba(0,0,0,.02);
   }
+  /* 修复A：分组标题左缩进 = 分组内容区左缩进 = 同一个值（20px）
+            这样「外观」文字的最左点，正好对齐下面 🎨 图标的最左点 */
+  .setting-group .group-header { padding-left: 20px; padding-right: 20px; }
+  .setting-group > div[style*="padding:0 16px 8px"],
+  .setting-group > .group-body { padding: 0 !important; }
+  .setting-group .setting-row {
+    padding-left: 20px; padding-right: 20px;
+  }
+  /* 首行无边框（和 group-header 紧贴时视觉不脱节） */
+  .setting-group .setting-row[style*="border:none"] { padding-top: 12px; }
   .setting-row {
-    display:flex; align-items: center; gap: 12px; padding: 13px 16px;
+    display:flex; align-items: center; gap: 12px; padding: 13px 20px;
     border-bottom: 1px solid var(--line);
   }
-  .setting-row:last-child { border-bottom: none; }
+  .setting-row:last-child { border-bottom: none; padding-bottom: 14px; }
   .setting-ico {
     width: 28px; height: 28px; border-radius: 8px; flex:none;
     display:flex; align-items:center; justify-content:center; font-size: 13px;
@@ -400,7 +416,29 @@
   .setting-val { font-size: 12.5px; color: var(--ink-2); }
   .setting-arrow { color: var(--ink-3); font-size: 15px; }
 
-  /* ===== 深色模式预览（悬浮栏深色 + 主题色依然品牌绿） ===== */
+  /* 修复B：collapsing-toolbar 左侧 padding 与 setting-group 左侧 margin 对齐
+            统一为 18px，标题前初音绿竖条的左边缘 正好 对齐 卡片外的左边缘（18px 这条线） */
+  .collapsing-toolbar {
+    padding: 20px 18px 6px 18px; position: relative;
+  }
+  /* 主界面其他容器也同步改为 18px 左右安全距（卡片/列表/搜索框/chips 全跟卡片边缘对齐） */
+  .chips { padding: 0 18px 12px; }
+  .search-bar { margin-left: 18px; margin-right: 18px; }
+  .list-area { padding-left: 18px; padding-right: 18px; }
+  .detail-body { padding-left: 0; padding-right: 0; }
+
+  /* 权限详情页的 group-card：它原来包在 detail-body 里没左右 margin，
+     现在补上与 setting-group 一致的 18px 左右间距，让所有屏幕里「卡片外边缘」统一在同一条竖线 */
+  .detail-body .group-card {
+    margin-left: 18px; margin-right: 18px;
+  }
+  .group-body { padding: 0 20px 8px !important; }
+  .group-header { padding-left: 20px; padding-right: 20px; }
+  /* detail-row 左右 padding 跟 setting-row 一致 20px，图标首字母与 group-header 对齐 */
+  .detail-row {
+    display:flex; align-items: center; gap: 12px; padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
   .dark .screen { background: #000; color: #F2F2F7; }
   .dark .statusbar { color: #F2F2F7; }
   .dark .collapsing-toolbar .ct-title { color: #F2F2F7; }
