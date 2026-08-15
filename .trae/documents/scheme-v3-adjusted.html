@@ -62,15 +62,15 @@
     background: var(--brand-10); color: var(--brand-dark); margin-left: 6px;
   }
 
-  /* 手机原型容器 */
+  /* 手机原型容器（基准：iPhone 17 Pro Max · 6.9" · 440×956 pt · 19.5:9） */
   .phones-row {
     display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px;
   }
   .phone {
-    position: relative; width: 320px; aspect-ratio: 9/19.5;
-    padding: 16px 12px 20px; border-radius: 40px;
+    position: relative; width: 440px; aspect-ratio: 9/19.5;
+    margin: 12px 0 40px; padding: 14px 10px 16px; border-radius: 48px;
     background: linear-gradient(180deg,#0f0f10,#1a1a1c);
-    border: 1px solid rgba(255,255,255,.08); box-shadow: 0 10px 40px rgba(0,0,0,.18);
+    border: 1px solid rgba(255,255,255,.08); box-shadow: 0 14px 48px rgba(0,0,0,.22);
   }
   .phone-label {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -78,33 +78,51 @@
     font-size: 11px; font-weight: 700; white-space: nowrap; z-index: 10;
   }
   .phone-label.green { background: var(--brand); }
+  /* 机型参数标注（大众熟知格式：机型名 + 英寸 + 分辨率） */
+  .phone-spec {
+    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap; font-size: 11px; color: var(--ink-2); font-weight: 600;
+    letter-spacing: .02em;
+  }
+  .phone-spec b { color: var(--ink-1); font-weight: 700; }
+  .phone-spec .dot { margin: 0 6px; color: var(--ink-3); }
   .statusbar {
     display:flex; justify-content:space-between; align-items:center;
-    font-size: 12px; font-weight:700; margin-bottom:6px; padding: 2px 14px 4px; color: var(--ink-1);
-    height: 24px;
-    /* 挖孔机型居中留空（模拟灵动岛/胶囊挖孔位置） */
+    font-size: 12px; font-weight:700; margin-bottom:6px; padding: 2px 16px 4px; color: var(--ink-1);
+    height: 28px;
+    /* iPhone 17 Pro Max 状态栏高度，灵动岛居中 */
     position: relative;
   }
   .statusbar::before {
-    /* 居中挖孔区占位：边缘机型的挖孔在状态栏正中央；内容区（时钟/信号）避开它 */
-    content: ""; position: absolute; left: 50%; top: 2px; transform: translateX(-50%);
-    width: 94px; height: 22px; border-radius: 12px; background: transparent; pointer-events:none;
+    /* iPhone 17 Pro Max 灵动岛：宽 122px 高 37px 圆角 19 */
+    content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+    width: 122px; height: 28px; border-radius: 18px; background: #000; pointer-events:none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.04);
   }
-  .dots { display:flex; gap:3px; align-items:center; }
+  .dark .statusbar::before { background: #000; }
+  .dots { display:flex; gap:3px; align-items:center; position: relative; z-index: 1; }
   .dots span { width:4px; height:4px; border-radius:50%; background: currentColor; opacity:.8; }
+  .statusbar > span:first-child { position: relative; z-index: 1; }
   .screen {
-    height: calc(100% - 28px); border-radius: 28px; overflow: hidden;
+    height: calc(100% - 34px); border-radius: 32px; overflow: hidden;
     background: var(--bg); display: flex; flex-direction: column;
     position: relative;
     /* Edge-to-edge：内容延伸到系统栏下，由内部 padding 控制安全区 */
   }
   /* 屏幕底部手势条（Home Indicator）：悬浮底栏与它保持 6px 间距 */
   .screen::after {
-    content: ""; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-    width: 120px; height: 4px; border-radius: 4px;
+    content: ""; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; border-radius: 4px;
     background: rgba(0,0,0,.2); z-index: 5; pointer-events:none;
   }
   .dark .screen::after { background: rgba(255,255,255,.35); }
+  /* 每个手机底部自动标注机型参数（大众熟知格式） */
+  .phone::after {
+    content: "iPhone 17 Pro Max · 6.9\" · 2868×1320";
+    position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap; font-size: 11px; color: var(--ink-2); font-weight: 600;
+    letter-spacing: .02em;
+  }
 
   /* ===== SukiSU Ultra / LSPosed 风格通用组件 ===== */
 
@@ -399,7 +417,10 @@
 </head>
 <body>
   <h1>方案三 · 调整版（V2）</h1>
-  <div class="sub">视觉参考：<b>SukiSU Ultra 新版（悬浮胶囊底栏 + MIUI X）</b> + Apple iOS 分组卡片 · 字号对齐 MIUI/HyperOS 主流 · 架构可借鉴 LSPosed M3 · 初音绿 #39C5BB</div>
+  <div class="sub">
+    基准机型：<b>iPhone 17 Pro Max · 6.9" · 2868×1320 · 440×956pt · 19.5:9</b>（2025-2026 全球最新旗舰）<br>
+    视觉参考：<b>SukiSU Ultra 新版（悬浮胶囊底栏 + MIUI X）</b> + Apple iOS 分组卡片 · 字号对齐 MIUI/HyperOS 主流 · 架构可借鉴 LSPosed M3 · 初音绿 #39C5BB
+  </div>
 
   <!-- 参考来源 -->
   <div class="refs">
