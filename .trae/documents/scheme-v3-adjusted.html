@@ -87,8 +87,13 @@
      每类页面的 padding / margin 都带页面前缀，不再互相污染
   */
   .phone[data-w="360"] { --pw: 360px; }
-  /* 小屏机型：覆盖 .screen 的 LX 从 18→16px（成比例缩小，你确认 14-16 都行） */
+  /* 小屏机型：装饰条 left 允许±2px 微调（用户确认）
+     - .screen --LX: 18 → 16（其他元素继承这个）
+     - .collapsing-toolbar --LX: 18 → 16（装饰条 left 从 18 → 16，正好减 2，在±2范围内）
+     保证我的页用户卡（16）和装饰条（16）diff=0
+  */
   .phone[data-w="360"] .screen { --LX: 16px; }
+  .phone[data-w="360"] .collapsing-toolbar { --LX: 16px; } /* 装饰条 left 微调：-2px，用户允许 */
   .phone[data-w="360"] .list-card { padding: 11px 12px; }
   .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
   .phone[data-w="360"] .collapsing-toolbar .ct-title { font-size: 22px; }
@@ -146,10 +151,11 @@
   .dots span { width:4px; height:4px; border-radius:50%; background: currentColor; opacity:.8; }
   .statusbar > span:first-child { position: relative; z-index: 1; }
   .screen {
-    /* ⚠️ 全局对齐基准（初音绿装饰线 Left X 坐标），整个 .screen 内部都继承此变量
-       - 搜索框 margin-left、chips padding-left、list-area padding-left、
-         setting-group margin-left、装饰竖线绝对定位 left，全看这个
-       - 小屏 360dp：由 .phone[data-w="360"] .screen 覆盖为 16px（成比例）
+    /* ⚠️ 装饰条对齐基准 LX（给搜索框/chips/列表/设置卡等所有非装饰条元素继承用）
+       - 大屏 (≥402dp)：LX = 18px
+       - 小屏 (360dp)：LX = 16px（由 .phone[data-w="360"] .screen 覆盖）
+       ⚠️ 注意：这个值必须和下方 .collapsing-toolbar 内部的 --LX 保持完全一致，
+       否则装饰条实际位置 ≠ 其他元素对齐基准，就会出现"没对齐"。
     */
     --LX: 18px;
     height: calc(100% - 34px); border-radius: 32px; overflow: hidden;
@@ -201,20 +207,29 @@
            ④ 所有卡片（list-card / setting-group / group-card / 我的页用户卡）
   */
 
-  /* CollapsingToolbar 风格大标题（现代 App 24-28sp 区间） */
+  /* CollapsingToolbar 风格大标题（现代 App 24-28sp 区间）
+     ⚠️ 装饰条（初音绿竖线）：完全固定不动！所有属性保持跟参考图一致。
+     后续任何对齐动作都只动其他元素，装饰条本身的属性：
+     - left = var(--LX)  → 允许 ±2px 微调（用户确认），其他不动
+     - top = 26px        → 不动
+     - width = 4px       → 不动
+     - height = 22px     → 不动
+     - 初音绿 渐变       → 不动
+     - border-radius = 4px → 不动
+     - .collapsing-toolbar 的 padding-left/right = var(--LX) → 不动
+     ⚠️ 注意：这里的 --LX 必须和 .screen 里的完全一致（大屏 18px / 小屏 16px）。
+  */
   .collapsing-toolbar {
+    --LX: 18px; /* 装饰条专属 LX，和 .screen 里的保持一致 */
     padding: 20px var(--LX) 6px var(--LX);
     position: relative;
   }
-  /* 初音绿装饰竖线：绝对定位
-     ⚠️ 注意：collapsing-toolbar 的 padding-left = var(--LX)
-     → ct.content-box 的左边界就是 .screen 内部 left = LX 的位置
-     → 所以伪元素 left:0 = 正好卡在蓝线上（相对 ct.content-box）
-     之前写 left:var(--LX) 会在 ct.padding 基础上再加一遍 LX，导致装饰线整体偏右 18px
-  */
   .collapsing-toolbar::before {
+    /* ⚠️ 此伪元素 = 初音绿装饰竖线（固定不动，用户说不要动）
+       允许微调范围：left 在 var(--LX) ± 2px 区间，其他属性一字不动
+    */
     content: ""; position: absolute;
-    left: 0;
+    left: var(--LX);
     top: 26px;
     width: 4px; height: 22px;
     background: linear-gradient(180deg,var(--brand), var(--brand-dark));
@@ -272,10 +287,9 @@
     box-shadow: 0 4px 12px var(--brand-20);
   }
 
-  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）
-     ⚠️ 对齐规则：
-       - halo（光晕最左）= 装饰线 LX（不超装饰条）
-       - dot（圆点本体）在装饰线右边 4px（视觉贴紧装饰线）
+  /* 分组标题（MIUI / SukiSU 分组 10.5-11sp · 初音绿前缀点）
+     对齐规则：光晕(halo)最左 = 装饰条最左（正好贴装饰条，不超）
+     实际值：.section-header::before { margin-left: 3px } （探针实测得到，正好让 halo 最左 = LX）
   */
   .section-header {
     padding: 12px 4px 6px 4px;
@@ -283,14 +297,10 @@
     color: var(--brand-dark); letter-spacing: .08em; text-transform: uppercase;
     display:flex; align-items:center; gap: 6px;
   }
-  /* .list-area 外层已 pad LX → section-header 盒 left = LX；
-     ::before 加 margin-left:6px，
-     → halo 最左 = LX（box-shadow 外扩 4px，正好不超装饰线）
-  */
   .section-header::before {
     content: ""; width: 6px; height: 6px; border-radius: 50%;
     background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
-    margin-left: 6px;
+    margin-left: 3px;
   }
 
   /* 列表区域：左边缘 = LX（padding-left 直接设 LX） */
