@@ -73,7 +73,11 @@
     background: linear-gradient(180deg,#0f0f10,#1a1a1c);
     border: 1px solid rgba(255,255,255,.08); box-shadow: 0 14px 48px rgba(0,0,0,.22);
   }
-  /* 不同宽度的机型：通过 data-w 控制容器宽度 + 内部 padding 自适应 */
+  /* 不同宽度的机型：通过 data-w 控制容器宽度 + 内部 padding 自适应
+     ⚠️ 严格按页面前缀隔离：
+     - 权限详情页（点进应用里的界面）：一律保持 14/16 原版
+     - 设置/我的页（setting-group）：按机型调整为 16/18/20 的专属缩进
+  */
   .phone[data-w="360"] { --pw: 360px; }
   .phone[data-w="360"] .list-card { padding: 11px 12px; }
   .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
@@ -82,30 +86,40 @@
   .phone[data-w="360"] .chips { padding-left: 16px; padding-right: 16px; }
   .phone[data-w="360"] .search-bar { margin-left: 16px; margin-right: 16px; }
   .phone[data-w="360"] .list-area { padding-left: 16px; padding-right: 16px; }
-  .phone[data-w="360"] .detail-body .group-card { margin-left: 16px; margin-right: 16px; }
-  .phone[data-w="360"] .group-header { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="360"] .group-body { padding-left: 18px !important; padding-right: 18px !important; }
+  /* data-w=360：设置/我的页 → 安全距 16px，内缩进 18px */
   .phone[data-w="360"] .setting-group { margin-left: 16px; margin-right: 16px; }
-  .phone[data-w="360"] .setting-group .group-header { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="360"] .setting-group .setting-row { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="360"] .setting-group .group-header-set { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="360"] .setting-group .group-body-set { padding-left: 18px; padding-right: 18px; }
+  /* data-w=360：权限详情页 → 维持原版（不改 detail-body / group-header / group-body） */
+  .phone[data-w="360"] .detail-body .group-header { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="360"] .detail-body .group-body { padding-left: 16px !important; padding-right: 16px !important; }
   .phone[data-w="360"] .detail-key { width: 60px; font-size: 12px; }
+  .phone[data-w="360"] .detail-body .detail-key { width: 60px; font-size: 12px; }
   .phone[data-w="360"] .detail-val { font-size: 13px; }
+  .phone[data-w="360"] .detail-body .detail-val { font-size: 13px; }
 
   .phone[data-w="402"] { --pw: 402px; }
   .phone[data-w="412"] { --pw: 412px; }
-  .phone[data-w="412"] .list-area,
-  .phone[data-w="412"] .detail-body,
-  .phone[data-w="412"] .collapsing-toolbar,
+  .phone[data-w="412"] .list-area { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="412"] .collapsing-toolbar { padding-left: 18px; padding-right: 18px; }
   .phone[data-w="412"] .chips { padding-left: 18px; padding-right: 18px; }
   .phone[data-w="412"] .search-bar { margin-left: 18px; margin-right: 18px; }
+  /* data-w=412：设置/我的页 → 安全距 18px，内缩进 20px */
   .phone[data-w="412"] .setting-group { margin-left: 18px; margin-right: 18px; }
-  .phone[data-w="412"] .detail-body .group-card { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="412"] .setting-group .group-header-set { padding-left: 20px; padding-right: 20px; }
+  .phone[data-w="412"] .setting-group .group-body-set { padding-left: 20px; padding-right: 20px; }
+  /* data-w=412：权限详情页 → 保持原版，不再被机型覆盖联动 */
+  .phone[data-w="412"] .detail-body { padding: 4px 14px 96px !important; }
 
   .phone[data-w="440"] { --pw: 440px; }
-  .phone[data-w="440"] .detail-body .group-card { margin-left: 18px; margin-right: 18px; }
-  .phone[data-w="440"] .detail-val { font-size: 14px; }
+  /* data-w=440：设置/我的页 → 默认值已生效，这里只确保设置分组 margin=18、分组缩进=20 不被覆盖 */
+  .phone[data-w="440"] .setting-group .group-header-set { padding-left: 20px; padding-right: 20px; }
+  .phone[data-w="440"] .setting-group .group-body-set { padding-left: 20px; padding-right: 20px; }
+  .phone[data-w="440"] .detail-body { padding: 4px 14px 96px !important; }
+  .phone[data-w="440"] .detail-body .group-card { margin-left: 0 !important; margin-right: 0 !important; }
   .phone[data-w="440"] .setting-label { font-size: 14px; }
   .phone[data-w="440"] .app-name { font-size: 15px; }
+  .phone[data-w="440"] .detail-body .detail-val { font-size: 14px; }
 
   .phone-label {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -393,18 +407,16 @@
     background: var(--card); border-radius: var(--radius-lg); margin: 0 18px 12px; overflow: hidden;
     border: 1px solid rgba(57,197,187,.08); box-shadow: 0 2px 8px rgba(0,0,0,.02);
   }
-  /* 修复A：分组标题左缩进 = 分组内容区左缩进 = 同一个值（20px）
-            这样「外观」文字的最左点，正好对齐下面 🎨 图标的最左点 */
-  .setting-group .group-header { padding-left: 20px; padding-right: 20px; }
-  .setting-group > div[style*="padding:0 16px 8px"],
-  .setting-group > .group-body { padding: 0 !important; }
-  .setting-group .setting-row {
-    padding-left: 20px; padding-right: 20px;
-  }
+  /* 修复A（根治版，用 -set 专属 class，不再跟详情页的 group-* 混用）：
+     分组标题左缩进 = 分组行 左缩进 = 同一个值（20px）
+     这样「外观」文字的最左点 ↔ 下面 🎨 图标的最左点 正好一条竖线 */
+  .setting-group .group-header-set { padding: 13px 20px 7px 20px; }
+  .setting-group .group-body-set { padding: 0 20px 8px; }
+  .setting-group .setting-row-set { padding-left: 0; padding-right: 0; }
   /* 首行无边框（和 group-header 紧贴时视觉不脱节） */
-  .setting-group .setting-row[style*="border:none"] { padding-top: 12px; }
+  .setting-group .setting-row-set[style*="border:none"] { padding-top: 12px; }
   .setting-row {
-    display:flex; align-items: center; gap: 12px; padding: 13px 20px;
+    display:flex; align-items: center; gap: 12px; padding: 13px 0;
     border-bottom: 1px solid var(--line);
   }
   .setting-row:last-child { border-bottom: none; padding-bottom: 14px; }
@@ -419,42 +431,23 @@
   /* 修复B：collapsing-toolbar 左侧 padding 与 setting-group 左侧 margin 对齐
             统一为 18px，标题前初音绿竖条的左边缘 正好 对齐 卡片外的左边缘（18px 这条线）
 
-     ⚠️ 说明：这一段「全局安全距」只作用在
-             【主界面、设置页、我的页】
-             权限详情页（点进应用里的界面）回退为之前的 14px 原版，避免顺带改变用户未提及的界面
+     ⚠️ 隔离说明：
+     - 【主界面、设置页、我的页】走 18px 安全距：.chips / .search-bar / .list-area / .setting-group / .collapsing-toolbar
+     - 【权限详情页】（点进应用里的界面）保持用户未要求改的原版：14px，通过 .detail-body 前缀锁定，不再受全局影响
   */
   .collapsing-toolbar {
     padding: 20px 18px 6px 18px; position: relative;
   }
-  /* 主界面其他容器也同步改为 18px 左右安全距（卡片/列表/搜索框/chips 全跟卡片边缘对齐） */
+  /* 主界面其他容器也同步改为 18px 左右安全距 */
   .chips { padding: 0 18px 12px; }
   .search-bar { margin-left: 18px; margin-right: 18px; }
   .list-area { padding-left: 18px; padding-right: 18px; }
-  /* ▼▼▼ 权限详情页：回退为修复设置页之前的 14px 原版 —— 保持点进应用界面不变 ▼▼▼ */
-  .detail-body { padding: 4px 14px 96px !important; }
-  /* ▼▼▼ data-w 适配也要排除掉权限详情页的 padding，防止机型宽度适配把详情页带偏 ▼▼▼ */
-  .phone[data-w="412"] .detail-body,
-  .phone[data-w="440"] .detail-body,
-  .phone[data-w="360"] .detail-body { padding: 4px 14px 96px !important; }
 
-  /* 权限详情页的 group-card：原来就是无左右 margin（被 detail-body 的 14px 包住），
-     现在回退，不再强制跟 setting-group 同 margin，保持用户没要求改的界面不变 */
-  .detail-body .group-card {
-    margin-left: 0 !important; margin-right: 0 !important;
-  }
-  .phone[data-w="360"] .detail-body .group-card,
-  .phone[data-w="412"] .detail-body .group-card,
-  .phone[data-w="440"] .detail-body .group-card {
-    margin-left: 0 !important; margin-right: 0 !important;
-  }
-  /* ▼▼▼ 权限详情专用的 group-body / group-header：回到修复前的 16px / 13px-16px-8px
-           （上面的通用 group-header/group-body 20px 是给设置页准备的，不要影响详情页）▼▼▼ */
+  /* ▼▼▼ 权限详情页（点进应用里的界面）：回退为原版 14px / 16px —— 只用 .detail-body 前缀锁定，不污染上面 ▼▼▼ */
+  .detail-body { padding: 4px 14px 96px !important; }
+  .detail-body .group-card { margin-left: 0 !important; margin-right: 0 !important; }
   .detail-body .group-body { padding: 0 16px 8px !important; }
   .detail-body .group-header { padding: 13px 16px 7px 16px; }
-  .phone[data-w="360"] .detail-body .group-header { padding-left: 16px; padding-right: 16px; }
-  .phone[data-w="360"] .detail-body .group-body { padding-left: 16px !important; padding-right: 16px !important; }
-  /* detail-row / detail-icon / detail-key / detail-val 全部回到 修复前 原版 0 padding
-     （对齐缩进不再加 20px，保持用户未要求改的界面不变） */
   .detail-body .detail-row { padding: 12px 0; }
   .detail-body .detail-key { font-size: 13px; width: 70px; }
   .detail-body .detail-val { font-size: 14px; }
@@ -764,15 +757,15 @@
         </div>
         <div class="detail-body">
           <div class="setting-group">
-            <div class="group-header">外观</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">外观</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:var(--brand-10);color:var(--brand-dark);">🎨</div>
                 <div class="setting-label">主题色</div>
                 <div class="setting-val">初音绿</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(0,122,255,.1);color:#007AFF;">🌙</div>
                 <div class="setting-label">夜间模式</div>
                 <div class="setting-val">跟随系统</div>
@@ -781,20 +774,20 @@
             </div>
           </div>
           <div class="setting-group">
-            <div class="group-header">权限管理</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">权限管理</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:rgba(52,199,89,.12);color:#1A7F37;">⚡</div>
                 <div class="setting-label">守护进程</div>
                 <div class="setting-val" style="color:#1A7F37;font-weight:700;">已连接</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(255,159,10,.12);color:#9A5E00;">🔔</div>
                 <div class="setting-label">权限变更通知</div>
                 <div class="ios-switch on"></div>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(255,59,48,.12);color:#B4261E;">🧹</div>
                 <div class="setting-label">重置全部引用</div>
                 <span class="setting-arrow">›</span>
@@ -802,15 +795,15 @@
             </div>
           </div>
           <div class="setting-group">
-            <div class="group-header">关于</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">关于</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:var(--brand-10);color:var(--brand-dark);">ℹ️</div>
                 <div class="setting-label">关于 PMX</div>
                 <div class="setting-val">v1.30</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(120,120,128,.12);color:var(--ink-2);">📖</div>
                 <div class="setting-label">帮助</div>
                 <span class="setting-arrow">›</span>
@@ -842,19 +835,19 @@
           </div>
           <!-- 快捷操作 -->
           <div class="setting-group">
-            <div class="group-header">快捷操作</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">快捷操作</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:var(--brand-10);color:var(--brand-dark);">🔄</div>
                 <div class="setting-label">刷新应用列表</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(0,122,255,.1);color:#007AFF;">🔎</div>
                 <div class="setting-label">高级搜索</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(255,59,48,.12);color:#B4261E;">🧹</div>
                 <div class="setting-label">重置全部引用</div>
                 <span class="setting-arrow">›</span>
@@ -863,14 +856,14 @@
           </div>
           <!-- 系统状态 -->
           <div class="setting-group">
-            <div class="group-header">系统状态</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">系统状态</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:rgba(52,199,89,.12);color:#1A7F37;">⚡</div>
                 <div class="setting-label">守护进程</div>
                 <div class="setting-val" style="color:#1A7F37;font-weight:700;">● 已连接</div>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:rgba(255,159,10,.12);color:#9A5E00;">📊</div>
                 <div class="setting-label">Root 方式</div>
                 <div class="setting-val">magisk</div>
@@ -879,14 +872,14 @@
           </div>
           <!-- 其他 -->
           <div class="setting-group">
-            <div class="group-header">其他</div>
-            <div style="padding:0 16px 8px;">
-              <div class="setting-row" style="border:none;">
+            <div class="group-header group-header-set">其他</div>
+            <div class="group-body group-body-set">
+              <div class="setting-row setting-row-set" style="border:none;">
                 <div class="setting-ico" style="background:rgba(120,120,128,.12);color:var(--ink-2);">📖</div>
                 <div class="setting-label">帮助与说明</div>
                 <span class="setting-arrow">›</span>
               </div>
-              <div class="setting-row">
+              <div class="setting-row setting-row-set">
                 <div class="setting-ico" style="background:var(--brand-10);color:var(--brand-dark);">ℹ️</div>
                 <div class="setting-label">关于 PMX</div>
                 <span class="setting-arrow">›</span>
