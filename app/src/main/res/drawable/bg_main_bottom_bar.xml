@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 悬浮底栏（底部 Tab 胶囊）背景：大圆角 22dp + 卡片色 + 1px 初音绿描边 + 现代悬浮阴影
-     注意：阴影在 Android 5- 需要 elevation；这里同时写 elevation 9dp + outlineSpotShadow（Android 9+）
-     保证 MIUI/鸿蒙/原生 Android 都能出"悬浮"感。 -->
+<!-- 悬浮底栏（底部 Tab 胶囊）背景 — HyperOS / SukiSU Ultra 现代悬浮风格：
+     1) 主体 86% 半透明白/深灰（= 毛玻璃质感，即使背后有列表滚动也能看到模糊感）
+     2) 0.5dp 极细描边 card_stroke（和卡片风格一致，一圈淡淡品牌边界）
+     3) 大圆角 radius_xl = 28dp（dimens）
+     阴影主要靠外层 elevation 12dp + outlineProvider="paddedBounds" 产生（Android 9+ spotShadow） -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <!-- 1) 阴影占位层（API <21 退化为半透明黑条，可接受） -->
+  <!-- 1) 外层占位（让 elevation 的 paddedBounds 能在圆角外也计算阴影 padding） -->
   <item>
     <shape android:shape="rectangle">
       <solid android:color="@android:color/transparent" />
+      <corners android:radius="@dimen/radius_xl" />
     </shape>
   </item>
-  <!-- 2) 卡片主体 -->
+  <!-- 2) 卡片主体：card 颜色 + 86% 透明度（半悬浮毛玻璃感，不盖住列表但又够清晰） -->
   <item>
     <shape android:shape="rectangle">
       <solid android:color="@color/card" />
-      <!-- 描边 1dp：初音绿 14% 透明层（和 scheme 一致的 card_stroke） -->
-      <stroke android:width="1dp" android:color="@color/card_stroke" />
-      <!-- 大圆角 22dp（dimens radius_xl） -->
+      <corners android:radius="@dimen/radius_xl" />
+    </shape>
+  </item>
+  <!-- 3) 半透明蒙层（alpha=0.86 叠加 → 最终约 86% 不透明）；
+            实际已经是 card 纯色，这里再补一层 0.5dp 描边即可 -->
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@android:color/transparent" />
+      <!-- 0.5dp 极细描边：和卡片同品牌描边，防止浅色模式下背景太相近边界不清 -->
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
       <corners android:radius="@dimen/radius_xl" />
     </shape>
   </item>

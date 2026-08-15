@@ -15,11 +15,16 @@
   android:layout_marginBottom="@dimen/card_gap"
   android:orientation="vertical">
 
-  <!-- 外层大圆角卡片，点击态自带初音绿5%提亮（bg_list_card selector） -->
+  <!-- 外层大圆角卡片，点击态自带初音绿10%提亮（bg_list_card selector）
+       elevation=3dp + outlineProvider=background → 柔和投影（MIUI 阴影：扩散大、强度弱，不生硬）
+       translationZ=1dp → Android 5+ 强制把阴影渲染在 z 轴，不和背景层混色 -->
   <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_list_card"
+    android:elevation="3dp"
+    android:translationZ="1dp"
+    android:outlineProvider="background"
     android:addStatesFromChildren="true">
 
     <!-- 状态指示色条（ref_indication_v）：宽 4dp 贴卡片左内边，match_parent 高度；
@@ -83,7 +88,8 @@
           android:textSize="@dimen/text_pkg_name"
           android:textAlignment="viewStart" />
 
-        <!-- 行3：状态标签（Disabled/Framework/System...）→ 居左；gone 时不占空间 -->
+        <!-- 行3：状态标签（Disabled/Framework/System...）→ 居左；gone 时不占空间
+             颜色用 ?attr/accentColor = 初音绿 brand：浅色=深初音绿，暗黑=纯初音绿（避免 brand_dark 在暗黑太暗看不见） -->
         <TextView
           android:id="@+id/pkg_state_v"
           android:layout_width="match_parent"
@@ -91,7 +97,7 @@
           android:layout_marginTop="2dp"
           android:ellipsize="end"
           android:maxLines="1"
-          android:textColor="@color/brand_dark"
+          android:textColor="?attr/accentColor"
           android:textSize="11.5sp"
           android:textStyle="bold"
           android:textAlignment="viewStart"

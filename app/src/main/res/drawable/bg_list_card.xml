@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 应用列表/分组卡片背景：大圆角 radius_lg (20dp) + 卡片色 card + 1dp card_stroke 细描边
-     + 按 android:state_pressed 时初音绿 5% 提亮（点击反馈）。
-     对齐规则：卡片自身 marginStart=LX，左边缘绝不会越过初音绿装饰竖线。 -->
+<!-- 应用列表/分组卡片背景 — MIUI X + 苹果风格：
+     - 普通态：card 纯色 + 0.5dp 极细 card_stroke 描边 + radius_lg（18dp）大圆角
+     - 按下态：10% 初音绿提亮（brand_10）+ 描边临时加粗到 1dp 初音绿 brand_20
+     外层配合 elevation="3dp" + outlineProvider="background" → 柔和阴影（阴影不要太硬，MIUI 的卡片阴影都是扩散大、强度弱） -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true">
     <layer-list>
       <item>
         <shape android:shape="rectangle">
-          <solid android:color="@color/brand_5" />
+          <!-- 按下时最底层：初音绿 10% 提亮（让整个卡片颜色有一层品牌色提亮） -->
+          <solid android:color="@color/brand_10" />
           <corners android:radius="@dimen/radius_lg" />
         </shape>
       </item>
       <item>
         <shape android:shape="rectangle">
+          <!-- 主卡片色：按下时还能透出底层品牌绿提亮 → 用接近纯白 card（叠加效果） -->
           <solid android:color="@color/card" />
+          <!-- 按下时描边加粗 + 初音绿 20% 透明，视觉反馈更明显 -->
           <stroke android:width="1dp" android:color="@color/brand_20" />
           <corners android:radius="@dimen/radius_lg" />
         </shape>
@@ -23,7 +27,8 @@
   <item>
     <shape android:shape="rectangle">
       <solid android:color="@color/card" />
-      <stroke android:width="1dp" android:color="@color/card_stroke" />
+      <!-- 普通态：0.5dp 极细描边，让卡片和背景有干净的边界（浅色/深色都需要） -->
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
       <corners android:radius="@dimen/radius_lg" />
     </shape>
   </item>

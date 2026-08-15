@@ -14,8 +14,8 @@
   <!-- 圆角：略缩小，仍大圆角 -->
   <dimen name="radius_sm">9dp</dimen>
   <dimen name="radius_md">12dp</dimen>
-  <dimen name="radius_lg">18dp</dimen>
-  <dimen name="radius_xl">20dp</dimen>
+  <dimen name="radius_lg">16dp</dimen>   <!-- 小屏 18→16（大屏 radius_lg 20→18，按比例同步） -->
+  <dimen name="radius_xl">26dp</dimen>   <!-- 小屏 20→26（大屏 radius_xl 22→28，按比例同步） -->
 
   <!-- 图标缩小（8%） -->
   <dimen name="app_icon_size">40dp</dimen>
@@ -24,7 +24,7 @@
   <!-- 卡内间距略缩小（更紧凑） -->
   <dimen name="card_padding_h">12dp</dimen>
   <dimen name="card_padding_v">11dp</dimen>
-  <dimen name="card_gap">8dp</dimen>
+  <dimen name="card_gap">10dp</dimen>   <!-- 小屏 8→10（大屏 card_gap 10→12，按比例同步，更透气） -->
 
   <!-- 分组缩进 20 → 18dp（更紧凑） -->
   <dimen name="pad_xl">16dp</dimen>
@@ -33,9 +33,9 @@
   <dimen name="text_title">24sp</dimen>
   <dimen name="text_app_name">13.5sp</dimen>
 
-  <!-- 悬浮底栏略低：64 → 60dp，底部间距 12 → 10dp -->
-  <dimen name="bottom_bar_height">60dp</dimen>
+  <!-- 悬浮底栏略低：64 → 58dp（大屏 64→62，按比例同步薄胶囊），底部间距 10 → 14dp（大屏 12→18，按比例悬浮感更强） -->
+  <dimen name="bottom_bar_height">58dp</dimen>
   <dimen name="bottom_bar_margin_h">14dp</dimen>
-  <dimen name="bottom_bar_margin_bottom">10dp</dimen>
+  <dimen name="bottom_bar_margin_bottom">14dp</dimen>
 
 </resources>

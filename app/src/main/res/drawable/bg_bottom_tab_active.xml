@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 悬浮底栏 Tab 激活态高亮（SukiSU Ultra 风格）：初音绿 10% 半透明 + 16dp 圆角胶囊
+     激活项的整个 LinearLayout 背景 = 这个 drawable（图标+文字已经 tint=brand，再加一层背景高亮） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="@color/brand_10" />
+  <corners android:radius="16dp" />
+</shape>

@@ -121,6 +121,7 @@
            ⚠️ 这是 UI 层占位（Tab 视觉：权限/设置/我的）；Java 侧的 Drawer nav_v 仍保留（点击逻辑暂不动，
            下一批再改 Intent 跳转）。
            对齐：左右 margin = @dimen/bottom_bar_margin_h = LX（与装饰条对齐）
+           HyperOS/SukiSU 悬浮：elevation 12dp + translationZ 3dp（柔和浮动阴影）；圆角 28dimens radius_xl
       -->
       <FrameLayout
         android:id="@+id/main_bottom_bar"
@@ -131,8 +132,10 @@
         android:layout_marginEnd="@dimen/bottom_bar_margin_h"
         android:layout_marginBottom="@dimen/bottom_bar_margin_bottom"
         android:background="@drawable/bg_main_bottom_bar"
-        android:elevation="9dp"
-        android:outlineProvider="paddedBounds">
+        android:elevation="12dp"
+        android:translationZ="3dp"
+        android:outlineProvider="paddedBounds"
+        android:paddingHorizontal="6dp">
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -140,12 +143,15 @@
           android:orientation="horizontal"
           android:weightSum="3">
 
-          <!-- Tab 1: 权限（默认激活=初音绿） -->
+          <!-- Tab 1: 权限（默认激活=初音绿 + 高亮胶囊背景 bg_bottom_tab_active） -->
           <LinearLayout
             android:id="@+id/tab_permissions"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="6dp"
+            android:background="@drawable/bg_bottom_tab_active"
             android:orientation="vertical"
             android:gravity="center"
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
@@ -167,12 +173,15 @@
 
           </LinearLayout>
 
-          <!-- Tab 2: 设置（未激活=ink_2） -->
+          <!-- Tab 2: 设置（未激活=ink_2 + 透明背景占位，保证三个 Tab 左右 margin 一致宽度相等） -->
           <LinearLayout
             android:id="@+id/tab_settings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="6dp"
+            android:background="@android:color/transparent"
             android:orientation="vertical"
             android:gravity="center"
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
@@ -193,12 +202,15 @@
 
           </LinearLayout>
 
-          <!-- Tab 3: 我的（未激活=ink_2），资源里没"我的"图标的话先用 g_accounts 占位，不影响编译 -->
+          <!-- Tab 3: 我的（未激活=ink_2 + 透明背景占位） -->
           <LinearLayout
             android:id="@+id/tab_profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="6dp"
+            android:background="@android:color/transparent"
             android:orientation="vertical"
             android:gravity="center"
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">

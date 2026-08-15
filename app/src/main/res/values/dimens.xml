@@ -12,8 +12,8 @@
   <!-- ===== 圆角 ===== -->
   <dimen name="radius_sm">10dp</dimen>   <!-- 小图标/小按钮（权限详情页 icon 背景） -->
   <dimen name="radius_md">14dp</dimen>   <!-- chip 胶囊 / 搜索框 圆角 -->
-  <dimen name="radius_lg">20dp</dimen>   <!-- 应用列表卡片 / 设置分组卡片 / 用户卡片 圆角 -->
-  <dimen name="radius_xl">22dp</dimen>   <!-- 悬浮底栏胶囊 圆角（大一圈，悬浮感） -->
+  <dimen name="radius_lg">18dp</dimen>   <!-- 应用列表卡片 / 设置分组卡片 / 用户卡片 圆角（20→18：更紧凑精致，不抢底栏风头） -->
+  <dimen name="radius_xl">28dp</dimen>   <!-- 悬浮底栏胶囊 圆角（22→28：HyperOS/SukiSU 大圆角悬浮，越圆越"飘"） -->
 
   <!-- ===== 对齐基准（装饰条 Left X）===== -->
   <dimen name="align_LX">18dp</dimen>   <!-- 大屏：440/412/402dp 机型通用 18dp -->
@@ -46,13 +46,13 @@
 
   <!-- ===== 列表项 ===== -->
   <dimen name="card_padding_h">14dp</dimen>  <!-- 卡片左右 padding -->
-  <dimen name="card_padding_v">13dp</dimen>  <!-- 卡片上下 padding -->
-  <dimen name="card_gap">10dp</dimen>        <!-- 相邻卡片间距（RecyclerView item 间距） -->
+  <dimen name="card_padding_v">12dp</dimen>  <!-- 卡片上下 padding（13→12：更紧凑） -->
+  <dimen name="card_gap">12dp</dimen>        <!-- 相邻卡片间距（10→12：更透气，符合 MIUI 呼吸感） -->
 
   <!-- ===== 悬浮底栏（底部 Tab）===== -->
-  <dimen name="bottom_bar_height">64dp</dimen>   <!-- 底栏总高度 -->
-  <dimen name="bottom_bar_margin_h">16dp</dimen> <!-- 底栏左右距离屏幕边缘 -->
-  <dimen name="bottom_bar_margin_bottom">12dp</dimen><!-- 底栏距离屏幕最下（含 Home Indicator 安全区） -->
+  <dimen name="bottom_bar_height">62dp</dimen>   <!-- 底栏总高度（64→62：更薄更精致，HyperOS/SukiSU 悬浮都是薄胶囊） -->
+  <dimen name="bottom_bar_margin_h">16dp</dimen> <!-- 底栏左右距离屏幕边缘（=LX 对齐装饰条） -->
+  <dimen name="bottom_bar_margin_bottom">18dp</dimen><!-- 底栏距离屏幕最下（12→18：离 Home Indicator 更远，悬浮感更强） -->
   <dimen name="bottom_bar_tab_padding_v">8dp</dimen> <!-- Tab 图标+文字 上下 padding -->
 
 </resources>
