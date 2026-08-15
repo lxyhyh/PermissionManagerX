@@ -206,10 +206,15 @@
     padding: 20px var(--LX) 6px var(--LX);
     position: relative;
   }
-  /* 初音绿装饰竖线：绝对定位，固定 left = LX，不再受文字行高/内联盒影响 */
+  /* 初音绿装饰竖线：绝对定位
+     ⚠️ 注意：collapsing-toolbar 的 padding-left = var(--LX)
+     → ct.content-box 的左边界就是 .screen 内部 left = LX 的位置
+     → 所以伪元素 left:0 = 正好卡在蓝线上（相对 ct.content-box）
+     之前写 left:var(--LX) 会在 ct.padding 基础上再加一遍 LX，导致装饰线整体偏右 18px
+  */
   .collapsing-toolbar::before {
     content: ""; position: absolute;
-    left: var(--LX);
+    left: 0;
     top: 26px;
     width: 4px; height: 22px;
     background: linear-gradient(180deg,var(--brand), var(--brand-dark));
@@ -267,10 +272,10 @@
     box-shadow: 0 4px 12px var(--brand-20);
   }
 
-  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）：
-     ⚠️ 注意：list-area 外层已经 padding: 0 var(--LX)，
-     所以 section-header 作为 list-area 的直接子元素，左边框已经在 LX 位置。
-     这里的 padding-left 只给小圆点+光晕的内部呼吸空间，不要再加 LX（否则就是 2 倍缩进）
+  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）
+     ⚠️ 对齐规则：
+       - halo（光晕最左）= 装饰线 LX（不超装饰条）
+       - dot（圆点本体）在装饰线右边 4px（视觉贴紧装饰线）
   */
   .section-header {
     padding: 12px 4px 6px 4px;
@@ -278,9 +283,14 @@
     color: var(--brand-dark); letter-spacing: .08em; text-transform: uppercase;
     display:flex; align-items:center; gap: 6px;
   }
+  /* .list-area 外层已 pad LX → section-header 盒 left = LX；
+     ::before 加 margin-left:6px，
+     → halo 最左 = LX（box-shadow 外扩 4px，正好不超装饰线）
+  */
   .section-header::before {
     content: ""; width: 6px; height: 6px; border-radius: 50%;
     background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
+    margin-left: 6px;
   }
 
   /* 列表区域：左边缘 = LX（padding-left 直接设 LX） */
@@ -465,6 +475,20 @@
   .setting-label { flex:1; font-size: 13.5px; font-weight: 600; }
   .setting-val { font-size: 12.5px; color: var(--ink-2); }
   .setting-arrow { color: var(--ink-3); font-size: 15px; }
+
+  /* 设置页：分组卡 .setting-group 在 .detail-body 内部
+     做法：.detail-body padding-left/right = LX → setting-group 盒子的最左边 = LX
+     然后 .setting-group 的 margin-left 归零（因为外层已经对齐了 LX，再 margin 就重复了）
+     → 之前实测 within=14(detail-body.pad)+18(group.margin)=32，差+14
+     → 改完 within=18+0=18，差 0 ✓
+  */
+  .set-page .detail-body {
+    padding: 4px var(--LX) 96px !important;
+  }
+  .set-page .setting-group {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 
   /* 我的页：顶部用户卡（group-card）的外边缘 = LX
      做法：.detail-body padding-left/right = LX，让里面的 group-card 最左边 = LX
