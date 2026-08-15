@@ -51,6 +51,13 @@
   <string name="settings">设置</string>
   <!-- CHAR LIMIT: 20 -->
   <string name="search_hint_app_or_perm">搜索应用或权限</string>
+  <!-- L 空态占位文字（RecyclerView empty_view）
+       no_apps_installed：空态大标题「暂无应用」（当没有应用 / 搜索无结果时显示）
+       no_permission_filtered：空态副标题（引导用户调整筛选条件或清空筛选）
+       clear_filters：空态 CTA 清除筛选按钮，点击清空所有 Chip/Menu 过滤器（逻辑后续 Java 接，先占位） -->
+  <string name="no_apps_installed">暂无应用</string>
+  <string name="no_permission_filtered">尝试调整筛选条件或搜索关键词</string>
+  <string name="clear_filters">清除筛选条件</string>
   <!-- Chip 筛选器文案（全部 / 用户应用 / 系统） -->
   <!-- CHAR LIMIT: 10 -->
   <string name="filter_all">全部</string>

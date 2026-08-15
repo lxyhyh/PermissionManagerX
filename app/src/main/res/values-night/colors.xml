@@ -5,15 +5,27 @@
        ⚠️ 文字对比度全部按 WCAG AA 4.5:1 做过计算（背景 #0E0E10）：
        - ink_1  #FFFFFF vs #0E0E10  = 17.2 : 1  ✅ AAA
        - ink_2  #B0B0B6 vs #0E0E10  =  8.1 : 1  ✅ AA
-       - ink_3  #7A7A80 vs #0E0E10  =  4.6 : 1  ✅ AA （最小达标，chip 非激活文字就是它，符合你之前的反馈）
-       - chip 非激活文字 #7A7A80 对 深色 chip 背景 #1C1C1E = 4.52 : 1 ✅ AA
+       - ink_3  #94949A vs #0E0E10  =  6.1 : 1  ✅ AA（对 search_bg 5.01, card 5.01 全 AA）
+       - chip 非激活文字 ink_3 对 深色 chip 背景 #232325 = 4.56 : 1 ✅ AA
   -->
 
   <!-- ===== 文字层级（深色覆盖） ===== -->
   <color name="ink_1">#FFFFFF</color>          <!-- 主文字：纯白 -->
   <color name="ink_2">#B0B0B6</color>          <!-- 次文字：浅灰（对比度 8.1） -->
-  <color name="ink_3">#94949A</color>          <!-- 三级：原8A8A90 vs搜索框search_bg(262628)=4.4 FAIL → 94949A 对bg=6.12 对card=5.01 对search_bg=5.01 对chip=4.56 全AA ✓ -->
+  <color name="ink_3">#94949A</color>          <!-- 三级：与背景对比度 6.12 / card=5.01 / search_bg=5.01 / chip=4.56 全AA ✓ -->
   <color name="sharpText">#FFFFFF</color>      <!-- 兼容原 API：同 ink_1 纯白 -->
+
+  <!-- ===== M 暗黑逐屏：品牌透明层级加深（在浅色基础上 ×2 强度，暗黑背景不被淹没）
+       brand_5  5% → 10%：分组标题小圆点外层光晕，暗黑下 10% 才能看见柔和品牌色晕圈（原 5% 几乎透明=没光晕）
+       brand_10 10% → 20%：卡片/设置行按下 brand_10 蒙层，暗黑下更明显的品牌色反馈（原10%太淡）；底栏选中 bg 也更显著
+       brand_20 20% → 30%：卡片按下描边加粗 brand_20 / chip 激活背景未加深时/副标题装饰，暗黑下 30% 初音绿与 card#1C1C1E 对比显著
+       brand_50 50% → 60%：悬浮底栏上层渐变，暗黑下品牌色渐变更强，从底栏能看出初音绿过渡
+       brand_75 75% → 85%：品牌装饰竖条起端，暗黑下从 85% 到 100% brand 更丝滑，装饰条清晰可辨 -->
+  <color name="brand_5">#1A39C5BB</color>      <!-- 暗黑 5%→10%：section header 圆点光晕（原 5%太淡几乎不可见 → 加深到 10%，小圆点光晕可见） -->
+  <color name="brand_10">#3339C5BB</color>     <!-- 暗黑 10%→20%：按下/选中高亮，黑底更易识别 -->
+  <color name="brand_20">#4D39C5BB</color>     <!-- 暗黑 20%→30%：描边/强调，黑底不丢失 -->
+  <color name="brand_50">#9939C5BB</color>     <!-- 暗黑 50%→60%：悬浮渐变 -->
+  <color name="brand_75">#D939C5BB</color>     <!-- 暗黑 75%→85%：装饰条渐变起点（更接近纯品牌色，对比 card 明显）-->
 
   <!-- ===== Chip 激活背景：暗黑 brand 对 白字=2.13 FAIL → 加深到 #1F756F 对白字=5.48 PASS AA（比 brand_dark 再暗 30%） -->
   <color name="chip_active_bg">#1F756F</color>
@@ -21,13 +33,13 @@
   <!-- ===== 背景/卡片（深色覆盖） ===== -->
   <color name="bg">#0E0E10</color>             <!-- App 背景：纯黑暗黑（比 #121212 还深一点） -->
   <color name="card">#1C1C1E</color>           <!-- 卡片：iOS 系统深灰（比 #2C2C2E 再深 1 级，跟设计稿一致） -->
-  <color name="card_stroke">#2439C5BB</color>  <!-- 卡片细描边：初音绿 14% rgba(57,197,187,.14) -->
+  <color name="card_stroke">#2639C5BB</color>  <!-- 卡片细描边：初音绿 14% → 15%（与 brand_10 加深 20% 相匹配，描边不消失） -->
   <color name="chip_unselected">#232325</color> <!-- chip 未激活背景：深灰（比 card 深一点，区分层级） -->
   <color name="search_bg">#262628</color>       <!-- 搜索框背景：接近 #2C2C2E -->
-  <color name="divider">#222224</color>         <!-- 深色分隔线：原 2A2A2D 对 ink_3=4.17 FAIL → 222224 对 ink_3(94949A)=4.56 ✓（更深，与ink_3差拉开过AA） -->
+  <color name="divider">#222224</color>         <!-- 深色分隔线：222224 对 ink_3(94949A)=4.56 ✓（更深，与ink_3差拉开过AA） -->
 
   <!-- ===== 深色模式特定：开关禁用态轨道灰（原 #505050 太暗对比度不够） ===== -->
-  <color name="colorControlNormalDisabled">#6B6B72</color>  <!-- 原 55555A 对 bg=2.6 FAIL(AA Large≥3) → 6B6B72 对 bg=3.65 ✓（禁用态开关/控件仍能分辨） -->
+  <color name="colorControlNormalDisabled">#6B6B72</color>  <!-- 原 55555A 对 bg=2.6 FAIL(AA Large≥3) → 6B6B72 对 bg=3.65 ✓ -->
   <!-- Slim Switch 深色未激活：thumb 更亮 + track 更深（AA Large≥3 标准，thumb vs track=3.29）原 5A5A60/2E2E31=1.98 FAIL -->
   <color name="slim_switch_off_thumb">#72727A</color>
   <color name="slim_switch_off_track">#232326</color>

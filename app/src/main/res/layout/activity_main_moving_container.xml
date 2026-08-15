@@ -166,6 +166,8 @@
           android:textSize="12.5sp"
           android:gravity="center_vertical" />
 
+        <!-- L 加载态统一：进度条 accentColor → brand_dark（深初音绿，品牌色统一 token）
+             替换原 `?attr/accentColor`（原生主题指向的色值与全局 brand 不一致，暗黑态可能走原生蓝绿） -->
         <ProgressBar
           android:id="@+id/prog_bar"
           style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -176,8 +178,8 @@
           android:layout_marginEnd="8dp"
           android:paddingTop="2dp"
           android:indeterminateBehavior="cycle"
-          android:indeterminateTint="?attr/accentColor"
-          android:progressTint="?attr/accentColor" />
+          android:indeterminateTint="@color/brand_dark"
+          android:progressTint="@color/brand_dark" />
 
         <TextView
           android:id="@+id/prog_max_v"

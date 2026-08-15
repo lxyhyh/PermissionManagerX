@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- L 主界面空态占位布局：无搜索结果 / 无应用时显示（RecyclerView empty_view）
+     对齐原则：
+       - 外层：width match_parent height wrap_content，外层父容器（SwipeRefreshLayout）纵向空间居中靠上
+       - 内容起始 paddingStart = LX（align_LX）；插画/文字从 LX 位置起 → 不越过顶部装饰条
+       - 插画 140dp × 140dp decor_empty_state_placeholder（大圆 + 品牌竖线居中）
+       - 标题 17sp bold ink_1：与主界面大标题文字层级同 family（sans-serif-black 太重 → 用 bold sans-serif）
+       - 副标题 13sp ink_2：说明级文字，层级正确
+       - 可选 CTA：暂留占位 TextView 显示「清除筛选」，marginTop 20dp，胶囊 brand 背景 brand_10 + ink_2（浅）/ 暗黑 chip_active_bg，点击逻辑 Java 后续接入 -->
+<com.mirfatif.permissionmanagerx.fwk.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/empty_view"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:gravity="center_horizontal"
+  android:paddingStart="@dimen/align_LX"
+  android:paddingEnd="@dimen/align_LX"
+  android:paddingTop="48dp"
+  android:paddingBottom="24dp"
+  android:visibility="gone"
+  tools:visibility="visible">
+
+  <!-- 空态插画占位：140dp × 140dp 居中品牌插画（圆卡 + 品牌竖线居中 gradient） -->
+  <View
+    android:id="@+id/empty_illustration"
+    android:layout_width="140dp"
+    android:layout_height="140dp"
+    android:layout_marginBottom="24dp"
+    android:background="@drawable/decor_empty_state_placeholder"
+    android:contentDescription="@null" />
+
+  <!-- 空态大标题：「暂无内容」 / 「没有找到应用」 ink_1 bold 17sp（比应用名 14.5 大 1 号强调空态主信息） -->
+  <TextView
+    android:id="@+id/empty_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="@string/no_apps_installed"
+    android:textColor="@color/ink_1"
+    android:textSize="17sp"
+    android:textStyle="bold"
+    android:fontFamily="sans-serif-medium" />
+
+  <!-- 空态副标题：ink_2 13sp 说明级别，居中左对齐 LX 起，不越过装饰条 -->
+  <TextView
+    android:id="@+id/empty_subtitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:gravity="center"
+    android:text="@string/no_permission_filtered"
+    android:textColor="@color/ink_2"
+    android:textSize="13sp" />
+
+  <!-- 空态 CTA 占位胶囊：「清除筛选条件」点击逻辑由 Java 接入，先固定视觉（brand_10 胶囊，ink_1 文字，radius_md 14dp）
+       不做 Button（避免强制 style），用 TextView 背景 bg_filter_chip 之激活态同款 chip_active_bg + radius_md -->
+  <TextView
+    android:id="@+id/empty_cta_clear"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@drawable/bg_filter_chip"
+    android:text="@string/clear_filters"
+    android:textColor="@color/ink_1"
+    android:textSize="@dimen/text_chip"
+    android:fontFamily="sans-serif-medium"
+    android:visibility="gone"
+    tools:text="@string/clear_filters"
+    tools:visibility="visible" />
+
+</com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>

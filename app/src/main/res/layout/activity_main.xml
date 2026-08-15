@@ -114,16 +114,32 @@
           android:layout_height="0dp"
           android:layout_weight="1">
 
-          <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+          <!-- L 空态占位：SwipeRefreshLayout 只允许一个直接 child → 包 FrameLayout，里面 RecyclerView + empty_view 两层
+               两者 match_parent 叠放，Android 通过 EmptyViewDataBinding 或 Java 代码切换 visibility → 不用改现结构 -->
+          <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/align_LX"
-            android:paddingEnd="@dimen/align_LX"
-            android:paddingTop="12dp"
-            android:paddingBottom="96dp" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recycler_view"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:scrollbars="vertical"
+              android:clipToPadding="false"
+              android:paddingStart="@dimen/align_LX"
+              android:paddingEnd="@dimen/align_LX"
+              android:paddingTop="12dp"
+              android:paddingBottom="96dp" />
+
+            <!-- L 空态占位：无搜索结果 / 无应用时显示（默认 gone）
+                 外层 FrameLayout match_parent → 空态在屏幕中部偏上，与其他应用一致；paddingStart/End LX 对齐不越装饰条 -->
+            <include
+              android:id="@+id/empty_state_main"
+              layout="@layout/empty_state_main"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal" />
+          </FrameLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

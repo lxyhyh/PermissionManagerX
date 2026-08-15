@@ -135,8 +135,40 @@ public class UiUtils {
       Activity activity, View parent, @Nullable View anchor, String text, int seconds) {
     Snackbar snackBar = Snackbar.make(parent, text, seconds * 1000);
     snackBar.setAnchorView(anchor);
-    snackBar.setTextColor(activity.getColor(R.color.sharpText));
-    snackBar.getView().setBackgroundColor(getSharpBgColor(activity));
+
+    // L Snackbar 统一品牌化视觉：
+    //   1) 文字颜色：sharpText → ink_1（浅=黑/暗=白，与 ink_1 同义，统一用 @color/ink_1 走主题别名覆盖）
+    //   2) Action 按钮颜色：原生默认 accentColor → brand 初音绿（浅/深色都用同名 @color/brand）
+    //   3) 背景：旧 getSharpBgColor(activity) 纯 accentColor → @drawable/bg_snackbar（card 色+14dp圆角+0.5dp
+    // card_stroke 描边，与列表/设置卡片同一 design token）
+    //   4) 阴影 elevation 6dp：比列表/设置卡（3dp）高一级但低于底栏（12dp），合理层级
+    //   5) margin：left/right = bottom_bar_margin_h (LX=16dp) 与装饰条/底栏对齐；bottom = 88dp = 底栏高度(62) +
+    // 底部悬浮(18) + 间隙(8) → 不遮挡底栏
+    snackBar.setTextColor(activity.getColor(R.color.ink_1));
+    snackBar.setActionTextColor(activity.getColor(R.color.brand));
+
+    View snackView = snackBar.getView();
+    snackView.setBackgroundResource(R.drawable.bg_snackbar);
+    snackView.setElevation(6 * activity.getResources().getDisplayMetrics().density + 0.5f);
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+      snackView.setOutlineProvider(android.view.ViewOutlineProvider.BACKGROUND);
+      snackView.setClipToOutline(true);
+    }
+
+    ViewGroup.LayoutParams lp = snackView.getLayoutParams();
+    if (lp instanceof ViewGroup.MarginLayoutParams) {
+      ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+      int hMargin = (int) activity.getResources().getDimension(R.dimen.bottom_bar_margin_h);
+      int bottomMargin =
+          (int)
+              TypedValue.applyDimension(
+                  TypedValue.COMPLEX_UNIT_DIP, 88, activity.getResources().getDisplayMetrics());
+      mlp.leftMargin = hMargin;
+      mlp.rightMargin = hMargin;
+      mlp.bottomMargin = Math.max(mlp.bottomMargin, bottomMargin);
+      snackView.setLayoutParams(mlp);
+    }
+
     return snackBar;
   }
 }

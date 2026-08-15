@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- L 空态插画占位（empty illustration placeholder 140dp）
+     品牌插画占位：
+     - 外层：大圆 card 色 + 0.5dp card_stroke（与列表/设置卡片同款描边，呼吸感）
+     - 内层：品牌装饰竖线居中放大版（宽6dp × 高60dp，brand→brand_dark gradient 与顶部装饰条同款 design token，4dp 圆角）
+     整体 = 品牌空态占位，不抢主内容风头；浅/深色均自动跟随 card 与 brand 体系。 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- 外层大圆：半径 70dp 圆 = 140dp 总尺寸 -->
+  <item>
+    <shape android:shape="oval">
+      <solid android:color="@color/card" />
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
+      <size android:width="140dp" android:height="140dp" />
+    </shape>
+  </item>
+  <!-- 内层：装饰竖线居中（宽6dp 高60dp，brand→brand_dark 渐变；因为是 layer-list gravity center 自动居中对齐） -->
+  <item android:gravity="center" android:width="6dp" android:height="60dp">
+    <shape android:shape="rectangle">
+      <gradient
+        android:angle="270"
+        android:startColor="@color/brand"
+        android:endColor="@color/brand_dark" />
+      <corners android:radius="4dp" />
+    </shape>
+  </item>
+</layer-list>

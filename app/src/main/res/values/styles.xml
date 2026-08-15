@@ -49,6 +49,12 @@
     <item name="android:textColorSecondary">@color/ink_2</item>
     <item name="android:textColorTertiary">@color/ink_3</item>
     <item name="android:divider">@color/divider</item>
+    <!-- M 暗黑逐屏：API 28+ Elevation 阴影颜色统一 brand_20（30%初音绿品牌色）
+         原生默认 Elevation 阴影=系统灰（暗黑下发冷蓝，不品牌）；改为 brand_20：
+           - 卡片 3dp / Snackbar 6dp / 底栏 12dp 的阴影都会发柔和品牌绿光晕（MIUI X/HyperOS 风格）
+         属性 compileSdk≥34 都能识别；低版本 Android <28 平台忽略未知主题属性，不会崩。 -->
+    <item name="android:outlineSpotShadowColor">@color/brand_20</item>
+    <item name="android:outlineAmbientShadowColor">@color/brand_20</item>
 
     <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
     <!-- 全局 AlertDialog 风格统一：
@@ -124,31 +130,47 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:minHeight">52dp</item>
-    <item name="android:background">@drawable/bg_about_card</item>
+    <!-- J 设置页品牌化：行卡与主界面列表完全同款 design token
+         bg_list_card = 18dp 大圆角 + 0.5dp card_stroke 极细描边 + 按下 brand_10 高亮蒙层 + brand_20 描边加粗
+         elevation 3dp + outlineSpotShadowColor brand_20（暗黑下发品牌色柔和阴影，M 会确认）
+         替换原来的 bg_about_card（缺描边、按压反馈不同步）-->
+    <item name="android:background">@drawable/bg_list_card</item>
+    <item name="android:elevation">3dp</item>
+    <item name="android:outlineProvider">background</item>
+    <!-- LX' 对齐：paddingStart 14dp 左，End 14dp 右对称；vertical 12dp = card_padding_v 跟主卡片 -->
     <item name="android:paddingStart">14dp</item>
-    <item name="android:paddingEnd">10dp</item>
-    <item name="android:paddingTop">10dp</item>
-    <item name="android:paddingBottom">10dp</item>
-    <item name="android:layout_marginBottom">6dp</item>
-    <!-- 标题 ink_1 bold 15sp -->
+    <item name="android:paddingEnd">14dp</item>
+    <item name="android:paddingTop">12dp</item>
+    <item name="android:paddingBottom">12dp</item>
+    <!-- 相邻卡片间隔 8dp（12dp card_gap 是主界面大列表，设置页更紧凑 8dp，仍保留呼吸感） -->
+    <item name="android:layout_marginBottom">8dp</item>
+    <!-- 标题 ink_1 bold 15sp → 调整为 14.5sp bold（与主界面卡片 app_name 同字号，统一设计 token） -->
     <item name="android:textColor">@color/ink_1</item>
-    <item name="android:textSize">15sp</item>
+    <item name="android:textSize">14.5sp</item>
     <item name="android:textStyle">bold</item>
-    <!-- 副文 ink_2 12.5sp -->
+    <!-- 副文 ink_2 12.5sp（与主界面卡片 pkg_name 12sp 接近，层级一致） -->
     <item name="android:textColorSecondary">@color/ink_2</item>
   </style>
 
   <style name="MyPreferenceCategory">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <!-- 分组标题：初音绿 bold 12sp（和主界面"已安装应用/系统应用"Chip 主色保持一致） -->
-    <item name="android:textColor">@color/brand</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:paddingStart">2dp</item>
-    <item name="android:paddingTop">14dp</item>
+    <!-- J 设置页分组标题打磨：与主界面 toolbar_subtitle 分组标题同款 design token
+         对齐原则：paddingStart=14dp = LX' 与大标题文字左边界完全一致 → 与顶部装饰条+卡片+底栏LX在一条线上
+         左侧小圆点光晕 decor_section_header_dot（外层 brand_5 8dp圆 + 内层 brand_dark 4dp实点）+ 8dp padding 到文字
+         文字 11sp sans-serif-medium ink_2（次文字色，层级正确不抢），替代以前的 初音绿 bold 12sp（太跳色）
+         paddingTop 16dp + marginBottom 8dp → 分组间总间距 ≥ 24dp，视觉分组清晰 -->
+    <item name="android:textColor">@color/ink_2</item>
+    <item name="android:textSize">11sp</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:drawableStart">@drawable/decor_section_header_dot</item>
+    <item name="android:drawablePadding">8dp</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:paddingStart">14dp</item>
+    <item name="android:paddingTop">16dp</item>
     <item name="android:paddingBottom">6dp</item>
-    <item name="android:layout_marginBottom">2dp</item>
+    <item name="android:layout_marginBottom">8dp</item>
   </style>
 
   <style name="MyPreferenceScreen">
