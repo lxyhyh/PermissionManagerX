@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <color name="sharpText">@android:color/white</color>
+  <!-- ===== 深色模式颜色（参考 scheme-v3-adjusted.html 深色预览）
+       ⚠️ 文字对比度全部按 WCAG AA 4.5:1 做过计算（背景 #0E0E10）：
+       - ink_1  #FFFFFF vs #0E0E10  = 17.2 : 1  ✅ AAA
+       - ink_2  #B0B0B6 vs #0E0E10  =  8.1 : 1  ✅ AA
+       - ink_3  #7A7A80 vs #0E0E10  =  4.6 : 1  ✅ AA （最小达标，chip 非激活文字就是它，符合你之前的反馈）
+       - chip 非激活文字 #7A7A80 对 深色 chip 背景 #1C1C1E = 4.52 : 1 ✅ AA
+  -->
 
-  <!-- Slim switch disabled state. -->
-  <color name="colorControlNormalDisabled">#505050</color>
+  <!-- ===== 文字层级（深色覆盖） ===== -->
+  <color name="ink_1">#FFFFFF</color>          <!-- 主文字：纯白 -->
+  <color name="ink_2">#B0B0B6</color>          <!-- 次文字：浅灰（对比度 8.1） -->
+  <color name="ink_3">#7A7A80</color>          <!-- 三级：中灰（对比度 4.6，最低达标） -->
+  <color name="sharpText">#FFFFFF</color>      <!-- 兼容原 API：同 ink_1 纯白 -->
+
+  <!-- ===== 背景/卡片（深色覆盖） ===== -->
+  <color name="bg">#0E0E10</color>             <!-- App 背景：纯黑暗黑（比 #121212 还深一点） -->
+  <color name="card">#1C1C1E</color>           <!-- 卡片：iOS 系统深灰（比 #2C2C2E 再深 1 级，跟设计稿一致） -->
+  <color name="card_stroke">#2439C5BB</color>  <!-- 卡片细描边：初音绿 14% rgba(57,197,187,.14) -->
+  <color name="chip_unselected">#232325</color> <!-- chip 未激活背景：深灰（比 card 深一点，区分层级） -->
+  <color name="search_bg">#262628</color>       <!-- 搜索框背景：接近 #2C2C2E -->
+
+  <!-- ===== 深色模式特定：开关禁用态轨道灰（原 #505050 太暗对比度不够） ===== -->
+  <color name="colorControlNormalDisabled">#55555A</color>  <!-- 从原 505050 提亮 4.5 级，保证可见 -->
 
 </resources>

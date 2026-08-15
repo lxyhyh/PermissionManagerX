@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- ===== 小屏（360dp，Redmi A3 / 低端入门机）尺寸覆盖 =====
+       原则：
+         - 对齐基准 LX：18 → 16（减 2dp，屏幕窄，呼吸感保持比例）
+         - 图标/字号适当缩小 1-2dp（屏幕物理分辨率低，避免拥挤）
+         - 圆角按比例略缩小，但保留"大圆角"现代感
+  -->
+
+  <!-- 对齐基准 LX 成比例缩小（18→16） -->
+  <dimen name="align_LX">16dp</dimen>
+
+  <!-- 圆角：略缩小，仍大圆角 -->
+  <dimen name="radius_sm">9dp</dimen>
+  <dimen name="radius_md">12dp</dimen>
+  <dimen name="radius_lg">18dp</dimen>
+  <dimen name="radius_xl">20dp</dimen>
+
+  <!-- 图标缩小（8%） -->
+  <dimen name="app_icon_size">40dp</dimen>
+  <dimen name="detail_icon_size">30dp</dimen>
+
+  <!-- 卡内间距略缩小（更紧凑） -->
+  <dimen name="card_padding_h">12dp</dimen>
+  <dimen name="card_padding_v">11dp</dimen>
+  <dimen name="card_gap">8dp</dimen>
+
+  <!-- 分组缩进 20 → 18dp（更紧凑） -->
+  <dimen name="pad_xl">16dp</dimen>
+
+  <!-- 大标题缩小 2sp（小屏不拥挤） -->
+  <dimen name="text_title">24sp</dimen>
+  <dimen name="text_app_name">13.5sp</dimen>
+
+  <!-- 悬浮底栏略低：64 → 60dp，底部间距 12 → 10dp -->
+  <dimen name="bottom_bar_height">60dp</dimen>
+  <dimen name="bottom_bar_margin_h">14dp</dimen>
+  <dimen name="bottom_bar_margin_bottom">10dp</dimen>
+
+</resources>

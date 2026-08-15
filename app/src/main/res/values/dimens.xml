@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- ===== 全局尺寸：圆角 + 间距 + 对齐基准（大屏 ≥402dp，对应设计稿 440/412/402）
+       命名规则：
+         radius_sm/md/lg/xl = 不同层级圆角
+         margin/padding_xs/sm/md/lg/xl = 间距层级
+         align_LX = 初音绿装饰竖线的 Left X 基准（全局所有元素的对齐锚点，大屏 18dp）
+         文字尺寸按设计稿的主流字号（比原 App 约 1px 缩小，符合你之前的要求）
+  -->
+
+  <!-- ===== 圆角 ===== -->
+  <dimen name="radius_sm">10dp</dimen>   <!-- 小图标/小按钮（权限详情页 icon 背景） -->
+  <dimen name="radius_md">14dp</dimen>   <!-- chip 胶囊 / 搜索框 圆角 -->
+  <dimen name="radius_lg">20dp</dimen>   <!-- 应用列表卡片 / 设置分组卡片 / 用户卡片 圆角 -->
+  <dimen name="radius_xl">22dp</dimen>   <!-- 悬浮底栏胶囊 圆角（大一圈，悬浮感） -->
+
+  <!-- ===== 对齐基准（装饰条 Left X）===== -->
+  <dimen name="align_LX">18dp</dimen>   <!-- 大屏：440/412/402dp 机型通用 18dp -->
+  <dimen name="deco_width">4dp</dimen>   <!-- 装饰竖线宽度 4dp（跟设计稿一致） -->
+  <dimen name="deco_height">22dp</dimen>  <!-- 装饰竖线高度 22dp（跟设计稿一致） -->
+  <dimen name="deco_top_margin">26dp</dimen> <!-- 装饰竖线距离 collapsing-toolbar 顶 26dp -->
+
+  <!-- ===== 间距（层级） ===== -->
+  <dimen name="pad_xs">4dp</dimen>    <!-- 内边距微调整（如 section-header 内部 dot 与文字的 gap） -->
+  <dimen name="pad_sm">8dp</dimen>    <!-- 小内边距（chip 文字 padding） -->
+  <dimen name="pad_md">12dp</dimen>   <!-- 卡内 padding（rv_item_pkg 内部） -->
+  <dimen name="pad_lg">14dp</dimen>   <!-- 搜索框/分组卡 内 padding -->
+  <dimen name="pad_xl">18dp</dimen>   <!-- 分组缩进（设置卡内 group-body） -->
+
+  <!-- ===== 字号（按你之前的要求：比现代 App 约 1px 缩小，对齐 MIUI/微信/设置） ===== -->
+  <dimen name="text_title">26sp</dimen>        <!-- 大标题（"权限管理器"/"设置"/"我的"） -->
+  <dimen name="text_subtitle">12sp</dimen>     <!-- 副标题（"148 个应用·3 项待处理"） -->
+  <dimen name="text_app_name">14.5sp</dimen>   <!-- 应用列表主标题（微信/支付宝 这类） -->
+  <dimen name="text_pkg_name">12sp</dimen>     <!-- 包名（com.tencent.mm） -->
+  <dimen name="text_section_header">11sp</dimen><!-- 分组标题（"已安装应用·148"） -->
+  <dimen name="text_setting_label">13.5sp</dimen><!-- 设置页左侧标签 -->
+  <dimen name="text_setting_val">12.5sp</dimen>  <!-- 设置页右侧值（"跟随系统"） -->
+  <dimen name="text_search_hint">12.5sp</dimen>   <!-- 搜索框提示文字 -->
+  <dimen name="text_chip">12sp</dimen>            <!-- chip 胶囊文字 -->
+
+  <!-- ===== 图标尺寸 ===== -->
+  <dimen name="app_icon_size">48dp</dimen>  <!-- 应用列表图标（48dp 圆形/圆角图标） -->
+  <dimen name="detail_icon_size">32dp</dimen><!-- 权限详情页 权限图标（小 1 号） -->
+  <dimen name="setting_icon_size">20dp</dimen><!-- 设置页左侧图标（紧凑） -->
+
+  <!-- ===== 列表项 ===== -->
+  <dimen name="card_padding_h">14dp</dimen>  <!-- 卡片左右 padding -->
+  <dimen name="card_padding_v">13dp</dimen>  <!-- 卡片上下 padding -->
+  <dimen name="card_gap">10dp</dimen>        <!-- 相邻卡片间距（RecyclerView item 间距） -->
+
+  <!-- ===== 悬浮底栏（底部 Tab）===== -->
+  <dimen name="bottom_bar_height">64dp</dimen>   <!-- 底栏总高度 -->
+  <dimen name="bottom_bar_margin_h">16dp</dimen> <!-- 底栏左右距离屏幕边缘 -->
+  <dimen name="bottom_bar_margin_bottom">12dp</dimen><!-- 底栏距离屏幕最下（含 Home Indicator 安全区） -->
+  <dimen name="bottom_bar_tab_padding_v">8dp</dimen> <!-- Tab 图标+文字 上下 padding -->
+
+</resources>

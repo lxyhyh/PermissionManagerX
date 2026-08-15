@@ -22,6 +22,14 @@
     <!--Action Bar-->
     <item name="colorPrimary">?attr/accentTrans10Color</item>
 
+    <!-- ===== 初音绿资源层新增：背景 = @color/bg，文字层级引用 ink_1/2/3 ===== -->
+    <item name="android:windowBackground">@color/bg</item>
+    <!-- 导航栏半透明，为悬浮底栏做准备（第2批布局时再改成透明，这里先做兼容） -->
+    <item name="android:navigationBarColor">#80000000</item>
+    <item name="android:textColorPrimary">@color/ink_1</item>
+    <item name="android:textColorSecondary">@color/ink_2</item>
+    <item name="android:textColorTertiary">@color/ink_3</item>
+
     <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
     <!--<item name="alertDialogTheme">@style/myAlertDialogTheme</item>-->
   </style>

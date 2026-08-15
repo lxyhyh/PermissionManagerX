@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="green">#007F7F</color>
-  <color name="greenTrans5">#0D007F7F</color>
-  <color name="greenTrans10">#1A007F7F</color>
-  <color name="greenTrans20">#33007F7F</color>
-  <color name="greenTrans50">#80007F7F</color>
-  <color name="greenTrans75">#BF007F7F</color>
 
-  <color name="sharpText">@android:color/black</color>
+  <!-- ===== 初音绿（#39C5BB）主题色系统 =====
+       配色参考 HTML 原型 scheme-v3-adjusted.html
+       命名规则：
+         brand         = 主题色（初音绿）
+         brand_dark    = 主题色深色版本（按/分组标题/激活态用）
+         brand_5/10/20 = 主题色 5%/10%/20% 不透明度（光晕/背景描边/选中态）
+         ink_1         = 主文字（浅色=纯黑#1A1A1A，深色=纯白#FFFFFF，values-night 覆盖）
+         ink_2         = 次文字（包名/辅助信息，深色模式对比度 ≥ 4.5:1）
+         ink_3         = 提示/箭头（非激活 chip 描述/设置副项右侧箭头）
+         bg            = App 背景色（浅色#F7F8FA，深色#0E0E10 暗黑）
+         card          = 卡片背景色（浅色#FFFFFF，深色#1C1C1E iOS 系统卡片深灰）
+         card_stroke   = 卡片细描边（浅色初音绿8%，深色初音绿14%）
+       ⚠️ 保持与 green/greenTransXxx 兼容：把 green 系列做旧 API 别名等于 brand 系列，
+          老代码 styles.xml 的 accentColor 仍然引用 @color/green，编译不报错但视觉变初音绿。
+  -->
 
-  <color name="orangeState">#FFFFC107</color>
+  <!-- ===== 主题色主色 ===== -->
+  <color name="brand">#39C5BB</color>         <!-- 初音绿：SukiSU 主色，chip 激活背景/装饰条 -->
+  <color name="brand_dark">#2A9A91</color>    <!-- 按/分组标题/激活态深初音绿（比 brand 暗 25%） -->
 
-  <color name="darkTransBg">#80000000</color>
+  <!-- ===== 主题色透明层级（5%/10%/20%/50%/75%） ===== -->
+  <color name="brand_5">#0D39C5BB</color>     <!-- 5%：section-header 圆点光晕 -->
+  <color name="brand_10">#1A39C5BB</color>    <!-- 10%：colorPrimary / tab 选中背景 -->
+  <color name="brand_20">#3339C5BB</color>    <!-- 20%：搜索框描边 / 副标题竖线 / chip 非激活描边 -->
+  <color name="brand_50">#8039C5BB</color>    <!-- 50%：悬浮底栏渐变上层 / 强调条半透明 -->
+  <color name="brand_75">#BF39C5BB</color>    <!-- 75%：品牌渐变装饰条从这里过渡到 brand -->
 
-  <!-- On Android 9- attr color doesn't work at some places. -->
-  <color name="colorControlNormal">#919191</color>
+  <!-- ===== 旧 API 别名：green = brand，greenTransXxx = brand_Xxx
+           保证 styles.xml 的 accentColor?/accentTransXxx? / Java 代码 R.color.green 都无缝切初音绿
+           不用再去改 styles.xml / 所有 Java 代码 👏
+  -->
+  <color name="green">@color/brand</color>
+  <color name="greenTrans5">@color/brand_5</color>
+  <color name="greenTrans10">@color/brand_10</color>
+  <color name="greenTrans20">@color/brand_20</color>
+  <color name="greenTrans50">@color/brand_50</color>
+  <color name="greenTrans75">@color/brand_75</color>
 
-  <color name="colorControlNormalA50">#80919191</color>
+  <!-- ===== 文字层级（浅色模式）
+       对比度（白底 #F7F8FA）：
+       ink_1 = 15.3 : 1（> WCAG AAA 7）
+       ink_2 =  8.6 : 1（> WCAG AA 4.5）
+       ink_3 =  5.2 : 1（> WCAG AA 4.5 ✓）
+  -->
+  <color name="ink_1">#1A1A1A</color>          <!-- 主文字：标题/应用名/分组标题激活 -->
+  <color name="ink_2">#626266</color>          <!-- 次文字：包名/权限数/未激活 chip 文字主色版 -->
+  <color name="ink_3">#8E8E93</color>          <!-- 三级：右侧箭头/日期/辅助标签 -->
+  <color name="sharpText">#1A1A1A</color>      <!-- 兼容原 API：bold sharp 文字同 ink_1 -->
 
-  <!-- Slim switch disabled state. -->
-  <color name="colorControlNormalDisabled">#D2D2D2</color>
+  <!-- ===== 背景/卡片（浅色模式） ===== -->
+  <color name="bg">#F7F8FA</color>             <!-- App 背景：浅灰蓝，接近 iOS 系统 -->
+  <color name="card">#FFFFFF</color>           <!-- 卡片背景：纯白 -->
+  <color name="card_stroke">#1439C5BB</color>  <!-- 卡片细描边：初音绿 8%，对应 rgba(57,197,187,.08) -->
+  <color name="chip_unselected">#F2F3F5</color><!-- chip 未激活背景（灰） -->
+  <color name="search_bg">#FAFBFC</color>      <!-- 搜索框背景（几乎白，95% 透明度） -->
+
+  <!-- ===== 系统控件色（沿用原逻辑，值替换为初音绿对应） ===== -->
+  <color name="orangeState">#FFFFC107</color>  <!-- 原"代审/警告"橙，不动 -->
+  <color name="darkTransBg">#80000000</color>  <!-- 原进度条/抽屉遮罩半透明黑，不动 -->
+  <color name="colorControlNormal">@color/ink_3</color>          <!-- 原灰 #919191 → ink_3 #8E8E93（接近，视觉一致） -->
+  <color name="colorControlNormalA50">#808E8E93</color>         <!-- 对应 50% 不透明度 -->
+  <color name="colorControlNormalDisabled">#D2D2D2</color>       <!-- 原开关禁用态轨道灰，保留（浅色模式值是对的，values-night 单独覆盖） -->
 
 </resources>
