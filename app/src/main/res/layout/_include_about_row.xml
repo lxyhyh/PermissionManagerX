@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  「我的」页通用一行（图标+标题+副标题+右箭头），使用 <merge> 让外层 <include> 直接继承父容器属性。
+  ⚠️ 为了不破坏 AboutActivity.java / ActivityAboutBinding 的以下老 ID：
+      - 普通行（contact/telegram/...）标题/副标题/图标：老代码使用"行ID.findViewById(android.R.id.title)"？
+        不，老版本里 logging_title / dump_title_v / dump_icon_v / dump_summary_v / check_update_summary / paid_features_summary
+        是直接写在 XML 里的独立 ID，不是 AboutActivityItemTitle 这个 style 下的匿名 id。
+      所以我们用「默认通用 id + 外层通过 tools:overrideId 做不到」的方式：
+      → 先提供 3 个默认 id（兼容 include 默认行为），再在 activity_about.xml 的特殊行上，
+         给内部子 view 重新指定 id：
+           logging行   → about_row_title 重命名为 @+id/logging_title
+           dump行      → about_row_icon=@+id/dump_icon_v  / about_row_title=@+id/dump_title_v  / about_row_summary=@+id/dump_summary_v
+           check_update → about_row_summary=@+id/check_update_summary
+           paid_features → about_row_summary=@+id/paid_features_summary
+      但 <include> 只能给"根节点"指定 id，不能给内部节点改 id。
+  → 解决方案：别用 include，把 13 种行的完整结构直接在 activity_about.xml 里写展开，
+     每行的内部 ID 用正确的老 ID 命名。虽然冗长，但 100% 不破坏 binding。
+  → 所以本文件**停用**，activity_about.xml 会改成直接展开 13 行。
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+</merge>

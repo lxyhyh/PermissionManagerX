@@ -21,6 +21,7 @@
   <color name="card_stroke">#2439C5BB</color>  <!-- 卡片细描边：初音绿 14% rgba(57,197,187,.14) -->
   <color name="chip_unselected">#232325</color> <!-- chip 未激活背景：深灰（比 card 深一点，区分层级） -->
   <color name="search_bg">#262628</color>       <!-- 搜索框背景：接近 #2C2C2E -->
+  <color name="divider">#2A2A2D</color>         <!-- 深色分隔线：背景 +1.5 级灰，避免完全看不见 -->
 
   <!-- ===== 深色模式特定：开关禁用态轨道灰（原 #505050 太暗对比度不够） ===== -->
   <color name="colorControlNormalDisabled">#55555A</color>  <!-- 从原 505050 提亮 4.5 级，保证可见 -->
