@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 初音绿装饰竖线（固定！所有属性按设计稿 scheme-v3-adjusted.html 来，
+     位置由父 ViewGroup 的 paddingStart=LX 决定（=装饰条 Left X），这样小屏会自动跟随 dimens。
+     宽度 4dp / 高度 22dp / 圆角 4dp / 渐变 brand→brand_dark，全部一字不动。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+  <gradient
+    android:angle="270"
+    android:startColor="@color/brand"
+    android:endColor="@color/brand_dark" />
+  <corners android:radius="4dp" />
+  <size android:width="4dp" android:height="22dp" />
+</shape>

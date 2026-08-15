@@ -146,6 +146,21 @@ public class MainActivity extends OnBackPressedCallback {
     mB.navV.setNavigationItemSelectedListener(this::handleNavigationItemSelected);
     setNavigationMenu();
 
+    // 底部悬浮Tab（方案三）点击：复用抽屉 intent，不搞新逻辑
+    // Tab1 权限：回顶+关抽屉；Tab2 设置：SettingsActivityM；Tab3 我的：AboutActivity
+    mB.tabPermissions.setOnClickListener(
+        v -> {
+          if (mB.getRoot().isDrawerOpen(GravityCompat.START)) {
+            mB.getRoot().closeDrawer(GravityCompat.START, true);
+          }
+          if (mLayoutManager != null && mLayoutManager.getItemCount() > 0) {
+            mLayoutManager.scrollToPositionWithOffset(0, 0);
+          }
+        });
+    mB.tabSettings.setOnClickListener(
+        v -> mA.startActivity(new Intent(App.getCxt(), SettingsActivityM.class)));
+    mB.tabProfile.setOnClickListener(v -> AboutActivity.start(mA));
+
     MySettings.INS.mPrefsWatcher.observe(mA, this::onPrefChanged);
 
     mB.refreshLayout.setOnRefreshListener(

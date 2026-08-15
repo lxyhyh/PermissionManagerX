@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 应用列表/分组卡片背景：大圆角 radius_lg (20dp) + 卡片色 card + 1dp card_stroke 细描边
+     + 按 android:state_pressed 时初音绿 5% 提亮（点击反馈）。
+     对齐规则：卡片自身 marginStart=LX，左边缘绝不会越过初音绿装饰竖线。 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed="true">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/brand_5" />
+          <corners android:radius="@dimen/radius_lg" />
+        </shape>
+      </item>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/card" />
+          <stroke android:width="1dp" android:color="@color/brand_20" />
+          <corners android:radius="@dimen/radius_lg" />
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@color/card" />
+      <stroke android:width="1dp" android:color="@color/card_stroke" />
+      <corners android:radius="@dimen/radius_lg" />
+    </shape>
+  </item>
+</selector>

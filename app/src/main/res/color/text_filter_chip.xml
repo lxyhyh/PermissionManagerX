@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chip 文字颜色：激活=白；未激活=ink_2（主文字次，对比度8+）。夜间自动跟 values-night/colors.xml 换色。 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_checked="true" android:color="@android:color/white" />
+  <item android:color="@color/ink_2" />
+</selector>

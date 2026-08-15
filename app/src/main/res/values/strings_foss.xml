@@ -40,6 +40,25 @@
 
   <string name="app_name">Permission Manager X</string>
 
+  <!-- ===== 新版 UI（方案三）主标题 / Tab 文案 ===== -->
+  <!-- CHAR LIMIT: 20 -->
+  <string name="permission_manager">权限管理器</string>
+  <!-- CHAR LIMIT: 20 -->
+  <string name="tab_permissions">权限</string>
+  <!-- CHAR LIMIT: 20 -->
+  <string name="my_settings">我的</string>
+  <!-- CHAR LIMIT: 20 -->
+  <string name="settings">设置</string>
+  <!-- CHAR LIMIT: 20 -->
+  <string name="search_hint_app_or_perm">搜索应用或权限</string>
+  <!-- Chip 筛选器文案（全部 / 用户应用 / 系统） -->
+  <!-- CHAR LIMIT: 10 -->
+  <string name="filter_all">全部</string>
+  <!-- CHAR LIMIT: 10 -->
+  <string name="filter_user_apps">用户应用</string>
+  <!-- CHAR LIMIT: 10 -->
+  <string name="filter_system">系统</string>
+
   <!-- MainActivity Navigation Drawer / menu items -->
   <string name="crowdin_comment_break_strings_2" translatable="false">Crowdin comment break</string>
   <!-- CHAR LIMIT: 15 -->

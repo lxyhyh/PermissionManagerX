@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chip（筛选胶囊）背景状态列表：
+     state_checked=true  → 初音绿 brand 主色实心（激活态=全部/用户应用/系统选中时）
+     默认未激活         → chip_unselected 颜色（浅灰/深灰，夜间对比度达标）
+     和 scheme-v3-adjusted.html 里 .chip / .chip.active 完全一致。 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_checked="true">
+    <shape android:shape="rectangle">
+      <solid android:color="@color/brand" />
+      <corners android:radius="@dimen/radius_md" />
+    </shape>
+  </item>
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@color/chip_unselected" />
+      <stroke android:width="1dp" android:color="@color/brand_10" />
+      <corners android:radius="@dimen/radius_md" />
+    </shape>
+  </item>
+</selector>

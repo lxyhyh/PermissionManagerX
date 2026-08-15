@@ -2,17 +2,84 @@
 <com.mirfatif.permissionmanagerx.fwk.MyDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_height="match_parent"
-  android:layout_width="match_parent">
+  android:layout_width="match_parent"
+  android:fitsSystemWindows="false">
 
+  <!-- ===== 主内容容器（原 MyLinearLayout + MyCoordinatorLayout 顺序维持，不破坏 Java） ===== -->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg">
 
-    <View
-      style="@style/ListSeparator"
-      android:background="?attr/accentColor" />
+    <!-- ===== 新版：顶部"大标题 + 初音绿装饰竖线"区域（Collapsing Toolbar 视觉）
+         对齐基准：paddingStart = @dimen/align_LX（大屏18dp/小屏16dp）
+         - 装饰条 View：marginStart = 0（因为父容器 padding=LX，所以实际位置 = LX）
+         - 大标题文字：从装饰条右边 10dp 起 → paddingStart = 装饰条宽(4) + 间距(10) = 14dp
+         - 副标题：跟大标题文字左对齐 → marginStart 1 + padding 10 + borderLeft 3 = 14dp
+         装饰条本身所有属性固定不动：宽4/高22/圆角4/渐变brand→brand_dark，符合你画线要求。
+    -->
+    <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+      android:id="@+id/toolbar_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingStart="@dimen/align_LX"
+      android:paddingEnd="@dimen/align_LX"
+      android:paddingTop="20dp"
+      android:paddingBottom="6dp">
 
+      <!-- 初音绿装饰竖线（固定！top=6dp=因为父容器 paddingTop=20dp，20-14=装饰条位置26dp 跟设计稿一致） -->
+      <View
+        android:id="@+id/decor_brand_line"
+        android:layout_width="4dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/decor_brand_vert_line" />
+
+      <!-- 大标题：26sp 字重800（按 dimens text_title），文字从装饰条右边 10dp 起 -->
+      <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-16dp"
+        android:paddingStart="14dp"
+        android:text="@string/permission_manager"
+        android:textColor="@color/ink_1"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="-0.02" />
+
+      <!-- 副标题（"X 个应用·Y 项待处理"：占位 TextView；真实文案由 Java 动态设置）
+           为了不破坏现有 Data binding（无此字段），先只做 UI 占位；Java 层后续接。 -->
+      <TextView
+        android:id="@+id/toolbar_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="1dp"
+        android:paddingStart="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/ink_2"
+        android:textSize="@dimen/text_subtitle"
+        android:background="@drawable/decor_brand_vert_line"
+        android:backgroundTint="@color/brand_20"
+        android:backgroundTintMode="src_in" />
+
+      <!-- 兼容老代码需要的 accentColor 细横线（原 activity_main.xml 第12-14行那条）
+           放到标题区下方，视觉不突兀，同时保留 ID 兼容。 -->
+      <View
+        android:id="@+id/top_accent_stroke"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="?attr/accentColor" />
+
+    </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+    <!-- ===== 中部：SwipeRefresh + RecyclerView + 浮动 moving_container（原结构 ID 全保留，不动 Java） ===== -->
     <com.mirfatif.permissionmanagerx.fwk.MyCoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
@@ -34,7 +101,12 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/align_LX"
+            android:paddingEnd="@dimen/align_LX"
+            android:paddingTop="12dp"
+            android:paddingBottom="96dp" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -44,9 +116,117 @@
           layout="@layout/activity_main_moving_container" />
 
       </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+      <!-- ===== 新版：悬浮底栏（胶囊）——加在 Coordinator 内部最上层，出现在内容之上
+           ⚠️ 这是 UI 层占位（Tab 视觉：权限/设置/我的）；Java 侧的 Drawer nav_v 仍保留（点击逻辑暂不动，
+           下一批再改 Intent 跳转）。
+           对齐：左右 margin = @dimen/bottom_bar_margin_h = LX（与装饰条对齐）
+      -->
+      <FrameLayout
+        android:id="@+id/main_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/bottom_bar_margin_h"
+        android:layout_marginEnd="@dimen/bottom_bar_margin_h"
+        android:layout_marginBottom="@dimen/bottom_bar_margin_bottom"
+        android:background="@drawable/bg_main_bottom_bar"
+        android:elevation="9dp"
+        android:outlineProvider="paddedBounds">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="horizontal"
+          android:weightSum="3">
+
+          <!-- Tab 1: 权限（默认激活=初音绿） -->
+          <LinearLayout
+            android:id="@+id/tab_permissions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
+
+            <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/permission"
+              android:tint="@color/brand"
+              android:contentDescription="@string/tab_permissions" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="@string/tab_permissions"
+              android:textSize="11.5sp"
+              android:textColor="@color/brand"
+              android:textStyle="bold" />
+
+          </LinearLayout>
+
+          <!-- Tab 2: 设置（未激活=ink_2） -->
+          <LinearLayout
+            android:id="@+id/tab_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
+
+            <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/settings"
+              android:tint="@color/ink_2"
+              android:contentDescription="@string/settings" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="@string/settings"
+              android:textSize="11.5sp"
+              android:textColor="@color/ink_2" />
+
+          </LinearLayout>
+
+          <!-- Tab 3: 我的（未激活=ink_2），资源里没"我的"图标的话先用 g_accounts 占位，不影响编译 -->
+          <LinearLayout
+            android:id="@+id/tab_profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
+
+            <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/g_accounts"
+              android:tint="@color/ink_2"
+              android:contentDescription="@string/my_settings" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="@string/my_settings"
+              android:textSize="11.5sp"
+              android:textColor="@color/ink_2" />
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </FrameLayout>
+
     </com.mirfatif.permissionmanagerx.fwk.MyCoordinatorLayout>
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
+  <!-- ===== 兼容原逻辑：加载弹窗遮罩（id 不动 big_prog_cont / big_prog_text） ===== -->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:id="@+id/big_prog_cont"
     android:layout_width="match_parent"
@@ -106,6 +286,7 @@
 
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
+  <!-- ===== 兼容原逻辑：搜索/筛选 设置弹层遮罩（id 不动） ===== -->
   <FrameLayout
     android:id="@+id/search_settings_container"
     android:layout_width="match_parent"
@@ -131,6 +312,8 @@
 
   </FrameLayout>
 
+  <!-- ===== 兼容原逻辑：侧边 Drawer（MainActivity.java 仍要 handleNavigationItemSelected）
+           保留 id=nav_v；UI 上新版走悬浮底栏，菜单逻辑不影响运行。 -->
   <com.mirfatif.permissionmanagerx.fwk.MyNavigationView
     android:id="@+id/nav_v"
     android:layout_width="wrap_content"

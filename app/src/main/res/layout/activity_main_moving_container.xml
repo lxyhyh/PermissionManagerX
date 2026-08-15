@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ===== 主界面浮层（随滚动上移的容器）：搜索框 + chip 筛选器 + 进度条 + 反馈横幅
+     对齐原则（关键）：
+       - 所有子元素 marginStart=LX（通过 dimens @dimen/align_LX）；
+         大屏 18 / 小屏 16，自动跟随 values-w360dp/dimens.xml
+       - 搜索框 / chip 组 / prog_bar_cont 的 宽度 = match_parent 但 marginStart/marginEnd=LX → 左右绝不越过装饰条
+     ID 兼容：prog_bar_cont / prog_now_v / prog_bar / prog_max_v / feedback_cont / likingAppYesButton / likingAppNoButton
+             全部保留（MainActivity.java / Feedback.java 在用）。
+     Data 变量兼容：<data><variable name="data" /> 保留，@{} 引用不变。 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,33 +19,147 @@
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg">
 
-    <View
-      style="@style/ListSeparator"
-      android:background="?attr/accentTrans10Color" />
+    <!-- ===== 第一块：搜索框 + chip 区（视觉上作为 App 主操作，与装饰竖线对齐） ===== -->
+    <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingTop="8dp"
+      android:paddingBottom="10dp"
+      android:background="@color/bg">
 
+      <!-- 搜索框：marginStart/End=LX，padding 内对齐，hint 引用 search_hint_app_or_perm -->
+      <FrameLayout
+        android:id="@+id/search_bar_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/align_LX"
+        android:layout_marginEnd="@dimen/align_LX"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_search_bar">
+
+        <TextView
+          android:id="@+id/search_hint_v"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start|center_vertical"
+          android:text="@string/search_hint_app_or_perm"
+          android:textColor="@color/ink_3"
+          android:textSize="@dimen/text_search_hint" />
+
+        <!-- 搜索图标（20dp，初音绿 70% 透明层 brand_10 → 实际 brand_dark 色）放在搜索框右边，视觉不喧宾夺主 -->
+        <ImageView
+          android:id="@+id/search_icon_v"
+          android:layout_width="18dp"
+          android:layout_height="18dp"
+          android:layout_gravity="end|center_vertical"
+          android:src="@drawable/search_settings"
+          android:tint="@color/brand_dark"
+          android:contentDescription="@string/search_menu_item" />
+
+      </FrameLayout>
+
+      <!-- Chip 筛选组：全部 / 用户应用 / 系统；激活初音绿实心；未激活 chip_unselected
+           与搜索框 marginStart/End=LX 保持同一宽度；3 个 chip 之间 8dp 间距。 -->
+      <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/align_LX"
+        android:layout_marginEnd="@dimen/align_LX"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <!-- Chip 1：全部（默认 checked=true，激活初音绿） -->
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chip_filter_all"
+          android:layout_width="wrap_content"
+          android:layout_height="32dp"
+          android:checked="true"
+          android:checkable="true"
+          android:text="@string/filter_all"
+          android:textColor="@color/text_filter_chip"
+          android:textSize="@dimen/text_chip"
+          android:paddingStart="14dp"
+          android:paddingEnd="14dp"
+          app:chipBackgroundColor="@drawable/bg_filter_chip"
+          app:chipCornerRadius="@dimen/radius_md"
+          app:chipSpacingHorizontal="8dp"
+          app:chipIconEnabled="false" />
+
+        <!-- Chip 2：用户应用（未激活） -->
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chip_filter_user"
+          android:layout_width="wrap_content"
+          android:layout_height="32dp"
+          android:layout_marginStart="8dp"
+          android:checked="false"
+          android:checkable="true"
+          android:text="@string/filter_user_apps"
+          android:textColor="@color/text_filter_chip"
+          android:textSize="@dimen/text_chip"
+          android:paddingStart="14dp"
+          android:paddingEnd="14dp"
+          app:chipBackgroundColor="@drawable/bg_filter_chip"
+          app:chipCornerRadius="@dimen/radius_md"
+          app:chipIconEnabled="false" />
+
+        <!-- Chip 3：系统（未激活） -->
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chip_filter_system"
+          android:layout_width="wrap_content"
+          android:layout_height="32dp"
+          android:layout_marginStart="8dp"
+          android:checked="false"
+          android:checkable="true"
+          android:text="@string/filter_system"
+          android:textColor="@color/text_filter_chip"
+          android:textSize="@dimen/text_chip"
+          android:paddingStart="14dp"
+          android:paddingEnd="14dp"
+          app:chipBackgroundColor="@drawable/bg_filter_chip"
+          app:chipCornerRadius="@dimen/radius_md"
+          app:chipIconEnabled="false" />
+
+      </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+    </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+    <!-- ===== 第二块：进度条容器（progBarCont）；ID 和内部子 ID 全保留 = MainActivity.java 里用 ===== -->
     <com.mirfatif.permissionmanagerx.fwk.ProgressLinearLayout
       android:id="@+id/prog_bar_cont"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/align_LX"
+      android:layout_marginEnd="@dimen/align_LX"
+      android:layout_marginBottom="8dp"
       android:orientation="vertical"
+      android:background="@drawable/bg_list_card"
       android:visibility="gone">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{data.progBgColor}"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/card_padding_h"
+        android:paddingEnd="@dimen/card_padding_h"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
           android:id="@+id/prog_now_v"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_margin="8dp"
           android:ellipsize="end"
           android:maxLines="1"
-          android:textColor="@color/sharpText" />
+          android:textColor="@color/sharpText"
+          android:textSize="12.5sp"
+          android:gravity="center_vertical" />
 
         <ProgressBar
           android:id="@+id/prog_bar"
@@ -45,7 +167,8 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:layout_margin="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
           android:paddingTop="2dp"
           android:indeterminateBehavior="cycle"
           android:indeterminateTint="?attr/accentColor"
@@ -55,8 +178,9 @@
           android:id="@+id/prog_max_v"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:textColor="@color/sharpText" />
+          android:textColor="@color/sharpText"
+          android:textSize="12.5sp"
+          android:gravity="center_vertical" />
 
       </LinearLayout>
 
@@ -66,46 +190,55 @@
 
     </com.mirfatif.permissionmanagerx.fwk.ProgressLinearLayout>
 
+    <!-- ===== 第三块：Feedback 横幅（feedback_cont / likingAppYesButton / likingAppNoButton）
+               保持原逻辑与原 ID，Java 侧不改动；视觉用 bg_list_card，宽度 margin LX 对齐装饰条。 -->
     <com.mirfatif.permissionmanagerx.fwk.MyCoordinatorLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/align_LX"
+      android:layout_marginEnd="@dimen/align_LX"
+      android:layout_marginBottom="12dp">
 
       <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
         android:id="@+id/feedback_cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/bg_list_card"
         android:visibility="gone">
 
         <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
+          android:paddingStart="@dimen/card_padding_h"
+          android:paddingEnd="@dimen/card_padding_h"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
           android:background="@{data.progBgColor}"
-          android:gravity="center"
+          android:gravity="center_vertical"
           android:orientation="horizontal">
 
           <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_margin="8dp"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/love_using_app"
             android:textColor="@color/sharpText"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_setting_label"
             app:autoSizeTextType="uniform" />
 
           <Button
             android:id="@+id/liking_app_no_button"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:minWidth="72dp"
             android:text="@string/no"
-            android:textColor="?attr/accentColor" />
+            android:textColor="?attr/accentColor"
+            android:textAlignment="viewEnd" />
 
           <Button
             android:id="@+id/liking_app_yes_button"

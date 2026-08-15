@@ -1,89 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ===== 应用列表卡片（rv_item_pkg.xml）按方案三 MIUI X + 苹果风格重写
+     对齐规则（关键，不能乱改）：
+       - 卡片整体宽度 match_parent，外层 RecyclerView 已经 paddingStart=LX → 卡片左边缘 = LX（不越过装饰条）
+       - 卡片内部左 padding = @dimen/card_padding_h（14dp），即应用图标/文字等从卡片内 14dp 起
+       - Switch/右侧任何元素：marginStart=auto → 推到右边缘，不靠中间（符合主流 App 设计）
+       - ORANGE/RED/GREEN 引用色条（ref_indication_v）ID 保留，Java 还调用 setBackgroundColor
+     资源尺寸 dimens 全部跟随 values-w360dp：360dp 小屏 LX=16 / 图标 40 / padding 12
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="horizontal">
+  android:layout_marginBottom="@dimen/card_gap"
+  android:orientation="vertical">
 
-  <View
-    android:id="@+id/ref_indication_v"
-    android:layout_width="4dp"
-    android:layout_height="match_parent" />
-
-  <LinearLayout
-    android:layout_width="0dp"
+  <!-- 外层大圆角卡片，点击态自带初音绿5%提亮（bg_list_card selector） -->
+  <FrameLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:background="?android:attr/selectableItemBackground"
-    android:orientation="horizontal">
+    android:background="@drawable/bg_list_card"
+    android:addStatesFromChildren="true">
 
-    <ImageView
-      android:id="@+id/icon_v"
-      android:layout_width="48dp"
-      android:layout_height="48dp"
-      android:layout_marginStart="8dp"
-      android:layout_gravity="center"
-      tools:ignore="ContentDescription" />
+    <!-- 状态指示色条（ref_indication_v）：宽 4dp 贴卡片左内边，match_parent 高度；
+         Java 代码会 ORANGE/RED/GREEN 给它 setBackgroundColor；用 INVISIBLE 占位避免影响 padding。 -->
+    <View
+      android:id="@+id/ref_indication_v"
+      android:layout_width="4dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      android:visibility="invisible" />
 
+    <!-- 卡片内容：图标 + 文字区（权重占满） -->
     <LinearLayout
-      android:layout_width="0dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:padding="8dp"
-      android:orientation="vertical"
-      tools:ignore="NestedWeights">
+      android:orientation="horizontal"
+      android:paddingStart="@dimen/card_padding_h"
+      android:paddingEnd="@dimen/card_padding_h"
+      android:paddingTop="@dimen/card_padding_v"
+      android:paddingBottom="@dimen/card_padding_v"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_vertical">
 
-      <TextView
-        android:id="@+id/pkg_label_v"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
+      <!-- 应用图标 48dp（小屏 40dp），与 dimens.app_icon_size 一致 -->
+      <ImageView
+        android:id="@+id/icon_v"
+        android:layout_width="@dimen/app_icon_size"
+        android:layout_height="@dimen/app_icon_size"
+        android:layout_marginEnd="12dp"
+        android:scaleType="fitCenter"
+        tools:ignore="ContentDescription" />
+
+      <!-- 文字区（占满剩余空间）：应用名 + 包名 + 状态 + 权限数/日期 -->
+      <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="viewStart" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-      <TextView
-        android:id="@+id/pkg_name_v"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="viewStart" />
-
-      <TextView
-        android:id="@+id/pkg_state_v"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="viewStart"
-        app:autoSizeTextType="uniform" />
-
-      <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp">
-
+        <!-- 行1：应用名（加粗，14.5sp）→ 居左 -->
         <TextView
-          android:id="@+id/pkg_perm_count_v"
-          android:layout_width="0dp"
+          android:id="@+id/pkg_label_v"
+          android:textStyle="bold"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:layout_marginEnd="1dp"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textColor="@color/ink_1"
+          android:textSize="@dimen/text_app_name"
           android:textAlignment="viewStart" />
 
+        <!-- 行2：包名（次文字，12sp，ink_2）→ 居左 -->
         <TextView
-          android:id="@+id/date_v"
-          android:layout_width="wrap_content"
+          android:id="@+id/pkg_name_v"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAlignment="viewStart"
-          android:textSize="12sp" />
+          android:layout_marginTop="1dp"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textColor="@color/ink_2"
+          android:textSize="@dimen/text_pkg_name"
+          android:textAlignment="viewStart" />
 
-      </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+        <!-- 行3：状态标签（Disabled/Framework/System...）→ 居左；gone 时不占空间 -->
+        <TextView
+          android:id="@+id/pkg_state_v"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textColor="@color/brand_dark"
+          android:textSize="11.5sp"
+          android:textStyle="bold"
+          android:textAlignment="viewStart"
+          app:autoSizeTextType="uniform" />
+
+        <!-- 行4：权限数量 + 日期；权限数在左，日期推到最右（符合用户说的"所有状态/元信息靠两边边缘"） -->
+        <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:orientation="horizontal"
+          android:gravity="center_vertical">
+
+          <TextView
+            android:id="@+id/pkg_perm_count_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ink_2"
+            android:textSize="11.5sp"
+            android:textAlignment="viewStart" />
+
+          <TextView
+            android:id="@+id/date_v"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/ink_3"
+            android:textAlignment="viewEnd"
+            android:textSize="11.5sp" />
+
+        </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+      </LinearLayout>
     </LinearLayout>
-  </LinearLayout>
+  </FrameLayout>
 </LinearLayout>

@@ -24,8 +24,11 @@
 
     <!-- ===== 初音绿资源层新增：背景 = @color/bg，文字层级引用 ink_1/2/3 ===== -->
     <item name="android:windowBackground">@color/bg</item>
-    <!-- 导航栏半透明，为悬浮底栏做准备（第2批布局时再改成透明，这里先做兼容） -->
-    <item name="android:navigationBarColor">#80000000</item>
+    <!-- 悬浮底栏（新版）需要导航栏全透明，旧值半透明=内容穿不下去 → 改为 @android:color/transparent -->
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <!-- Edge-to-edge：主题允许画到系统栏下方（Android 8.1+ 生效；低版本自动忽略） -->
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
     <item name="android:textColorPrimary">@color/ink_1</item>
     <item name="android:textColorSecondary">@color/ink_2</item>
     <item name="android:textColorTertiary">@color/ink_3</item>
