@@ -47,7 +47,7 @@
   -->
   <color name="ink_1">#1A1A1A</color>          <!-- 主文字：标题/应用名/分组标题激活 -->
   <color name="ink_2">#626266</color>          <!-- 次文字：包名/权限数/未激活 chip 文字主色版 -->
-  <color name="ink_3">#8E8E93</color>          <!-- 三级：右侧箭头/日期/辅助标签 -->
+  <color name="ink_3">#727276</color>          <!-- 三级：右侧箭头/日期/辅助标签. 原8E8E93对比度3.07 <AA4.5, →727276 对bg=5.03 对card=5.33 对search_bg=5.15 ✓ -->
   <color name="sharpText">#1A1A1A</color>      <!-- 兼容原 API：bold sharp 文字同 ink_1 -->
 
   <!-- ===== 背景/卡片（浅色模式） ===== -->
@@ -61,8 +61,10 @@
   <!-- ===== 系统控件色（沿用原逻辑，值替换为初音绿对应） ===== -->
   <color name="orangeState">#FFFFC107</color>  <!-- 原"代审/警告"橙，不动 -->
   <color name="darkTransBg">#80000000</color>  <!-- 原进度条/抽屉遮罩半透明黑，不动 -->
-  <color name="colorControlNormal">@color/ink_3</color>          <!-- 原灰 #919191 → ink_3 #8E8E93（接近，视觉一致） -->
-  <color name="colorControlNormalA50">#808E8E93</color>         <!-- 对应 50% 不透明度 -->
+  <color name="colorControlNormal">@color/ink_3</color>          <!-- 原灰 #919191 → ink_3 #727276（符合 WCAG AA） -->
+  <color name="colorControlNormalA50">#808E8E93</color>         <!-- 对应 50% 不透明度（保留旧半透明视觉） -->
   <color name="colorControlNormalDisabled">#D2D2D2</color>       <!-- 原开关禁用态轨道灰，保留（浅色模式值是对的，values-night 单独覆盖） -->
-
+  <!-- Slim Switch 未激活：thumb 白 + 轨道浅灰（iOS/HyperOS 标准） -->
+  <color name="slim_switch_off_thumb">#FFFFFF</color>
+  <color name="slim_switch_off_track">#C5C6CA</color>           <!-- 浅色：开关关时 track 灰（ink_3 浅版本 对 白 thumb 足够分） -->
 </resources>

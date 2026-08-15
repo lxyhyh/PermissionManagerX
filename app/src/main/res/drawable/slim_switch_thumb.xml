@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Slim Switch 圆形 Thumb（主界面 rv_item_perm.xml 的 SwitchCompat 用）
+  - 选中：白色（#FFFFFF），初音绿轨道衬托圆形白钮（iOS/HyperOS 标准）
+  - 未选中：@color/slim_switch_off_thumb（浅色 #FFFFFF 白；深色 #5A5A60 灰）
+  - 禁用：@color/colorControlNormalDisabled
+  ⚠️ shape 改 shape=oval（原 rectangle 容易被认成小方块）
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle"
-  android:tint="@color/slim_switch">
-  <corners android:radius="2dp" />
+  android:shape="oval">
+  <solid android:color="@color/slim_switch_thumb_sel" />
   <size
-    android:width="12dp"
-    android:height="12dp" />
+    android:width="16dp"
+    android:height="16dp" />
 </shape>

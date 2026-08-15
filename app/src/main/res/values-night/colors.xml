@@ -12,7 +12,7 @@
   <!-- ===== 文字层级（深色覆盖） ===== -->
   <color name="ink_1">#FFFFFF</color>          <!-- 主文字：纯白 -->
   <color name="ink_2">#B0B0B6</color>          <!-- 次文字：浅灰（对比度 8.1） -->
-  <color name="ink_3">#7A7A80</color>          <!-- 三级：中灰（对比度 4.6，最低达标） -->
+  <color name="ink_3">#8A8A90</color>          <!-- 三级：中灰. 原7A7A80对card=3.99/chip_unselected=3.68 <AA4.5, →8A8A90 对bg=5.55 对card=5.15 对chip=4.67 ✓ -->
   <color name="sharpText">#FFFFFF</color>      <!-- 兼容原 API：同 ink_1 纯白 -->
 
   <!-- ===== 背景/卡片（深色覆盖） ===== -->
@@ -25,5 +25,7 @@
 
   <!-- ===== 深色模式特定：开关禁用态轨道灰（原 #505050 太暗对比度不够） ===== -->
   <color name="colorControlNormalDisabled">#55555A</color>  <!-- 从原 505050 提亮 4.5 级，保证可见 -->
-
+  <!-- Slim Switch 深色未激活：thumb 灰 + track 更深灰（暗黑开关标准） -->
+  <color name="slim_switch_off_thumb">#5A5A60</color>
+  <color name="slim_switch_off_track">#2E2E31</color>
 </resources>

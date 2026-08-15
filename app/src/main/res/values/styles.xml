@@ -14,7 +14,23 @@
     <item name="colorAccent">?attr/accentColor</item>
 
     <!--Check Boxes, Switch Active State, Indeterminate Progress Bar. If not set, uses colorAccent-->
-    <!--<item name="colorControlActivated">?attr/accentColor</item>-->
+    <item name="colorControlActivated">?attr/accentColor</item>
+
+    <!-- SwitchCompat (主界面 rv_item_perm + Preference 内 SwitchPreference) 全局圆形白钮+初音绿轨道
+         ⚠️ attr 名必须是 androidx.preference 实际有的：
+         - switchPreferenceStyle → 作用于 SwitchPreference / SwitchPreferenceCompat
+         - checkBoxPreferenceStyle → 作用于 CheckBoxPreference
+         其它不存在的 attr（如 switchPreferenceCompatStyle、checkboxPreferenceStyle）一律不写以免 link 失败 -->
+    <item name="switchPreferenceStyle">@style/MySwitchPreference</item>
+    <item name="checkBoxPreferenceStyle">@style/MyCheckboxPreference</item>
+
+    <!-- Preference 主题：一次性覆盖全部 PreferenceFragment 7 个子页面的样式
+         - preferenceStyle：行高、标题 ink_1 bold 15sp / 副文 ink_2 12.5sp
+         - preferenceCategoryStyle：分组标题 初音绿 bold 12sp
+         - preferenceScreenStyle：去掉默认卡片，让父外层壳的装饰条+LX 对齐生效
+         注：PreferenceThemeOverlay 去掉 AppCompat.DayNight（老版 Preference 库不生成该全名）
+         → 用 androidx.preference 默认的 PreferenceThemeOverlay 裸名即可 -->
+    <item name="preferenceTheme">@style/MyPreferenceThemeOverlay</item>
 
     <!--Status Bar-->
     <item name="colorPrimaryDark">?attr/accentColor</item>
@@ -32,9 +48,102 @@
     <item name="android:textColorPrimary">@color/ink_1</item>
     <item name="android:textColorSecondary">@color/ink_2</item>
     <item name="android:textColorTertiary">@color/ink_3</item>
+    <item name="android:divider">@color/divider</item>
 
     <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
     <!--<item name="alertDialogTheme">@style/myAlertDialogTheme</item>-->
+  </style>
+
+  <!-- ============= Preference Theme Overlay（全局 7 个 Preference Fragment 一次生效） =============
+       ⚠️ androidx.preference 库版本差异：很多 style 名不是公开的（短名/AppCompat.* 都可能 link 失败）
+       → 采用「零 parent 纯属性 override」方案：
+         1. MyPreferenceThemeOverlay parent 只保留 PreferenceThemeOverlay（这个 androidx 一定有，否则 preferenceTheme 默认会回滚为空）
+         2. MyPreference / MyPreferenceCategory / MyPreferenceScreen / MySwitchPreference / MyCheckboxPreference
+            全部不要 parent（即 parent=""），我们只改视觉（背景、文字色、padding、间距），widget 本体由 BaseTheme 的
+            colorControlActivated / android:textColorPrimary / Secondary 接管。
+       注：我们不自定义 android:layout / widgetLayout / widgetLayoutResource，所以内部 SwitchCompat / CheckBox 由系统默认 widget 渲染，不受 parent 缺失影响。 -->
+
+  <style name="MyPreferenceThemeOverlay" parent="PreferenceThemeOverlay">
+    <item name="preferenceStyle">@style/MyPreference</item>
+    <item name="preferenceCategoryStyle">@style/MyPreferenceCategory</item>
+    <item name="preferenceScreenStyle">@style/MyPreferenceScreen</item>
+    <item name="switchPreferenceStyle">@style/MySwitchPreference</item>
+    <item name="checkBoxPreferenceStyle">@style/MyCheckboxPreference</item>
+    <!-- 让 Preference 根 List 的左右内边距 = align_LX → 卡片不越过顶部装饰条 -->
+    <item name="android:layout_marginStart">@dimen/align_LX</item>
+    <item name="android:layout_marginEnd">@dimen/align_LX</item>
+    <item name="android:paddingTop">0dp</item>
+  </style>
+
+  <style name="MyPreference">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:background">@drawable/bg_about_card</item>
+    <item name="android:paddingStart">14dp</item>
+    <item name="android:paddingEnd">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:layout_marginBottom">6dp</item>
+    <!-- 标题 ink_1 bold 15sp -->
+    <item name="android:textColor">@color/ink_1</item>
+    <item name="android:textSize">15sp</item>
+    <item name="android:textStyle">bold</item>
+    <!-- 副文 ink_2 12.5sp -->
+    <item name="android:textColorSecondary">@color/ink_2</item>
+  </style>
+
+  <style name="MyPreferenceCategory">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <!-- 分组标题：初音绿 bold 12sp（和主界面"已安装应用/系统应用"Chip 主色保持一致） -->
+    <item name="android:textColor">@color/brand</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:paddingStart">2dp</item>
+    <item name="android:paddingTop">14dp</item>
+    <item name="android:paddingBottom">6dp</item>
+    <item name="android:layout_marginBottom">2dp</item>
+  </style>
+
+  <style name="MyPreferenceScreen">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+  </style>
+
+  <!-- 开关 + 复选 Preference：不指定 parent 防止 link 失败；Switch/CheckBox 色由 BaseTheme.colorControlActivated=初音绿 生效 -->
+  <style name="MySwitchPreference">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:background">@drawable/bg_about_card</item>
+    <item name="android:paddingStart">14dp</item>
+    <item name="android:paddingEnd">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:layout_marginBottom">6dp</item>
+    <item name="android:textColor">@color/ink_1</item>
+    <item name="android:textSize">15sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColorSecondary">@color/ink_2</item>
+  </style>
+
+  <style name="MyCheckboxPreference">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:background">@drawable/bg_about_card</item>
+    <item name="android:paddingStart">14dp</item>
+    <item name="android:paddingEnd">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:layout_marginBottom">6dp</item>
+    <item name="android:textColor">@color/ink_1</item>
+    <item name="android:textSize">15sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColorSecondary">@color/ink_2</item>
   </style>
 
   <style name="SpinnerItemStyle">

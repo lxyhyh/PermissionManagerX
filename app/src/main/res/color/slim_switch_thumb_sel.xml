@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Slim Switch Thumb ColorStateList：
+     - checked=true：白（初音绿轨道下的白圆钮）
+     - checked=false：@color/slim_switch_off_thumb（浅色白/深色灰，符合暗黑标准）
+     - enabled=false：禁用灰
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:color="@color/colorControlNormalDisabled" android:state_enabled="false" />
+  <item android:color="#FFFFFFFF" android:state_checked="true" />
+  <item android:color="@color/slim_switch_off_thumb" />
+</selector>

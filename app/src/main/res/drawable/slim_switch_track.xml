@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Slim Switch Track（开关背景"细条"）
+  - 不再用 line stroke（老代码 line 型会导致 draw 出来是一整条直线无圆角胶囊）
+  - 改成 rectangle shape + 8dp 胶囊圆角，颜色用新 CSL：激活=初音绿 / 未激活=off_track
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="line">
-  <corners android:radius="1dp" />
-  <stroke
-    android:width="2dp"
-    android:color="@color/slim_switch" />
+  android:shape="rectangle">
+  <corners android:radius="8dp" />
+  <solid android:color="@color/slim_switch_active" />
+  <size
+    android:width="30dp"
+    android:height="14dp" />
 </shape>

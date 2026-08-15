@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Slim Switch 激活色专用 ColorStateList（主界面 rv_item_perm.xml + 设置页 SwitchPreference 共用）。
+  - 激活(checked=true)：初音绿 ?attr/accentColor → 和主题 brand 保持一致
+  - 未激活：@color/slim_switch_off_track （浅色=C5C6CA 中性灰 / 深色=2E2E31 深灰），避免灰发蓝 iOS 视觉
+  - 禁用：@color/colorControlNormalDisabled
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:color="@color/colorControlNormalDisabled" android:state_enabled="false" />
+  <item android:color="?attr/accentColor" android:state_checked="true" />
+  <item android:color="@color/slim_switch_off_track" />
+</selector>
