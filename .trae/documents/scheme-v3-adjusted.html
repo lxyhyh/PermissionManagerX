@@ -87,8 +87,8 @@
      每类页面的 padding / margin 都带页面前缀，不再互相污染
   */
   .phone[data-w="360"] { --pw: 360px; }
-  /* 小屏机型：覆盖 collapsing-toolbar 的 LX 从 18→16px */
-  .phone[data-w="360"] .collapsing-toolbar { --LX: 16px; }
+  /* 小屏机型：覆盖 .screen 的 LX 从 18→16px（成比例缩小，你确认 14-16 都行） */
+  .phone[data-w="360"] .screen { --LX: 16px; }
   .phone[data-w="360"] .list-card { padding: 11px 12px; }
   .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
   .phone[data-w="360"] .collapsing-toolbar .ct-title { font-size: 22px; }
@@ -146,6 +146,12 @@
   .dots span { width:4px; height:4px; border-radius:50%; background: currentColor; opacity:.8; }
   .statusbar > span:first-child { position: relative; z-index: 1; }
   .screen {
+    /* ⚠️ 全局对齐基准（初音绿装饰线 Left X 坐标），整个 .screen 内部都继承此变量
+       - 搜索框 margin-left、chips padding-left、list-area padding-left、
+         setting-group margin-left、装饰竖线绝对定位 left，全看这个
+       - 小屏 360dp：由 .phone[data-w="360"] .screen 覆盖为 16px（成比例）
+    */
+    --LX: 18px;
     height: calc(100% - 34px); border-radius: 32px; overflow: hidden;
     background: var(--bg); display: flex; flex-direction: column;
     position: relative;
@@ -197,7 +203,6 @@
 
   /* CollapsingToolbar 风格大标题（现代 App 24-28sp 区间） */
   .collapsing-toolbar {
-    --LX: 18px; /* 全局对齐基准：装饰竖线 Left X 坐标（相对 screen） */
     padding: 20px var(--LX) 6px var(--LX);
     position: relative;
   }
@@ -217,8 +222,14 @@
     padding-left: calc(4px + 10px); /* 装饰线宽 4 + 间距 10 */
   }
   .collapsing-toolbar .ct-sub {
-    font-size: 12px; color: var(--ink-2); margin-top: 4px; padding-left: 14px;
-    border-left: 3px solid var(--brand-20); margin-left: 1px;
+    font-size: 12px; color: var(--ink-2); margin-top: 4px;
+    /* 副标题文字与 ct-title 文字对齐：
+       ct-title padding-left = 装饰线宽 4 + 间距 10 = 14px
+       ct-sub：margin-left 1 + border-left 3 + padding-left 10 = 14px ✓
+    */
+    margin-left: 1px;
+    padding-left: 10px;
+    border-left: 3px solid var(--brand-20);
   }
   /* 顶部 AppBar 右侧图标（默认隐藏，用户反馈"无意义图标"去掉） */
   .ct-actions {
@@ -256,9 +267,13 @@
     box-shadow: 0 4px 12px var(--brand-20);
   }
 
-  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）：左边缘 = LX */
+  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）：
+     ⚠️ 注意：list-area 外层已经 padding: 0 var(--LX)，
+     所以 section-header 作为 list-area 的直接子元素，左边框已经在 LX 位置。
+     这里的 padding-left 只给小圆点+光晕的内部呼吸空间，不要再加 LX（否则就是 2 倍缩进）
+  */
   .section-header {
-    padding: 12px var(--LX) 6px var(--LX);
+    padding: 12px 4px 6px 4px;
     font-size: 11px; font-weight: 700;
     color: var(--brand-dark); letter-spacing: .08em; text-transform: uppercase;
     display:flex; align-items:center; gap: 6px;
