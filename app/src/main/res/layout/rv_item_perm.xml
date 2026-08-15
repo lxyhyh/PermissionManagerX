@@ -1,128 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="horizontal">
+  android:orientation="vertical"
+  android:layout_marginBottom="@dimen/card_gap"
+  android:background="@drawable/bg_list_card">
 
-  <View
-    android:id="@+id/ref_indication_v"
-    android:layout_width="4dp"
-    android:layout_height="match_parent"/>
+  <!-- 卡片最外层：大圆角 bg_list_card（带 ripple 点击效果）
+       内部分两部分：
+       (1) 最左侧：ref_indication_v（4dp 宽指示竖条，老ID保留，旧代码会染色高亮）
+       (2) 右侧：权限行本体（三角旗+图标+标题+保护级别+时间+右侧开关/模式）
+  -->
 
-  <FrameLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <View
-      android:id="@+id/flag"
-      android:layout_width="12dp"
-      android:layout_height="12dp"
-      android:layout_gravity="top|start"
-      android:background="@drawable/triangle" />
+      android:id="@+id/ref_indication_v"
+      android:layout_width="4dp"
+      android:layout_height="match_parent"
+      android:background="@android:color/transparent"
+      tools:ignore="UseCompatTextViewDrawableXml"/>
 
-    <LinearLayout
-      android:layout_width="match_parent"
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:background="?android:attr/selectableItemBackground"
-      android:gravity="center_vertical"
-      android:orientation="horizontal">
+      android:paddingHorizontal="12dp"
+      android:paddingVertical="10dp">
 
-      <ImageView
-        android:id="@+id/icon_v"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        tools:ignore="ContentDescription" />
+      <!-- 小三角旗（右上角/左上角？原来是 top|start，保留 ID/位置/背景不动） -->
+      <View
+        android:id="@+id/flag"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="top|start"
+        android:background="@drawable/triangle" />
 
       <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="8dp"
-        tools:ignore="NestedWeights">
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-          android:id="@+id/perm_name_v"
-          android:textStyle="bold"
-          android:layout_width="match_parent"
+        <ImageView
+          android:id="@+id/icon_v"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="4dp"
+          android:layout_marginEnd="10dp"
+          tools:ignore="ContentDescription" />
+
+        <LinearLayout
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_margin="1dp"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:textAlignment="viewStart" />
+          android:layout_gravity="center_vertical"
+          android:layout_weight="1"
+          android:orientation="vertical"
+          android:paddingHorizontal="2dp"
+          android:paddingVertical="4dp"
+          tools:ignore="NestedWeights">
 
-        <TextView
-          android:id="@+id/prot_level_v"
-          android:layout_width="match_parent"
+          <!-- 权限名：主文字 ink_1 bold 14.5sp -->
+          <TextView
+            android:id="@+id/perm_name_v"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/ink_1"
+            android:textSize="14.5sp"
+            android:textAlignment="viewStart" />
+
+          <!-- 保护级别：次文字 ink_2 12sp -->
+          <TextView
+            android:id="@+id/prot_level_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/ink_2"
+            android:textSize="12sp"
+            app:autoSizeTextType="uniform" />
+
+          <!-- AppOps 时间：三级文字 ink_3 11.5sp -->
+          <TextView
+            android:id="@+id/app_ops_time_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/ink_3"
+            android:textSize="11.5sp" />
+
+          <!-- AppOps 引用状态：三级文字 ink_3 11.5sp -->
+          <TextView
+            android:id="@+id/app_ops_ref_state_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:textColor="@color/ink_3"
+            android:textSize="11.5sp" />
+
+        </LinearLayout>
+
+        <!-- 右侧开关/模式区：gravity=end，Switch 贴右边缘
+             ⚠️ 所有 5 个子 ID 完整保留：
+                perm_state_cont / perm_state_switch / app_op_mode_v / app_op_mode_sub_v
+        -->
+        <LinearLayout
+          android:id="@+id/perm_state_cont"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_margin="1dp"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:textAlignment="viewStart"
-          app:autoSizeTextType="uniform" />
+          android:layout_gravity="center_vertical"
+          android:gravity="end"
+          android:orientation="vertical"
+          android:paddingStart="10dp"
+          android:paddingEnd="2dp"
+          android:paddingVertical="4dp">
 
-        <TextView
-          android:id="@+id/app_ops_time_v"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="1dp"
-          android:textAlignment="viewStart" />
+          <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/perm_state_switch"
+            style="@android:style/Widget.Material.CompoundButton.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="4dp"
+            android:thumb="@drawable/slim_switch_thumb"
+            app:switchMinWidth="30dp"
+            app:track="@drawable/slim_switch_track" />
 
-        <TextView
-          android:id="@+id/app_ops_ref_state_v"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="1dp"
-          android:textAlignment="viewStart" />
+          <!-- AppOp 模式：主题色 bold 12sp，对齐右边缘 -->
+          <TextView
+            android:id="@+id/app_op_mode_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/accentColor"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
+          <!-- AppOp 模式副文字：ink_2 11sp，对齐右边缘 -->
+          <TextView
+            android:id="@+id/app_op_mode_sub_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/ink_2"
+            android:textSize="11sp" />
+
+        </LinearLayout>
       </LinearLayout>
 
-      <LinearLayout
-        android:id="@+id/perm_state_cont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="end"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <androidx.appcompat.widget.SwitchCompat
-          android:id="@+id/perm_state_switch"
-          style="@android:style/Widget.Material.CompoundButton.Switch"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="end"
-          android:paddingHorizontal="6dp"
-          android:paddingVertical="8dp"
-          android:thumb="@drawable/slim_switch_thumb"
-          app:switchMinWidth="30dp"
-          app:track="@drawable/slim_switch_track" />
-
-        <TextView
-          android:id="@+id/app_op_mode_v"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="end"
-          android:layout_marginTop="2dp"
-          android:textColor="?attr/accentColor"
-          android:textStyle="bold" />
-
-        <TextView
-          android:id="@+id/app_op_mode_sub_v"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="end"
-          android:layout_marginTop="2dp" />
-
-      </LinearLayout>
-    </LinearLayout>
-
-  </FrameLayout>
+    </FrameLayout>
+  </LinearLayout>
 </LinearLayout>

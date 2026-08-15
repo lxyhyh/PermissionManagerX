@@ -113,6 +113,11 @@ public class PackageActivity extends OnBackPressedCallback implements PermAdapte
       actionBar.setTitle(mPkg.getLabel());
     }
 
+    // 初音绿装饰条下方的大标题：同步 ActionBar 的应用名
+    if (mB.pkgNameTitleV != null) {
+      mB.pkgNameTitleV.setText(mPkg.getLabel());
+    }
+
     mAdapter = new PermissionAdapter(mA, this, mA);
 
     mB.recyclerV.setAdapter(mAdapter);
