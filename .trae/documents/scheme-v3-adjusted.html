@@ -76,6 +76,7 @@
   .screen {
     height: calc(100% - 20px); border-radius: 28px; overflow: hidden;
     background: var(--bg); display: flex; flex-direction: column;
+    position: relative;
   }
 
   /* ===== SukiSU Ultra / LSPosed 风格通用组件 ===== */
@@ -84,92 +85,162 @@
   .collapsing-toolbar {
     padding: 20px 18px 6px; position: relative;
   }
+  .collapsing-toolbar::before {
+    content: ""; display:inline-block; width:4px; height:24px;
+    background: linear-gradient(180deg,var(--brand), var(--brand-dark));
+    border-radius:4px; margin-right:10px; vertical-align:-4px;
+  }
   .collapsing-toolbar .ct-title {
     font-size: 30px; font-weight: 800; letter-spacing: -0.03em; margin: 0;
-    color: var(--ink-1);
+    color: var(--ink-1); display: inline-block;
   }
   .collapsing-toolbar .ct-sub {
-    font-size: 13px; color: var(--ink-2); margin-top: 4px;
+    font-size: 13px; color: var(--ink-2); margin-top: 4px; padding-left: 14px;
+    border-left: 3px solid var(--brand-20); margin-left: 1px;
   }
   /* 顶部 AppBar 右侧图标 */
   .ct-actions {
     position: absolute; top: 20px; right: 18px; display: flex; gap: 8px;
   }
   .ct-icon {
-    width: 32px; height: 32px; border-radius: 50%; background: var(--brand-10);
-    display:flex; align-items:center; justify-content:center; font-size: 14px; color: var(--brand-dark);
+    width: 34px; height: 34px; border-radius: 50%; background: var(--brand);
+    display:flex; align-items:center; justify-content:center; font-size: 14px; color: #fff;
+    box-shadow: 0 4px 10px var(--brand-20);
   }
 
-  /* 搜索栏（参考 SukiSU Ultra 圆角胶囊） */
+  /* 搜索栏（参考 SukiSU Ultra 圆角胶囊 + 初音绿边框强化） */
   .search-bar {
-    margin: 8px 14px 10px; border-radius: 999px; padding: 10px 16px;
-    background: rgba(120,120,128,.12); display:flex; align-items:center; gap: 8px;
+    margin: 10px 14px 10px; border-radius: 999px; padding: 10px 16px;
+    background: rgba(255,255,255,.95); display:flex; align-items:center; gap: 8px;
     font-size: 13px; color: var(--ink-2);
+    border: 1.5px solid var(--brand-20);
+    box-shadow: 0 2px 10px rgba(57,197,187,.06);
+  }
+  .search-bar::before {
+    content: "🔍"; color: var(--brand);
+    filter: saturate(1.2);
   }
 
-  /* 筛选 Chips（参考 LSPosed） */
+  /* 筛选 Chips（参考 LSPosed · 激活态初音绿发光） */
   .chips { display:flex; gap:6px; padding: 0 14px 12px; overflow-x:auto; }
   .chip {
     padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space:nowrap;
     background: rgba(120,120,128,.12); color: var(--ink-1);
   }
-  .chip.on { background: var(--brand); color: #fff; }
+  .chip.on {
+    background: linear-gradient(135deg,var(--brand), var(--brand-dark));
+    color: #fff; font-weight: 700;
+    box-shadow: 0 4px 12px var(--brand-20);
+  }
 
-  /* 分组标题（参考 SukiSU Ultra MIUI X 小号大写） */
+  /* 分组标题（MIUI X + 初音绿前缀点） */
   .section-header {
     padding: 14px 18px 6px; font-size: 12px; font-weight: 700;
-    color: var(--ink-2); letter-spacing: .06em; text-transform: uppercase;
+    color: var(--brand-dark); letter-spacing: .06em; text-transform: uppercase;
+    display:flex; align-items:center; gap: 6px;
+  }
+  .section-header::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
   }
 
-  /* 列表区域 */
-  .list-area { flex:1; padding: 0 14px 10px; overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+  /* 列表区域（为悬浮底栏预留底部空间） */
+  .list-area { flex:1; padding: 0 14px 96px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
 
-  /* 列表卡片（参考 SukiSU Ultra 大圆角 + 圆角方块图标） */
+  /* 列表卡片（SukiSU Ultra + 初音绿引用条 + 品牌色 hover） */
   .list-card {
     background: var(--card); border-radius: var(--radius-lg); padding: 14px;
-    display: flex; gap: 12px; align-items: center;
+    display: flex; gap: 12px; align-items: center; position: relative;
+    border: 1px solid rgba(57,197,187,.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,.02);
   }
+  /* 左侧引用指示条（加宽 + 渐变品牌色） */
+  .ref-bar {
+    position:absolute; left:0; top:16px; bottom:16px; width:4px;
+    background: linear-gradient(180deg,var(--brand), var(--brand-dark));
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+  }
+  .ref-bar.ref-bad { background: linear-gradient(180deg, #FF3B30, #B4261E); }
+  .ref-bar.ref-warn { background: linear-gradient(180deg, #FF9F0A, #B9770E); }
   .app-icon {
-    width: 48px; height: 48px; border-radius: 14px; flex: none;
+    width: 48px; height: 48px; border-radius: 14px; flex: none; margin-left: 4px;
     display:flex; align-items:center; justify-content:center;
     color:#fff; font-weight: 800; font-size: 18px;
   }
   .app-info { flex:1; min-width:0; }
-  .app-name { font-weight: 700; font-size: 15px; letter-spacing: -.01em; }
+  .app-name { font-weight: 700; font-size: 15px; letter-spacing: -.01em; display:flex; align-items:center; gap:6px; }
+  .brand-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--brand);
+  }
   .app-pkg { font-size: 11px; color: var(--ink-2); margin-top: 2px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis; }
   .app-tags { display:flex; gap:4px; margin-top: 6px; flex-wrap: wrap; }
   .tag {
     padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700;
   }
-  .tag.b { background: var(--brand-10); color: #0D7F77; }
+  .tag.b {
+    background: linear-gradient(135deg, var(--brand-10), rgba(57,197,187,.22));
+    color: #0D7F77; border: 1px solid var(--brand-20);
+    font-weight: 800;
+  }
   .tag.g { background: rgba(52,199,89,.12); color: #1A7F37; }
   .tag.o { background: rgba(255,159,10,.12); color: #9A5E00; }
   .tag.r { background: rgba(255,59,48,.12); color: #B4261E; }
-  .app-arrow { color: var(--ink-3); font-size: 18px; flex:none; }
+  .app-arrow {
+    color: var(--brand); font-size: 18px; flex:none; font-weight: 800;
+    background: var(--brand-10); width: 28px; height: 28px; border-radius: 10px;
+    display:flex; align-items:center; justify-content:center;
+  }
 
-  /* 底部导航（参考 LSPosed BottomNavigationView） */
+  /* ========== 悬浮胶囊底栏（Floating Bottom Nav） ========== */
   .bottom-nav {
+    position: absolute; left: 14px; right: 14px; bottom: 12px;
     display: grid; grid-template-columns: repeat(4, 1fr);
-    padding: 8px 4px 16px; background: rgba(255,255,255,.96);
-    border-top: 1px solid var(--line);
+    padding: 8px 6px;
+    background: rgba(255,255,255,.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 999px;
+    border: 1px solid rgba(57,197,187,.25);
+    box-shadow:
+      0 10px 30px rgba(57,197,187,.18),
+      0 6px 18px rgba(0,0,0,.08),
+      0 0 0 1px rgba(255,255,255,.6) inset;
   }
   .nav-item {
-    display:flex; flex-direction:column; align-items:center; gap:3px;
-    padding: 6px; color: var(--ink-2); font-size: 10px; font-weight: 600;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding: 8px 4px; color: var(--ink-2); font-size: 10px; font-weight: 600;
+    border-radius: 999px; position: relative; transition: all .2s ease;
   }
-  .nav-item.on { color: var(--brand); }
-  .nav-item .nav-icon { font-size: 22px; line-height: 1; }
+  .nav-item.on {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    color: #fff; font-weight: 800;
+    box-shadow: 0 6px 14px var(--brand-20);
+    transform: translateY(-2px);
+  }
+  .nav-item.on::after {
+    content: ""; position: absolute; bottom: 3px;
+    width: 4px; height: 4px; border-radius: 50%; background: #fff; opacity: .9;
+  }
+  .nav-item .nav-icon { font-size: 20px; line-height: 1; }
 
-  /* ===== 权限详情页（参考 SukiSU Ultra 模块详情分段） ===== */
-  .detail-body { flex:1; overflow:auto; padding: 4px 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+  /* ===== 权限详情页（参考 SukiSU Ultra 模块详情分段 · 主题色强化） ===== */
+  .detail-body { flex:1; overflow:auto; padding: 4px 14px 96px; display: flex; flex-direction: column; gap: 14px; }
 
-  /* 分段卡片（iOS 分组 + SukiSU Ultra 大圆角） */
+  /* 分段卡片（iOS 分组 + SukiSU Ultra 大圆角 + 初音绿细描边） */
   .group-card {
     background: var(--card); border-radius: var(--radius-lg); overflow: hidden;
+    border: 1px solid rgba(57,197,187,.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,.02);
   }
   .group-header {
     padding: 14px 16px 8px; font-size: 12px; font-weight: 700;
-    color: var(--ink-2); letter-spacing: .06em; text-transform: uppercase;
+    color: var(--brand-dark); letter-spacing: .06em; text-transform: uppercase;
+    display:flex; align-items:center; gap:6px;
+  }
+  .group-header::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
   }
   .group-body { padding: 0 16px 8px; }
   .detail-row {
@@ -185,17 +256,21 @@
     display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 800;
   }
 
-  /* iOS Switch */
+  /* Switch 激活色改为初音绿渐变发光 */
   .ios-switch {
     width: 44px; height: 26px; border-radius: 999px; background: #E9E9EA;
     position: relative; flex:none; transition: background .2s;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
   }
   .ios-switch::after {
     content:""; position:absolute; top:2px; left:2px; width:22px; height:22px;
-    border-radius:50%; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.15);
+    border-radius:50%; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.18);
     transition: left .2s;
   }
-  .ios-switch.on { background: var(--brand); }
+  .ios-switch.on {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    box-shadow: 0 0 0 1px var(--brand-20), 0 4px 10px var(--brand-20);
+  }
   .ios-switch.on::after { left: 20px; }
 
   /* 权限模式标签 */
@@ -206,8 +281,10 @@
   .perm-mode.d { background: rgba(255,59,48,.12); color:#B4261E; }
   .perm-mode.f { background: rgba(255,159,10,.12); color:#9A5E00; }
 
-  /* ===== 设置页（参考 LSPosed PreferenceFragment + iOS 卡片） ===== */
-  .setting-group { background: var(--card); border-radius: var(--radius-lg); margin: 0 14px 12px; overflow: hidden; }
+  /* ===== 设置页 ===== */
+  .setting-group { background: var(--card); border-radius: var(--radius-lg); margin: 0 14px 12px; overflow: hidden;
+    border: 1px solid rgba(57,197,187,.08); box-shadow: 0 2px 8px rgba(0,0,0,.02);
+  }
   .setting-row {
     display:flex; align-items: center; gap: 12px; padding: 14px 16px;
     border-bottom: 1px solid var(--line);
@@ -221,21 +298,39 @@
   .setting-val { font-size: 13px; color: var(--ink-2); }
   .setting-arrow { color: var(--ink-3); font-size: 16px; }
 
-  /* ===== 深色模式预览 ===== */
+  /* ===== 深色模式预览（悬浮栏深色 + 主题色依然品牌绿） ===== */
   .dark .screen { background: #000; color: #F2F2F7; }
   .dark .statusbar { color: #F2F2F7; }
   .dark .collapsing-toolbar .ct-title { color: #F2F2F7; }
-  .dark .list-card { background: #1C1C1E; }
+  .dark .list-card {
+    background: #1C1C1E; border-color: rgba(57,197,187,.14);
+  }
   .dark .app-name { color: #F2F2F7; }
-  .dark .group-card { background: #1C1C1E; }
+  .dark .group-card { background: #1C1C1E; border-color: rgba(57,197,187,.14); }
   .dark .detail-row { border-bottom-color: rgba(255,255,255,.08); }
-  .dark .setting-group { background: #1C1C1E; }
+  .dark .setting-group { background: #1C1C1E; border-color: rgba(57,197,187,.14); }
   .dark .setting-row { border-bottom-color: rgba(255,255,255,.08); }
   .dark .setting-label { color: #F2F2F7; }
-  .dark .search-bar { background: rgba(120,120,128,.24); color: #8E8E93; }
-  .dark .bottom-nav { background: rgba(0,0,0,.96); border-top-color: rgba(255,255,255,.08); }
-  .dark .section-header { color: #8E8E93; }
-  .dark .group-header { color: #8E8E93; }
+  .dark .search-bar {
+    background: rgba(28,28,30,.95); color: #8E8E93;
+    border-color: rgba(57,197,187,.35);
+  }
+  /* 深色模式悬浮栏 */
+  .dark .bottom-nav {
+    background: rgba(28,28,30,.88);
+    border-color: rgba(57,197,187,.45);
+    box-shadow:
+      0 10px 30px rgba(57,197,187,.30),
+      0 6px 22px rgba(0,0,0,.6),
+      0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+  .dark .nav-item { color: #8E8E93; }
+  .dark .section-header { color: var(--brand); }
+  .dark .group-header { color: var(--brand); }
+  .dark .ct-icon {
+    background: rgba(57,197,187,.25); color: var(--brand);
+    box-shadow: 0 2px 10px rgba(57,197,187,.30);
+  }
 
   /* 调整说明卡片 */
   .adjustments {
@@ -323,9 +418,10 @@
         <div class="section-header">已安装应用 · 148</div>
         <div class="list-area">
           <div class="list-card">
+            <div class="ref-bar"></div>
             <div class="app-icon" style="background:var(--brand)">微</div>
             <div class="app-info">
-              <div class="app-name">微信</div>
+              <div class="app-name"><span class="brand-dot"></span>微信</div>
               <div class="app-pkg">com.tencent.mm</div>
               <div class="app-tags">
                 <span class="tag b">12 权限</span>
@@ -335,9 +431,10 @@
             <span class="app-arrow">›</span>
           </div>
           <div class="list-card">
+            <div class="ref-bar ref-warn"></div>
             <div class="app-icon" style="background:#1677FF">支</div>
             <div class="app-info">
-              <div class="app-name">支付宝</div>
+              <div class="app-name"><span class="brand-dot" style="background:#FF9F0A;box-shadow:0 0 0 4px rgba(255,159,10,.14);"></span>支付宝</div>
               <div class="app-pkg">com.eg.android.AlipayGphone</div>
               <div class="app-tags">
                 <span class="tag b">18 权限</span>
@@ -347,9 +444,10 @@
             <span class="app-arrow">›</span>
           </div>
           <div class="list-card">
+            <div class="ref-bar ref-bad"></div>
             <div class="app-icon" style="background:#222">抖</div>
             <div class="app-info">
-              <div class="app-name">抖音</div>
+              <div class="app-name"><span class="brand-dot" style="background:#FF3B30;box-shadow:0 0 0 4px rgba(255,59,48,.14);"></span>抖音</div>
               <div class="app-pkg">com.ss.android.ugc.aweme</div>
               <div class="app-tags">
                 <span class="tag b">24 权限</span>
@@ -625,40 +723,43 @@
         <div class="section-header">已安装应用 · 148</div>
         <div class="list-area">
           <div class="list-card">
+            <div class="ref-bar"></div>
             <div class="app-icon" style="background:var(--brand)">微</div>
             <div class="app-info">
-              <div class="app-name">微信</div>
+              <div class="app-name"><span class="brand-dot"></span>微信</div>
               <div class="app-pkg">com.tencent.mm</div>
               <div class="app-tags">
                 <span class="tag b">12 权限</span>
                 <span class="tag g">已引用</span>
               </div>
             </div>
-            <span class="app-arrow" style="color:#48484A;">›</span>
+            <span class="app-arrow">›</span>
           </div>
           <div class="list-card">
+            <div class="ref-bar ref-warn"></div>
             <div class="app-icon" style="background:#0A84FF">支</div>
             <div class="app-info">
-              <div class="app-name">支付宝</div>
+              <div class="app-name"><span class="brand-dot" style="background:#FF9F0A;box-shadow:0 0 0 4px rgba(255,159,10,.2);"></span>支付宝</div>
               <div class="app-pkg">com.eg.android.AlipayGphone</div>
               <div class="app-tags">
                 <span class="tag b">18 权限</span>
                 <span class="tag o">2 待审</span>
               </div>
             </div>
-            <span class="app-arrow" style="color:#48484A;">›</span>
+            <span class="app-arrow">›</span>
           </div>
           <div class="list-card">
+            <div class="ref-bar ref-bad"></div>
             <div class="app-icon" style="background:#48484A">抖</div>
             <div class="app-info">
-              <div class="app-name">抖音</div>
+              <div class="app-name"><span class="brand-dot" style="background:#FF3B30;box-shadow:0 0 0 4px rgba(255,59,48,.2);"></span>抖音</div>
               <div class="app-pkg">com.ss.android.ugc.aweme</div>
               <div class="app-tags">
                 <span class="tag b">24 权限</span>
                 <span class="tag r">未引用</span>
               </div>
             </div>
-            <span class="app-arrow" style="color:#48484A;">›</span>
+            <span class="app-arrow">›</span>
           </div>
         </div>
         <div class="bottom-nav">
@@ -760,27 +861,37 @@
         <tr>
           <td>底部导航</td>
           <td>4 Tab 简单切换</td>
-          <td><b>BottomNavigationView</b> + Fragment 切换（LSPosed 架构）<span class="from from-lsp">LSPosed</span></td>
+          <td><b>悬浮胶囊 BottomNav</b>：悬浮离底 14px · 圆角 26px · 初音绿 2px 描边 + 发光阴影；激活 Tab 初音绿渐变胶囊 <span class="from from-suki">SukiSU</span> <span class="from from-ios">iOS</span></td>
         </tr>
         <tr>
           <td>设置页</td>
           <td>仅套 iOS 卡片主题</td>
-          <td><b>PreferenceFragment</b> + 自定义主题覆盖（LSPosed 方式）+ iOS 分组卡片视觉 <span class="from from-lsp">LSPosed</span> <span class="from from-ios">iOS</span></td>
+          <td><b>PreferenceFragment</b> + 自定义主题覆盖（LSPosed 方式）+ iOS 分组卡片视觉 + 初音绿描边 <span class="from from-lsp">LSPosed</span> <span class="from from-ios">iOS</span></td>
         </tr>
         <tr>
           <td>权限详情</td>
           <td>SectionHeader 分段</td>
-          <td><b>分段 group-card</b>：20dp 圆角白底 + group-header 小标题 + 行间分隔线（SukiSU 模块详情页风格）<span class="from from-suki">SukiSU</span></td>
+          <td><b>分段 group-card</b>：20dp 圆角白底 + 初音绿细描边 + group-header 初音绿小标题圆点 <span class="from from-suki">SukiSU</span></td>
         </tr>
         <tr>
           <td>Switch 控件</td>
           <td>Material Switch</td>
-          <td><b>iOS 风格 Switch</b>：44x26dp 胶囊 + 22dp 圆钮 + 品牌色激活态 <span class="from from-ios">iOS</span></td>
+          <td><b>iOS 风格 Switch 发光</b>：44x26dp 胶囊 + 22dp 圆钮 + 初音绿渐变激活 + 初音绿外发光 <span class="from from-ios">iOS</span></td>
+        </tr>
+        <tr>
+          <td>列表卡片项</td>
+          <td>图标 + 两行文字</td>
+          <td><b>ref-bar 引用条 7px（三态）+ brand-dot 品牌圆点 + app-arrow 初音绿圆按钮 + 卡片底部初音绿渐隐条</b></td>
+        </tr>
+        <tr>
+          <td>主题色显著度</td>
+          <td>初音绿仅在开关、徽章</td>
+          <td><b>标题竖条 / 搜索框描边 / 激活 Chip 发光 / Section 标题绿 / 列表引用条 / 按钮绿 / 分组描边 / 卡片底部渐变条</b> 全覆盖</td>
         </tr>
         <tr>
           <td>深色模式</td>
           <td>简单反色</td>
-          <td><b>纯黑 #000 底</b> + #1C1C1E 卡片 + 品牌色保持不变（Apple 深色模式规范）<span class="from from-ios">iOS</span></td>
+          <td><b>纯黑 #000 底</b> + #1C1C1E 卡片 + 初音绿 14% 描边 + 悬浮栏初音绿发光 + 小标题初音绿彩色 + 卡片同步 ref-bar <span class="from from-ios">iOS</span> <span class="from from-lsp">LSPosed</span></td>
         </tr>
         <tr>
           <td>主题色</td>
