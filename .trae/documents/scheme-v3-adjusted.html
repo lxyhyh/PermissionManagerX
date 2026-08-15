@@ -62,30 +62,52 @@
     background: var(--brand-10); color: var(--brand-dark); margin-left: 6px;
   }
 
-  /* 手机原型容器（基准：iPhone 17 Pro Max · 6.9" · 440×956 pt · 19.5:9） */
+  /* 手机原型容器（真实机型基准 + 宽度 CSS 变量，可覆盖不同尺寸） */
   .phones-row {
     display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px;
   }
   .phone {
-    position: relative; width: 440px; aspect-ratio: 9/19.5;
-    margin: 12px 0 40px; padding: 14px 10px 16px; border-radius: 48px;
+    --pw: 440px; /* 当前机型逻辑宽度 (CSS px) */
+    position: relative; width: var(--pw); aspect-ratio: 9/19.5;
+    margin: 12px 0 44px; padding: 14px 10px 16px; border-radius: 48px;
     background: linear-gradient(180deg,#0f0f10,#1a1a1c);
     border: 1px solid rgba(255,255,255,.08); box-shadow: 0 14px 48px rgba(0,0,0,.22);
   }
+  /* 不同宽度的机型：通过 data-w 控制容器宽度 + 内部 padding 自适应 */
+  .phone[data-w="360"] { --pw: 360px; }
+  .phone[data-w="360"] .list-card { padding: 11px 12px; }
+  .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
+  .phone[data-w="360"] .collapsing-toolbar .ct-title { font-size: 22px; }
+  .phone[data-w="360"] .chips { padding-left: 10px; padding-right: 10px; }
+  .phone[data-w="360"] .detail-key { width: 60px; font-size: 12px; }
+  .phone[data-w="360"] .detail-val { font-size: 13px; }
+
+  .phone[data-w="402"] { --pw: 402px; }
+  .phone[data-w="412"] { --pw: 412px; }
+  .phone[data-w="412"] .list-area,
+  .phone[data-w="412"] .detail-body,
+  .phone[data-w="412"] .collapsing-toolbar,
+  .phone[data-w="412"] .chips { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="412"] .search-bar { margin-left: 16px; margin-right: 16px; }
+  .phone[data-w="412"] .setting-group { margin-left: 16px; margin-right: 16px; }
+
+  .phone[data-w="440"] { --pw: 440px; }
+  .phone[data-w="440"] .list-area,
+  .phone[data-w="440"] .detail-body,
+  .phone[data-w="440"] .collapsing-toolbar,
+  .phone[data-w="440"] .chips { padding-left: 18px; padding-right: 18px; }
+  .phone[data-w="440"] .search-bar { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="440"] .setting-group { margin-left: 18px; margin-right: 18px; }
+  .phone[data-w="440"] .detail-val { font-size: 14px; }
+  .phone[data-w="440"] .setting-label { font-size: 14px; }
+  .phone[data-w="440"] .app-name { font-size: 15px; }
+
   .phone-label {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
     padding: 4px 14px; border-radius: 999px; background: var(--ink-1); color: #fff;
     font-size: 11px; font-weight: 700; white-space: nowrap; z-index: 10;
   }
   .phone-label.green { background: var(--brand); }
-  /* 机型参数标注（大众熟知格式：机型名 + 英寸 + 分辨率） */
-  .phone-spec {
-    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
-    white-space: nowrap; font-size: 11px; color: var(--ink-2); font-weight: 600;
-    letter-spacing: .02em;
-  }
-  .phone-spec b { color: var(--ink-1); font-weight: 700; }
-  .phone-spec .dot { margin: 0 6px; color: var(--ink-3); }
   .statusbar {
     display:flex; justify-content:space-between; align-items:center;
     font-size: 12px; font-weight:700; margin-bottom:6px; padding: 2px 16px 4px; color: var(--ink-1);
@@ -116,12 +138,31 @@
     background: rgba(0,0,0,.2); z-index: 5; pointer-events:none;
   }
   .dark .screen::after { background: rgba(255,255,255,.35); }
-  /* 每个手机底部自动标注机型参数（大众熟知格式） */
+  /* 每个手机底部根据 data-model 自动标注机型参数（大众熟知格式） */
   .phone::after {
-    content: "iPhone 17 Pro Max · 6.9\" · 2868×1320";
     position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%);
     white-space: nowrap; font-size: 11px; color: var(--ink-2); font-weight: 600;
     letter-spacing: .02em;
+  }
+  .phone[data-model="iphone-17pm"]::after { content: "iPhone 17 Pro Max · 6.9\" · 2868×1320"; }
+  .phone[data-model="iphone-17p"]::after { content: "iPhone 17 Pro · 6.3\" · 2622×1206"; }
+  .phone[data-model="s25u"]::after { content: "Samsung Galaxy S25 Ultra · 6.8\" · 3120×1440"; }
+  .phone[data-model="mate80p"]::after { content: "Huawei Mate 80 Pro · 6.8\" · 2832×1280"; }
+  .phone[data-model="mi15p"]::after { content: "小米 15 Pro · 6.73\" · 3200×1440"; }
+  .phone[data-model="redmi-a3"]::after { content: "Redmi A3 · 6.71\" · 1650×720 (360dp)"; }
+  /* 不同机型的灵动岛/挖孔：窄屏机型缩小灵动岛宽度 */
+  .phone[data-w="412"] .statusbar::before { width: 110px; height: 26px; }
+  .phone[data-w="402"] .statusbar::before { width: 110px; height: 26px; }
+  .phone[data-w="360"] .statusbar::before { width: 94px; height: 24px; }
+  .phone[data-w="360"] .statusbar { height: 26px; padding: 0 14px; }
+  .phone[data-w="360"] .screen { height: calc(100% - 32px); border-radius: 28px; }
+  .phone[data-w="360"] .screen::after { width: 120px; height: 4px; }
+  /* 安卓机型：灵动岛替换为小圆点挖孔（居中靠左，Pixel/Samsung 风格） */
+  .phone[data-model="s25u"] .statusbar::before,
+  .phone[data-model="mate80p"] .statusbar::before,
+  .phone[data-model="mi15p"] .statusbar::before,
+  .phone[data-model="redmi-a3"] .statusbar::before {
+    width: 10px; height: 10px; border-radius: 50%; left: 32%;
   }
 
   /* ===== SukiSU Ultra / LSPosed 风格通用组件 ===== */
@@ -309,6 +350,13 @@
     background: var(--brand-10); color: var(--brand-dark);
     display:flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 800;
   }
+  /* 开关、状态标签、箭头等一律推到行尾右边缘对齐 */
+  .detail-row .ios-switch, .detail-row .perm-mode,
+  .setting-row .ios-switch, .setting-row .setting-arrow, .setting-row .setting-val {
+    margin-left: auto;
+  }
+  /* 同一行有多个右侧元素时（perm-mode + switch），auto 留给最后一个（switch） */
+  .detail-row .perm-mode + .ios-switch { margin-left: 8px; }
 
   /* Switch 激活色改为初音绿渐变发光 */
   .ios-switch {
@@ -356,20 +404,36 @@
   .dark .screen { background: #000; color: #F2F2F7; }
   .dark .statusbar { color: #F2F2F7; }
   .dark .collapsing-toolbar .ct-title { color: #F2F2F7; }
+  .dark .collapsing-toolbar .ct-sub { color: #BFBFBF; border-left-color: var(--brand-20); }
   .dark .list-card {
     background: #1C1C1E; border-color: rgba(57,197,187,.14);
   }
   .dark .app-name { color: #F2F2F7; }
+  .dark .app-pkg { color: #BFBFBF; }
   .dark .group-card { background: #1C1C1E; border-color: rgba(57,197,187,.14); }
-  .dark .detail-row { border-bottom-color: rgba(255,255,255,.08); }
+  .dark .detail-row { border-bottom-color: rgba(255,255,255,.12); }
+  .dark .detail-key { color: #BFBFBF; }
+  .dark .detail-val { color: #F2F2F7; }
+  .dark .detail-sub { color: #98989D; }
   .dark .setting-group { background: #1C1C1E; border-color: rgba(57,197,187,.14); }
-  .dark .setting-row { border-bottom-color: rgba(255,255,255,.08); }
+  .dark .setting-row { border-bottom-color: rgba(255,255,255,.12); }
   .dark .setting-label { color: #F2F2F7; }
+  .dark .setting-val { color: #BFBFBF; }
+  .dark .setting-arrow { color: #8E8E93; }
   .dark .search-bar {
-    background: rgba(28,28,30,.95); color: #8E8E93;
+    background: rgba(28,28,30,.95); color: #C7C7CC;
     border-color: rgba(57,197,187,.35);
   }
-  /* 深色模式悬浮栏 */
+  /* 深色未激活 chip：背景 + 文字都加亮，保持 4.5+ 对比度 */
+  .dark .chip {
+    background: rgba(255,255,255,.14); color: #F2F2F7;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .dark .chip.on {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    color: #fff;
+  }
+  /* 深色模式悬浮栏：未激活 tab 文字从 8E8E93 升到 BFBFBF */
   .dark .bottom-nav {
     background: rgba(28,28,30,.88);
     border-color: rgba(57,197,187,.45);
@@ -378,13 +442,41 @@
       0 6px 22px rgba(0,0,0,.6),
       0 0 0 1px rgba(255,255,255,.06) inset;
   }
-  .dark .nav-item { color: #8E8E93; }
-  .dark .section-header { color: var(--brand); }
-  .dark .group-header { color: var(--brand); }
+  .dark .nav-item { color: #BFBFBF; }
+  .dark .nav-item.on { color: #fff; }
+  .dark .section-header { color: var(--brand); letter-spacing: .08em; }
+  .dark .group-header { color: var(--brand); letter-spacing: .08em; }
   .dark .ct-icon {
     background: rgba(57,197,187,.25); color: var(--brand);
     box-shadow: 0 2px 10px rgba(57,197,187,.30);
   }
+  /* 深色 Switch 关闭态：轨道加亮 14%（原 E9E9EA 浅灰色在深色太突兀，换深灰） */
+  .dark .ios-switch {
+    background: rgba(255,255,255,.16);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+  }
+  .dark .ios-switch::after { background: #F2F2F7; }
+  .dark .ios-switch.on {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    box-shadow: 0 0 0 1px var(--brand-20), 0 4px 10px rgba(57,197,187,.35);
+  }
+  /* 深色标签：权限模式、tag 对比提升 */
+  .dark .perm-mode.a { background: rgba(52,199,89,.22); color: #65D98E; }
+  .dark .perm-mode.d { background: rgba(255,59,48,.22); color: #FF8B82; }
+  .dark .perm-mode.f { background: rgba(255,159,10,.22); color: #FFC267; }
+  .dark .tag.b {
+    background: rgba(57,197,187,.22);
+    color: #5CD6CD; border-color: rgba(57,197,187,.40);
+  }
+  .dark .tag.g { background: rgba(52,199,89,.22); color: #65D98E; }
+  .dark .tag.o { background: rgba(255,159,10,.22); color: #FFC267; }
+  .dark .tag.r { background: rgba(255,59,48,.22); color: #FF8B82; }
+  .dark .app-arrow {
+    background: rgba(57,197,187,.22); color: #5CD6CD;
+    box-shadow: inset 0 0 0 1px rgba(57,197,187,.30);
+  }
+  .dark .ref-bar { opacity: .95; }
+  .dark .brand-dot { box-shadow: 0 0 0 4px rgba(57,197,187,.18); }
 
   /* 调整说明卡片 */
   .adjustments {
@@ -454,7 +546,7 @@
   <div class="phones-row">
 
     <!-- 1. 主界面 -->
-    <div class="phone">
+    <div class="phone" data-w="440" data-model="iphone-17pm">
       <span class="phone-label green">主界面 · 底部 Tab</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -524,7 +616,7 @@
     </div>
 
     <!-- 2. 权限详情 -->
-    <div class="phone">
+    <div class="phone" data-w="412" data-model="s25u">
       <span class="phone-label green">权限详情 · 分段卡片</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -604,7 +696,7 @@
     </div>
 
     <!-- 3. 设置页 -->
-    <div class="phone">
+    <div class="phone" data-w="402" data-model="iphone-17p">
       <span class="phone-label green">设置 · iOS 卡片分组</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -672,7 +764,7 @@
     </div>
 
     <!-- 4. 我的 Tab（Drawer 迁移） -->
-    <div class="phone">
+    <div class="phone" data-w="360" data-model="redmi-a3">
       <span class="phone-label green">我的 · 抽屉功能迁移</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -758,7 +850,7 @@
   <!-- ========== 深色模式预览 ========== -->
   <h2 style="font-size:20px;margin:0 0 16px;letter-spacing:-.01em;">深色模式预览</h2>
   <div class="phones-row">
-    <div class="phone dark">
+    <div class="phone dark" data-w="440" data-model="mi15p">
       <span class="phone-label" style="background:#1C1C1E;">主界面 · 深色</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -826,7 +918,7 @@
       </div>
     </div>
 
-    <div class="phone dark">
+    <div class="phone dark" data-w="412" data-model="mate80p">
       <span class="phone-label" style="background:#1C1C1E;">权限详情 · 深色</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
