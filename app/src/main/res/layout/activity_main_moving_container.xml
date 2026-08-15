@@ -31,7 +31,9 @@
       android:paddingBottom="10dp"
       android:background="@color/bg">
 
-      <!-- 搜索框：marginStart/End=LX，padding 内对齐，hint 引用 search_hint_app_or_perm -->
+      <!-- 搜索框：marginStart/End=LX，padding 内对齐，hint 引用 search_hint_app_or_perm
+           elevation 2dp + translationZ 1dp：MIUI/HyperOS 柔和悬浮阴影（比列表卡片3dp小一号，不抢卡片风头）
+           background @drawable/bg_search_bar：三态selector（未激活=card+细描边 / pressed=brand_10蒙层 / focused=1.5dp brand 激活描边） -->
       <FrameLayout
         android:id="@+id/search_bar_frame"
         android:layout_width="match_parent"
@@ -42,7 +44,10 @@
         android:paddingEnd="14dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/bg_search_bar">
+        android:background="@drawable/bg_search_bar"
+        android:elevation="2dp"
+        android:translationZ="1dp"
+        android:outlineProvider="paddedBounds">
 
         <TextView
           android:id="@+id/search_hint_v"

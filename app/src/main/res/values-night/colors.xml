@@ -15,6 +15,9 @@
   <color name="ink_3">#94949A</color>          <!-- 三级：原8A8A90 vs搜索框search_bg(262628)=4.4 FAIL → 94949A 对bg=6.12 对card=5.01 对search_bg=5.01 对chip=4.56 全AA ✓ -->
   <color name="sharpText">#FFFFFF</color>      <!-- 兼容原 API：同 ink_1 纯白 -->
 
+  <!-- ===== Chip 激活背景：暗黑 brand 对 白字=2.13 FAIL → 加深到 #1F756F 对白字=5.48 PASS AA（比 brand_dark 再暗 30%） -->
+  <color name="chip_active_bg">#1F756F</color>
+
   <!-- ===== 背景/卡片（深色覆盖） ===== -->
   <color name="bg">#0E0E10</color>             <!-- App 背景：纯黑暗黑（比 #121212 还深一点） -->
   <color name="card">#1C1C1E</color>           <!-- 卡片：iOS 系统深灰（比 #2C2C2E 再深 1 级，跟设计稿一致） -->

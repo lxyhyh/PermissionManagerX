@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Chip（筛选胶囊）背景状态列表：
-     state_checked=true  → 初音绿 brand 主色实心（激活态=全部/用户应用/系统选中时）
-     默认未激活         → chip_unselected 颜色（浅灰/深灰，夜间对比度达标）
-     和 scheme-v3-adjusted.html 里 .chip / .chip.active 完全一致。 -->
+<!-- Chip（筛选胶囊）背景状态列表（四态按优先级从高到低）：
+     ① state_enabled=false（禁用/不可点）→ chip_unselected 灰色
+     ② state_pressed=true（手指正在按）→ brand_10 半透明初音绿蒙层（柔和按压不抢激活态）
+     ③ state_checked=true（当前选中激活态）→ chip_active_bg 实心（浅色=brand / 暗黑=#1F756F加深版，对白/黑字对比度均过AA）
+     ④ 默认未激活 → chip_unselected 灰色 + 0.5dp card_stroke 细描边（与列表卡片一致） -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- ② pressed=按压反馈（不论是否checked，手指按下都先给一层brand_10） -->
+  <item android:state_pressed="true">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/chip_unselected" />
+          <corners android:radius="@dimen/radius_md" />
+        </shape>
+      </item>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/brand_10" />
+          <corners android:radius="@dimen/radius_md" />
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <!-- ③ checked=选中激活：实心 chip_active_bg -->
   <item android:state_checked="true">
     <shape android:shape="rectangle">
-      <solid android:color="@color/brand" />
+      <solid android:color="@color/chip_active_bg" />
       <corners android:radius="@dimen/radius_md" />
     </shape>
   </item>
+  <!-- ① disabled=禁用：chip_unselected -->
+  <item android:state_enabled="false">
+    <shape android:shape="rectangle">
+      <solid android:color="@color/chip_unselected" />
+      <corners android:radius="@dimen/radius_md" />
+    </shape>
+  </item>
+  <!-- ④ 默认未激活：chip_unselected 背景 + 0.5dp card_stroke 细描边（与搜索框/列表卡一致） -->
   <item>
     <shape android:shape="rectangle">
       <solid android:color="@color/chip_unselected" />
-      <stroke android:width="1dp" android:color="@color/brand_10" />
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
       <corners android:radius="@dimen/radius_md" />
     </shape>
   </item>

@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 搜索框背景：中圆角 14dp（dimens radius_md）+ 搜索框 search_bg 颜色 + 1px 初音绿 10% 细描边
-     scheme-v3-adjusted.html 的 search-bar：圆角 14、背景 #EDEEF1（浅）/ #262628（深）。 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-  <solid android:color="@color/search_bg" />
-  <stroke android:width="1dp" android:color="@color/brand_10" />
-  <corners android:radius="@dimen/radius_md" />
-</shape>
+<!-- 搜索框背景：MIUI X 风格（14dp 圆角 radius_md + card色作底 + 激活focus初音绿1.5dp描边）
+     规则（三态）：
+       ① state_focused=true（用户点进搜索框）：card背景 + 1.5dp brand描边（激活即初音绿高亮）
+       ② state_pressed=true（手指刚按下）：card背景 + 0.5dp brand_20描边 + 半透明brand_10蒙层（柔和按压感）
+       ③ 默认未激活：card背景 + 0.5dp card_stroke 描边（MIUI/HyperOS柔和搜索框，与列表卡片同描边）
+     背景从search_bg改为card：与列表卡片一致，减少层级割裂，elevation 2dp 负责柔和阴影。 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- ① focus=激活搜索：品牌描边 1.5dp brand + card 底色 -->
+  <item android:state_focused="true">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/card" />
+          <stroke android:width="1.5dp" android:color="@color/brand" />
+          <corners android:radius="@dimen/radius_md" />
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <!-- ② pressed=刚点还没进搜索：brand_20描边 + brand_10半透明覆盖（柔和按压反馈） -->
+  <item android:state_pressed="true">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/card" />
+          <stroke android:width="0.5dp" android:color="@color/brand_20" />
+          <corners android:radius="@dimen/radius_md" />
+        </shape>
+      </item>
+      <item>
+        <shape android:shape="rectangle">
+          <solid android:color="@color/brand_10" />
+          <corners android:radius="@dimen/radius_md" />
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <!-- ③ 默认未激活：card底 + 0.5dp card_stroke 细描边（与列表卡片完全一致，减少层级感） -->
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@color/card" />
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
+      <corners android:radius="@dimen/radius_md" />
+    </shape>
+  </item>
+</selector>

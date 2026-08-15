@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Chip 文字颜色：激活=白；未激活=ink_2（主文字次，对比度8+）。夜间自动跟 values-night/colors.xml 换色。 -->
+<!-- Chip 文字颜色（四态，按背景同优先级）：
+     ① disabled 禁用 → ink_3（灰，轻一点提示不可点）
+     ② state_checked=true 激活 → ink_1（浅=黑#1A1A1A / 暗黑=白#FFFFFF，随主题自动切换；对 chip_active_bg=8.19/5.48 均过AA）
+     ③ state_pressed=true 按压 → 同未激活色 ink_2（背景已有 brand_10 蒙层，文字保持一致不换）
+     ④ 默认未激活 → ink_2（次级文字色；对 chip_unselected 浅=5.47 / 暗=7.27 均过AA） -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:state_checked="true" android:color="@android:color/white" />
+  <item android:state_enabled="false" android:color="@color/ink_3" />
+  <item android:state_checked="true" android:color="@color/ink_1" />
+  <item android:state_pressed="true" android:color="@color/ink_2" />
   <item android:color="@color/ink_2" />
 </selector>

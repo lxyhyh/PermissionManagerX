@@ -18,8 +18,11 @@
   -->
 
   <!-- ===== 主题色主色 ===== -->
-  <color name="brand">#39C5BB</color>         <!-- 初音绿：SukiSU 主色，chip 激活背景/装饰条 -->
+  <color name="brand">#39C5BB</color>         <!-- 初音绿：SukiSU 主色，装饰条/按钮/未加深场景 -->
   <color name="brand_dark">#2A9A91</color>    <!-- 按/分组标题/激活态深初音绿（比 brand 暗 25%） -->
+
+  <!-- ===== Chip 激活背景：浅色直接用 brand（对 ink_1 黑字=8.19 PASS AA）；暗黑用加深 #1F756F（对 ink_1 白字=5.48 PASS AA） -->
+  <color name="chip_active_bg">@color/brand</color>
 
   <!-- ===== 主题色透明层级（5%/10%/20%/50%/75%） ===== -->
   <color name="brand_5">#0D39C5BB</color>     <!-- 5%：section-header 圆点光晕 -->
