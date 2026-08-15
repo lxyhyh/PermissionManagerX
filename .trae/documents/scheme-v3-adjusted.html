@@ -74,52 +74,53 @@
     border: 1px solid rgba(255,255,255,.08); box-shadow: 0 14px 48px rgba(0,0,0,.22);
   }
   /* 不同宽度的机型：通过 data-w 控制容器宽度 + 内部 padding 自适应
-     ⚠️ 严格按页面前缀隔离：
-     - 权限详情页（点进应用里的界面）：一律保持 14/16 原版
-     - 设置/我的页（setting-group）：按机型调整为 16/18/20 的专属缩进
+
+     ⚠️ LX 隔离规则：
+     - 360dp 小屏（Redmi A3）：--LX = 16px（机型比例）
+     - 402dp / 412dp / 440dp 大屏：--LX = 18px（默认已在 .collapsing-toolbar 中生效，下面不再覆盖它）
+
+     ⚠️ 页面前缀隔离：
+     - 权限详情页（点进应用里的界面）= .perm-page
+     - 我的页 = .my-page
+     - 设置页 = .set-page
+     - 主界面 = .main-page
+     每类页面的 padding / margin 都带页面前缀，不再互相污染
   */
   .phone[data-w="360"] { --pw: 360px; }
+  /* 小屏机型：覆盖 collapsing-toolbar 的 LX 从 18→16px */
+  .phone[data-w="360"] .collapsing-toolbar { --LX: 16px; }
   .phone[data-w="360"] .list-card { padding: 11px 12px; }
   .phone[data-w="360"] .app-icon { width: 40px; height: 40px; font-size: 14px; border-radius: 10px; }
-  .phone[data-w="360"] .collapsing-toolbar { padding-left: 16px; padding-right: 16px; }
   .phone[data-w="360"] .collapsing-toolbar .ct-title { font-size: 22px; }
-  .phone[data-w="360"] .chips { padding-left: 16px; padding-right: 16px; }
-  .phone[data-w="360"] .search-bar { margin-left: 16px; margin-right: 16px; }
-  .phone[data-w="360"] .list-area { padding-left: 16px; padding-right: 16px; }
-  /* data-w=360：设置/我的页 → 安全距 16px，内缩进 18px */
-  .phone[data-w="360"] .setting-group { margin-left: 16px; margin-right: 16px; }
+
+  /* data-w=360：设置页 → LX=16px 时，setting-group / chips / search-bar / section-header / list 已自动跟随 var(--LX)，
+     下面只补 setting-group 内部分组缩进跟大机型相同比例（18px，比大屏的 20px 略紧） */
   .phone[data-w="360"] .setting-group .group-header-set { padding-left: 18px; padding-right: 18px; }
   .phone[data-w="360"] .setting-group .group-body-set { padding-left: 18px; padding-right: 18px; }
-  /* data-w=360：权限详情页 → 维持原版（不改 detail-body / group-header / group-body） */
-  .phone[data-w="360"] .detail-body .group-header { padding-left: 16px; padding-right: 16px; }
-  .phone[data-w="360"] .detail-body .group-body { padding-left: 16px !important; padding-right: 16px !important; }
-  .phone[data-w="360"] .detail-key { width: 60px; font-size: 12px; }
-  .phone[data-w="360"] .detail-body .detail-key { width: 60px; font-size: 12px; }
-  .phone[data-w="360"] .detail-val { font-size: 13px; }
-  .phone[data-w="360"] .detail-body .detail-val { font-size: 13px; }
+
+  /* data-w=360：权限详情页 → 保持原版「内部缩进 16px」，
+     仅卡片外边缘对齐 LX=16px（由 .perm-page .detail-body 的 padding 控制） */
+  .phone[data-w="360"].perm-page .detail-body { padding: 4px 16px 96px !important; }
+  .phone[data-w="360"].perm-page .detail-body .group-header { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="360"].perm-page .detail-body .group-body { padding-left: 16px !important; padding-right: 16px !important; }
+  .phone[data-w="360"].perm-page .detail-body .detail-key { width: 60px; font-size: 12px; }
+  .phone[data-w="360"].perm-page .detail-body .detail-val { font-size: 13px; }
+
+  /* data-w=360：我的页 → 小屏用户卡外边缘对齐 LX=16px（由 .my-page .detail-body 的 padding 控制）*/
+  .phone[data-w="360"].my-page .detail-body { padding: 4px 16px 96px !important; }
 
   .phone[data-w="402"] { --pw: 402px; }
   .phone[data-w="412"] { --pw: 412px; }
-  .phone[data-w="412"] .list-area { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="412"] .collapsing-toolbar { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="412"] .chips { padding-left: 18px; padding-right: 18px; }
-  .phone[data-w="412"] .search-bar { margin-left: 18px; margin-right: 18px; }
-  /* data-w=412：设置/我的页 → 安全距 18px，内缩进 20px */
-  .phone[data-w="412"] .setting-group { margin-left: 18px; margin-right: 18px; }
-  .phone[data-w="412"] .setting-group .group-header-set { padding-left: 20px; padding-right: 20px; }
-  .phone[data-w="412"] .setting-group .group-body-set { padding-left: 20px; padding-right: 20px; }
-  /* data-w=412：权限详情页 → 保持原版，不再被机型覆盖联动 */
-  .phone[data-w="412"] .detail-body { padding: 4px 14px 96px !important; }
+  /* 412dp 及以上大屏：LX 默认 18px（.collapsing-toolbar 里已定义），下面只补页面专属覆盖 */
+  .phone[data-w="412"].perm-page .detail-body { padding: 4px var(--LX) 96px !important; }
+  .phone[data-w="412"].my-page .detail-body { padding: 4px var(--LX) 96px !important; }
 
   .phone[data-w="440"] { --pw: 440px; }
-  /* data-w=440：设置/我的页 → 默认值已生效，这里只确保设置分组 margin=18、分组缩进=20 不被覆盖 */
-  .phone[data-w="440"] .setting-group .group-header-set { padding-left: 20px; padding-right: 20px; }
-  .phone[data-w="440"] .setting-group .group-body-set { padding-left: 20px; padding-right: 20px; }
-  .phone[data-w="440"] .detail-body { padding: 4px 14px 96px !important; }
-  .phone[data-w="440"] .detail-body .group-card { margin-left: 0 !important; margin-right: 0 !important; }
+  .phone[data-w="440"].perm-page .detail-body { padding: 4px var(--LX) 96px !important; }
+  .phone[data-w="440"].my-page .detail-body { padding: 4px var(--LX) 96px !important; }
   .phone[data-w="440"] .setting-label { font-size: 14px; }
   .phone[data-w="440"] .app-name { font-size: 15px; }
-  .phone[data-w="440"] .detail-body .detail-val { font-size: 14px; }
+  .phone[data-w="440"].perm-page .detail-body .detail-val { font-size: 14px; }
 
   .phone-label {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -184,20 +185,36 @@
     width: 10px; height: 10px; border-radius: 50%; left: 32%;
   }
 
-  /* ===== SukiSU Ultra / LSPosed 风格通用组件 ===== */
+  /* ===== SukiSU Ultra / LSPosed 风格通用组件 =====
+
+     ⚠️  全局对齐基准（用户蓝线 = 初音绿装饰竖线 Left X = LX）
+         collapsing-toolbar 定义 CSS 变量 --LX，以下 4 类元素的 left edge 全部 = LX：
+           ① 搜索框
+           ② chip（全部/用户应用/系统）
+           ③ section-header（如「已安装应用·148」）
+           ④ 所有卡片（list-card / setting-group / group-card / 我的页用户卡）
+  */
 
   /* CollapsingToolbar 风格大标题（现代 App 24-28sp 区间） */
   .collapsing-toolbar {
-    padding: 20px 18px 6px; position: relative;
+    --LX: 18px; /* 全局对齐基准：装饰竖线 Left X 坐标（相对 screen） */
+    padding: 20px var(--LX) 6px var(--LX);
+    position: relative;
   }
+  /* 初音绿装饰竖线：绝对定位，固定 left = LX，不再受文字行高/内联盒影响 */
   .collapsing-toolbar::before {
-    content: ""; display:inline-block; width:4px; height:22px;
+    content: ""; position: absolute;
+    left: var(--LX);
+    top: 26px;
+    width: 4px; height: 22px;
     background: linear-gradient(180deg,var(--brand), var(--brand-dark));
-    border-radius:4px; margin-right:10px; vertical-align:-3px;
+    border-radius: 4px;
   }
   .collapsing-toolbar .ct-title {
     font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0;
-    color: var(--ink-1); display: inline-block;
+    color: var(--ink-1); display: block;
+    /* 标题文字本体：从装饰线右边 10px 开始，避免重叠装饰线 */
+    padding-left: calc(4px + 10px); /* 装饰线宽 4 + 间距 10 */
   }
   .collapsing-toolbar .ct-sub {
     font-size: 12px; color: var(--ink-2); margin-top: 4px; padding-left: 14px;
@@ -213,9 +230,10 @@
     box-shadow: 0 4px 10px var(--brand-20);
   }
 
-  /* 搜索栏（参考 HyperOS 设置搜索 · 12.5sp 占位文字） */
+  /* 搜索栏：左边缘 = LX（margin-left 直接设 LX） */
   .search-bar {
-    margin: 10px 14px 10px; border-radius: 999px; padding: 9px 16px;
+    margin: 10px var(--LX) 10px;
+    border-radius: 999px; padding: 9px 16px;
     background: rgba(255,255,255,.95); display:flex; align-items:center; gap: 8px;
     font-size: 12.5px; color: var(--ink-2);
     border: 1.5px solid var(--brand-20);
@@ -226,8 +244,8 @@
     filter: saturate(1.2);
   }
 
-  /* 筛选 Chips（11.5sp，MIUI 筛选胶囊一般 11–12） */
-  .chips { display:flex; gap:6px; padding: 0 14px 12px; overflow-x:auto; }
+  /* 筛选 Chips：左边缘 = LX（padding-left 直接设 LX） */
+  .chips { display:flex; gap:6px; padding: 0 var(--LX) 12px; overflow-x:auto; }
   .chip {
     padding: 5px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 600; white-space:nowrap;
     background: rgba(120,120,128,.12); color: var(--ink-1);
@@ -238,9 +256,10 @@
     box-shadow: 0 4px 12px var(--brand-20);
   }
 
-  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点） */
+  /* 分组标题（MIUI / SukiSU 分组一般 10.5-11sp · 初音绿前缀点）：左边缘 = LX */
   .section-header {
-    padding: 12px 18px 6px; font-size: 11px; font-weight: 700;
+    padding: 12px var(--LX) 6px var(--LX);
+    font-size: 11px; font-weight: 700;
     color: var(--brand-dark); letter-spacing: .08em; text-transform: uppercase;
     display:flex; align-items:center; gap: 6px;
   }
@@ -249,8 +268,8 @@
     background: var(--brand); box-shadow: 0 0 0 4px var(--brand-10);
   }
 
-  /* 列表区域（为悬浮底栏预留底部空间） */
-  .list-area { flex:1; padding: 0 14px 96px; overflow-x: hidden; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+  /* 列表区域：左边缘 = LX（padding-left 直接设 LX） */
+  .list-area { flex:1; padding: 0 var(--LX) 96px; overflow-x: hidden; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
     scrollbar-width: thin; scrollbar-color: var(--brand-20) transparent;
   }
   .list-area::-webkit-scrollbar { width: 3px; }
@@ -402,14 +421,18 @@
   .perm-mode.d { background: rgba(255,59,48,.12); color:#B4261E; }
   .perm-mode.f { background: rgba(255,159,10,.12); color:#9A5E00; }
 
-  /* ===== 设置页 ===== */
+  /* ===== 设置页 =====
+
+     ⚠️  LX 对齐：设置页的 collapsing-toolbar 也会 --LX:18px（继承上面新定义的规则）
+         设置页卡片（.setting-group）外边缘 = LX：margin-left = var(--LX)
+  */
   .setting-group {
-    background: var(--card); border-radius: var(--radius-lg); margin: 0 18px 12px; overflow: hidden;
+    background: var(--card); border-radius: var(--radius-lg);
+    margin: 0 var(--LX) 12px; /* 卡片左边缘 = LX */
+    overflow: hidden;
     border: 1px solid rgba(57,197,187,.08); box-shadow: 0 2px 8px rgba(0,0,0,.02);
   }
-  /* 修复A（根治版，用 -set 专属 class，不再跟详情页的 group-* 混用）：
-     分组标题左缩进 = 分组行 左缩进 = 同一个值（20px）
-     这样「外观」文字的最左点 ↔ 下面 🎨 图标的最左点 正好一条竖线 */
+  /* 分组标题/分组行内部缩进：保持现有比例（跟卡片外边缘 LX 无关，不动） */
   .setting-group .group-header-set { padding: 13px 20px 7px 20px; }
   .setting-group .group-body-set { padding: 0 20px 8px; }
   .setting-group .setting-row-set { padding-left: 0; padding-right: 0; }
@@ -428,30 +451,34 @@
   .setting-val { font-size: 12.5px; color: var(--ink-2); }
   .setting-arrow { color: var(--ink-3); font-size: 15px; }
 
-  /* 修复B：collapsing-toolbar 左侧 padding 与 setting-group 左侧 margin 对齐
-            统一为 18px，标题前初音绿竖条的左边缘 正好 对齐 卡片外的左边缘（18px 这条线）
-
-     ⚠️ 隔离说明：
-     - 【主界面、设置页、我的页】走 18px 安全距：.chips / .search-bar / .list-area / .setting-group / .collapsing-toolbar
-     - 【权限详情页】（点进应用里的界面）保持用户未要求改的原版：14px，通过 .detail-body 前缀锁定，不再受全局影响
+  /* 我的页：顶部用户卡（group-card）的外边缘 = LX
+     做法：.detail-body padding-left/right = LX，让里面的 group-card 最左边 = LX
+     ⚠️  只作用在「我的页」的 detail-body（它不含权限详情的分组结构），
+          权限详情页 detail-body 单独重新锁定（见下一段）
   */
-  .collapsing-toolbar {
-    padding: 20px 18px 6px 18px; position: relative;
+  .my-page .detail-body {
+    padding: 4px var(--LX) 96px !important;
   }
-  /* 主界面其他容器也同步改为 18px 左右安全距 */
-  .chips { padding: 0 18px 12px; }
-  .search-bar { margin-left: 18px; margin-right: 18px; }
-  .list-area { padding-left: 18px; padding-right: 18px; }
+  .my-page .detail-body .group-card {
+    margin-left: 0 !important; margin-right: 0 !important;
+  }
 
-  /* ▼▼▼ 权限详情页（点进应用里的界面）：回退为原版 14px / 16px —— 只用 .detail-body 前缀锁定，不污染上面 ▼▼▼ */
-  .detail-body { padding: 4px 14px 96px !important; }
-  .detail-body .group-card { margin-left: 0 !important; margin-right: 0 !important; }
-  .detail-body .group-body { padding: 0 16px 8px !important; }
-  .detail-body .group-header { padding: 13px 16px 7px 16px; }
-  .detail-body .detail-row { padding: 12px 0; }
-  .detail-body .detail-key { font-size: 13px; width: 70px; }
-  .detail-body .detail-val { font-size: 14px; }
-  .detail-body .detail-icon { width: 32px; height: 32px; border-radius: 10px; font-size: 14px; }
+  /* ▼▼▼ 权限详情页（点进应用里的界面）：只改「分组卡片外边缘对齐 LX」
+          ！！内部缩进/字体/行结构一律不动 ！！
+     做法：.detail-body padding-left/right = LX，里面的 .group-card 无额外 margin
+           = 分组卡外边缘 = LX
+  */
+  .perm-page .detail-body {
+    padding: 4px var(--LX) 96px !important;
+  }
+  .perm-page .detail-body .group-card { margin-left: 0 !important; margin-right: 0 !important; }
+  /* 详情页内部缩进保持你没让改的原版：16px（不参与 LX 对齐） */
+  .perm-page .detail-body .group-body { padding: 0 16px 8px !important; }
+  .perm-page .detail-body .group-header { padding: 13px 16px 7px 16px; }
+  .perm-page .detail-body .detail-row { padding: 12px 0; }
+  .perm-page .detail-body .detail-key { font-size: 13px; width: 70px; }
+  .perm-page .detail-body .detail-val { font-size: 14px; }
+  .perm-page .detail-body .detail-icon { width: 32px; height: 32px; border-radius: 10px; font-size: 14px; }
   .dark .screen { background: #000; color: #F2F2F7; }
   .dark .statusbar { color: #F2F2F7; }
   .dark .collapsing-toolbar .ct-title { color: #F2F2F7; }
@@ -597,7 +624,7 @@
   <div class="phones-row">
 
     <!-- 1. 主界面 -->
-    <div class="phone" data-w="440" data-model="iphone-17pm">
+    <div class="phone main-page" data-w="440" data-model="iphone-17pm">
       <span class="phone-label green">主界面 · 底部 Tab</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -667,7 +694,7 @@
     </div>
 
     <!-- 2. 权限详情 -->
-    <div class="phone" data-w="412" data-model="s25u">
+    <div class="phone perm-page" data-w="412" data-model="s25u">
       <span class="phone-label green">权限详情 · 分段卡片</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -747,7 +774,7 @@
     </div>
 
     <!-- 3. 设置页 -->
-    <div class="phone" data-w="402" data-model="iphone-17p">
+    <div class="phone set-page" data-w="402" data-model="iphone-17p">
       <span class="phone-label green">设置 · iOS 卡片分组</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -815,7 +842,7 @@
     </div>
 
     <!-- 4. 我的 Tab（Drawer 迁移） -->
-    <div class="phone" data-w="360" data-model="redmi-a3">
+    <div class="phone my-page" data-w="360" data-model="redmi-a3">
       <span class="phone-label green">我的 · 抽屉功能迁移</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -901,7 +928,7 @@
   <!-- ========== 深色模式预览 ========== -->
   <h2 style="font-size:20px;margin:0 0 16px;letter-spacing:-.01em;">深色模式预览</h2>
   <div class="phones-row">
-    <div class="phone dark" data-w="440" data-model="mi15p">
+    <div class="phone main-page dark" data-w="440" data-model="mi15p">
       <span class="phone-label" style="background:#1C1C1E;">主界面 · 深色</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
@@ -969,7 +996,7 @@
       </div>
     </div>
 
-    <div class="phone dark" data-w="412" data-model="mate80p">
+    <div class="phone perm-page dark" data-w="412" data-model="mate80p">
       <span class="phone-label" style="background:#1C1C1E;">权限详情 · 深色</span>
       <div class="statusbar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
       <div class="screen">
