@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
@@ -25,7 +26,10 @@
       android:layout_marginTop="6dp"
       android:background="@drawable/decor_brand_vert_line" />
 
+    <!-- 大标题 TextView：新增 id=fc_page_title_v，供 SettingsActivityM / FilterSettingsActivity 分别 setText，
+         避免"筛选设置"页面还显示"设置"字样。两个页面都走同一个外层壳。 -->
     <TextView
+      android:id="@+id/fc_page_title_v"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="-16dp"
@@ -45,17 +49,59 @@
 
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
-  <!-- ===== 兼容老代码：异常筛选总开关（FilterSettingsFragment 可能用到？保留 ID + visibility=gone，原样不动） ===== -->
-  <ToggleButton
-    android:id="@+id/exc_filters_master_switch"
+  <!-- ===== 异常筛选总开关（Master Switch）：FilterSettingsActivity 专用（SettingsActivityM 不会显示）
+           老 ID 完全保留：@+id/exc_filters_master_switch，但是控件类型：ToggleButton → SwitchCompat。
+           好处：
+           1. FilterSettingsActivity.java 里 .setChecked() / .setOnClickListener() / .isChecked() — SwitchCompat 都有，0 Java 修改
+           2. BaseTheme.colorControlActivated=初音绿 → Switch 激活态立即染绿 + slim_switch 圆形白钮胶囊风格（和 rv_item_perm 完全一致）
+           3. 外层包大圆角卡片（bg_about_card）+ paddingStart/End=14/10dp → 和 Preference 卡片视觉统一，不越过初音绿装饰条（外层 marginStart/End=LX 已控制）
+           4. 左侧：主标题（启用筛选） + 副文（禁用时，所有应用和权限默认显示），和"我的页"行结构一致
+  -->
+  <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:layout_marginTop="8dp"
     android:layout_marginStart="@dimen/align_LX"
     android:layout_marginEnd="@dimen/align_LX"
-    android:textOff="@string/enable_exc_filters"
-    android:textOn="@string/disable_exc_filters"
-    android:visibility="gone" />
+    android:background="@drawable/bg_about_card"
+    android:paddingStart="14dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:visibility="gone">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_exc_filters"
+        android:textColor="@color/ink_1"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+      <!-- 副文：不写（硬凑 existing string 容易误解）。筛选设置打开后下方 PreferenceCategory 的说明会完整解释各分组功能，Master Switch 只需要清晰的 Enable 主标题。 -->
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+      android:id="@+id/exc_filters_master_switch"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:thumb="@drawable/slim_switch_thumb"
+      app:track="@drawable/slim_switch_track"
+      app:switchMinWidth="30dp"
+      android:paddingStart="8dp"
+      android:paddingEnd="2dp" />
+
+  </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
   <!-- ===== Fragment 容器：设置/高级设置/筛选设置 的 PreferenceFragmentCompat 都塞这里
            padding 给左右 LX，让 Preference 卡片与装饰条对齐；

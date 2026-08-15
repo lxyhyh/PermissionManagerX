@@ -35,6 +35,8 @@ class CrashReportActivity(private val mA: CrashReportActivityM) {
     mA.setContentView(mB)
 
     mA.supportActionBar?.setTitle(R.string.crash_report)
+    // 初音绿装饰条下方大标题：同步 ActionBar 的"崩溃报告"（避免装饰条下还显示默认 submit_report）
+    mB.crashPageTitleV?.setText(R.string.crash_report)
 
     mA.lifecycleScope.launch(Dispatchers.Main) { setFileContents(readFileContents()) }
   }

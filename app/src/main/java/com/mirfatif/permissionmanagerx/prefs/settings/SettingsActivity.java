@@ -28,7 +28,13 @@ public class SettingsActivity extends OnBackPressedCallback {
   private static final String SAVED_STATE_TITLE = CLASS + ".TITLE";
 
   public void onCreated(Bundle savedInstanceState) {
-    mA.setContentView(ActivityFragmentContainerBinding.inflate(mA.getLayoutInflater()));
+    ActivityFragmentContainerBinding binding =
+        ActivityFragmentContainerBinding.inflate(mA.getLayoutInflater());
+    mA.setContentView(binding);
+    // 初音绿装饰条下方大标题：同步 ActionBar 上的「设置」（两个标题保持一致，避免装饰条下还显示错的旧文字）
+    if (binding.fcPageTitleV != null) {
+      binding.fcPageTitleV.setText(R.string.settings_menu_item);
+    }
 
     String title = null;
 

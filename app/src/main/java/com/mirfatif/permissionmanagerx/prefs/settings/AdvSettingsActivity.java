@@ -35,7 +35,13 @@ public class AdvSettingsActivity {
   private BackupFileSelector mCleanupLauncher, mResetLauncher;
 
   public void onCreate(Bundle savedInstanceState) {
-    mA.setContentView(ActivityFragmentContainerBinding.inflate(mA.getLayoutInflater()));
+    ActivityFragmentContainerBinding binding =
+        ActivityFragmentContainerBinding.inflate(mA.getLayoutInflater());
+    mA.setContentView(binding);
+    // 初音绿装饰条下方大标题：同步 ActionBar 的「高级设置」
+    if (binding.fcPageTitleV != null) {
+      binding.fcPageTitleV.setText(R.string.advanced_settings_menu_item);
+    }
 
     ActionBar actionBar = mA.getSupportActionBar();
     if (actionBar != null) {

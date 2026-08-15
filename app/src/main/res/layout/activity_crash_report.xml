@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  崩溃报告页（CrashReportActivity）外层壳：和我的页/设置页完全一致的初音绿装饰条 + 大标题 + LX对齐。
+  老 ID 100% 保留（ActivityCrashReportBinding + CrashReportActivity.kt 使用）：
+    prog_cont / prog_msg / report_cont / content_v / submit_button
+-->
 <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:background="@color/bg">
 
-  <View
-    style="@style/ListSeparator"
-    android:background="?attr/accentColor" />
+  <!-- ===== 顶部：初音绿装饰竖条 + 大标题 ===== -->
+  <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/align_LX"
+    android:paddingEnd="@dimen/align_LX"
+    android:paddingTop="16dp"
+    android:paddingBottom="4dp">
 
+    <View
+      android:layout_width="4dp"
+      android:layout_height="22dp"
+      android:layout_marginStart="0dp"
+      android:layout_marginTop="6dp"
+      android:background="@drawable/decor_brand_vert_line" />
+
+    <TextView
+      android:id="@+id/crash_page_title_v"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="-16dp"
+      android:paddingStart="14dp"
+      android:text="@string/submit_report_button"
+      android:textColor="@color/ink_1"
+      android:textSize="@dimen/text_title"
+      android:textStyle="bold"
+      android:fontFamily="sans-serif-black"
+      android:letterSpacing="-0.02"
+      tools:ignore="MissingPrefix"
+      xmlns:tools="http://schemas.android.com/tools" />
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="8dp"
+      android:background="?attr/accentColor" />
+
+  </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+  <!-- ===== 进度展示区（读取崩溃日志时显示）—— prog_cont + prog_msg 两个ID 完整保留 ===== -->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:id="@+id/prog_cont"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginStart="@dimen/align_LX"
+    android:layout_marginEnd="@dimen/align_LX"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/bg_about_card"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -31,26 +78,35 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:paddingHorizontal="8dp"
       android:text="@string/reading_crash_log_file"
-      android:textColor="@color/sharpText"
-      android:textSize="16sp" />
+      android:textColor="@color/ink_2"
+      android:textSize="14sp" />
 
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
+  <!-- ===== 报告内容区（崩溃日志内容 + 提交按钮）—— report_cont / content_v / submit_button 三个ID 完整保留 ===== -->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:id="@+id/report_cont"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginStart="@dimen/align_LX"
+    android:layout_marginEnd="@dimen/align_LX"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="96dp"
     android:orientation="vertical"
     android:visibility="gone">
 
+    <!-- 日志内容卡片：大圆角包起来（原 crash_report_text_bg 直接在 NestedScrollView 背景 → 外层再包我们的卡片也不冲突） -->
     <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
       android:layout_weight="1"
-      android:background="@drawable/crash_report_text_bg"
-      android:padding="8dp">
+      android:background="@drawable/bg_about_card"
+      android:paddingHorizontal="12dp"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp">
 
       <HorizontalScrollView
         android:layout_width="wrap_content"
@@ -61,25 +117,34 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:fontFamily="monospace"
-          android:textColor="@color/sharpText" />
+          android:textColor="@color/ink_1"
+          android:textSize="12sp"
+          android:lineSpacingExtra="2dp" />
 
       </HorizontalScrollView>
 
     </androidx.core.widget.NestedScrollView>
 
+    <!-- 提交按钮行：右对齐，初音绿 bold 文字 -->
     <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:paddingHorizontal="4dp">
 
       <Button
         android:id="@+id/submit_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:enabled="false"
         android:text="@string/submit_report_button"
-        android:textColor="@color/active_disabled" />
+        android:textColor="@color/brand"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/transparent" />
 
     </FrameLayout>
 

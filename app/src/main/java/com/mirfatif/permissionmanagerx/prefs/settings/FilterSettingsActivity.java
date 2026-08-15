@@ -37,6 +37,10 @@ public class FilterSettingsActivity {
     if (actionBar != null) {
       actionBar.setTitle(R.string.filter_menu_item);
     }
+    // 初音绿装饰条下方大标题：同步 ActionBar 的「筛选设置」（共用壳原本只显示"设置"）
+    if (mB.fcPageTitleV != null) {
+      mB.fcPageTitleV.setText(R.string.filter_menu_item);
+    }
 
     mB.excFiltersMasterSwitch.setVisibility(View.VISIBLE);
 
