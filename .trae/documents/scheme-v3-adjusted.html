@@ -417,7 +417,12 @@
   .setting-arrow { color: var(--ink-3); font-size: 15px; }
 
   /* 修复B：collapsing-toolbar 左侧 padding 与 setting-group 左侧 margin 对齐
-            统一为 18px，标题前初音绿竖条的左边缘 正好 对齐 卡片外的左边缘（18px 这条线） */
+            统一为 18px，标题前初音绿竖条的左边缘 正好 对齐 卡片外的左边缘（18px 这条线）
+
+     ⚠️ 说明：这一段「全局安全距」只作用在
+             【主界面、设置页、我的页】
+             权限详情页（点进应用里的界面）回退为之前的 14px 原版，避免顺带改变用户未提及的界面
+  */
   .collapsing-toolbar {
     padding: 20px 18px 6px 18px; position: relative;
   }
@@ -425,20 +430,35 @@
   .chips { padding: 0 18px 12px; }
   .search-bar { margin-left: 18px; margin-right: 18px; }
   .list-area { padding-left: 18px; padding-right: 18px; }
-  .detail-body { padding-left: 0; padding-right: 0; }
+  /* ▼▼▼ 权限详情页：回退为修复设置页之前的 14px 原版 —— 保持点进应用界面不变 ▼▼▼ */
+  .detail-body { padding: 4px 14px 96px !important; }
+  /* ▼▼▼ data-w 适配也要排除掉权限详情页的 padding，防止机型宽度适配把详情页带偏 ▼▼▼ */
+  .phone[data-w="412"] .detail-body,
+  .phone[data-w="440"] .detail-body,
+  .phone[data-w="360"] .detail-body { padding: 4px 14px 96px !important; }
 
-  /* 权限详情页的 group-card：它原来包在 detail-body 里没左右 margin，
-     现在补上与 setting-group 一致的 18px 左右间距，让所有屏幕里「卡片外边缘」统一在同一条竖线 */
+  /* 权限详情页的 group-card：原来就是无左右 margin（被 detail-body 的 14px 包住），
+     现在回退，不再强制跟 setting-group 同 margin，保持用户没要求改的界面不变 */
   .detail-body .group-card {
-    margin-left: 18px; margin-right: 18px;
+    margin-left: 0 !important; margin-right: 0 !important;
   }
-  .group-body { padding: 0 20px 8px !important; }
-  .group-header { padding-left: 20px; padding-right: 20px; }
-  /* detail-row 左右 padding 跟 setting-row 一致 20px，图标首字母与 group-header 对齐 */
-  .detail-row {
-    display:flex; align-items: center; gap: 12px; padding: 11px 0;
-    border-bottom: 1px solid var(--line);
+  .phone[data-w="360"] .detail-body .group-card,
+  .phone[data-w="412"] .detail-body .group-card,
+  .phone[data-w="440"] .detail-body .group-card {
+    margin-left: 0 !important; margin-right: 0 !important;
   }
+  /* ▼▼▼ 权限详情专用的 group-body / group-header：回到修复前的 16px / 13px-16px-8px
+           （上面的通用 group-header/group-body 20px 是给设置页准备的，不要影响详情页）▼▼▼ */
+  .detail-body .group-body { padding: 0 16px 8px !important; }
+  .detail-body .group-header { padding: 13px 16px 7px 16px; }
+  .phone[data-w="360"] .detail-body .group-header { padding-left: 16px; padding-right: 16px; }
+  .phone[data-w="360"] .detail-body .group-body { padding-left: 16px !important; padding-right: 16px !important; }
+  /* detail-row / detail-icon / detail-key / detail-val 全部回到 修复前 原版 0 padding
+     （对齐缩进不再加 20px，保持用户未要求改的界面不变） */
+  .detail-body .detail-row { padding: 12px 0; }
+  .detail-body .detail-key { font-size: 13px; width: 70px; }
+  .detail-body .detail-val { font-size: 14px; }
+  .detail-body .detail-icon { width: 32px; height: 32px; border-radius: 10px; font-size: 14px; }
   .dark .screen { background: #000; color: #F2F2F7; }
   .dark .statusbar { color: #F2F2F7; }
   .dark .collapsing-toolbar .ct-title { color: #F2F2F7; }
