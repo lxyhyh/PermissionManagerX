@@ -52,21 +52,38 @@
         android:fontFamily="sans-serif-black"
         android:letterSpacing="-0.02" />
 
-      <!-- 副标题（"X 个应用·Y 项待处理"：占位 TextView；真实文案由 Java 动态设置）
-           为了不破坏现有 Data binding（无此字段），先只做 UI 占位；Java 层后续接。 -->
-      <TextView
-        android:id="@+id/toolbar_subtitle"
+      <!-- 副标题（Section 分组标题占位："已安装应用·X 个 / Y 项待处理"，真实文案由 Java 动态写入）
+           对齐原则：与大标题文字左边界一致 → paddingStart=14dp（装饰条4dp+距10dp=14）
+           左侧=小圆点光晕层 decor_section_header_dot（brand_5 大圆 + brand_dark 实点）
+           右侧=文字：section 标题（12sp ink_2 次文字色），中圆点分隔「·」 用 brand_dark → 品牌色强调
+           小圆点与文字 baseline 居中对齐（FrameLayout 包一层：左侧固定 dot View，右侧 TextView 占满，gravity center_vertical） -->
+      <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="1dp"
-        android:paddingStart="10dp"
-        android:text="@string/app_name"
-        android:textColor="@color/ink_2"
-        android:textSize="@dimen/text_subtitle"
-        android:background="@drawable/decor_brand_vert_line"
-        android:backgroundTint="@color/brand_20"
-        android:backgroundTintMode="src_in" />
+        android:layout_marginTop="6dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="4dp">
+
+        <View
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start|center_vertical"
+          android:background="@drawable/decor_section_header_dot"
+          android:contentDescription="@null" />
+
+        <TextView
+          android:id="@+id/toolbar_subtitle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="@string/app_name"
+          android:textColor="@color/ink_2"
+          android:textSize="@dimen/text_section_header"
+          android:textStyle="normal"
+          android:fontFamily="sans-serif-medium" />
+      </FrameLayout>
 
       <!-- 兼容老代码需要的 accentColor 细横线（原 activity_main.xml 第12-14行那条）
            放到标题区下方，视觉不突兀，同时保留 ID 兼容。 -->

@@ -27,12 +27,18 @@
     android:outlineProvider="background"
     android:addStatesFromChildren="true">
 
-    <!-- 状态指示色条（ref_indication_v）：宽 4dp 贴卡片左内边，match_parent 高度；
-         Java 代码会 ORANGE/RED/GREEN 给它 setBackgroundColor；用 INVISIBLE 占位避免影响 padding。 -->
+    <!-- 状态指示色条（ref_indication_v）：宽 4dp × 高 match_parent，圆角 4dp（与顶部装饰竖线同款，所有卡片装饰条统一）
+         位置：marginStart = @dimen/card_padding_h = 14dp（从卡片内边距起点起=卡内 LX' 装饰条位置）
+         正常隐藏=INVISIBLE（不占空间不挤压内容），Java 显示时 ref_indication_v.setBackgroundColor(ORANGE/RED/GREEN) 直接覆盖 → ⚠️ setBackgroundColor 会清掉默认 gradient，没关系；INVISIBLE/GONE 时还原默认样式，所以 drawable 先写成品牌同款竖线保持视觉一致性。
+         layout_gravity=start（靠左），marginTop/Bottom=card_padding_v=12dp 保持卡片上下留白呼吸感，不贴边。 -->
     <View
       android:id="@+id/ref_indication_v"
       android:layout_width="4dp"
       android:layout_height="match_parent"
+      android:layout_marginStart="@dimen/card_padding_h"
+      android:layout_marginTop="@dimen/card_padding_v"
+      android:layout_marginBottom="@dimen/card_padding_v"
+      android:background="@drawable/decor_brand_vert_line"
       android:layout_gravity="start"
       android:visibility="invisible" />
 

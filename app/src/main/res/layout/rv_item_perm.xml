@@ -19,11 +19,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <!-- 状态指示色条（ref_indication_v）：权限行卡装饰条，与应用列表卡片同款=宽4dp×圆角4dp×marginStart=14dp(card_padding_h)
+         默认透明背景=不显示；Java 引用状态 setBackgroundColor(橙/红/绿)时覆盖显示；上下留 10dp margin 与内部paddingVertical一致 -->
     <View
       android:id="@+id/ref_indication_v"
       android:layout_width="4dp"
       android:layout_height="match_parent"
-      android:background="@android:color/transparent"
+      android:layout_marginStart="@dimen/card_padding_h"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/decor_brand_vert_line"
       tools:ignore="UseCompatTextViewDrawableXml"/>
 
     <FrameLayout

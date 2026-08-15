@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 分组标题小圆点：初音绿小圆点 + 5% brand 半透明光晕（双层）
+     - 外层（光晕）：8dp 圆 + brand_5（5% 初音绿，柔和散开）
+     - 内层（实点）：4dp 圆 + brand_dark（深初音绿，清晰聚焦，与竖条深色端一致）
+     圆心完全重合，视觉=品牌圆点+柔和光晕（MIUI X / 苹果分组标题左侧小指示点） -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- 外层光晕（8dp = 4dp 内点 * 2，给呼吸感） -->
+  <item
+    android:gravity="center">
+    <shape android:shape="oval">
+      <solid android:color="@color/brand_5" />
+      <size android:width="8dp" android:height="8dp" />
+    </shape>
+  </item>
+  <!-- 内层实心圆点（4dp，品牌绿深，与顶部装饰条 endColor brand_dark 一致，不跳色） -->
+  <item
+    android:gravity="center">
+    <shape android:shape="oval">
+      <solid android:color="@color/brand_dark" />
+      <size android:width="4dp" android:height="4dp" />
+    </shape>
+  </item>
+</layer-list>
