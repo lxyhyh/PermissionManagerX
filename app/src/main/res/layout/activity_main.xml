@@ -157,12 +157,14 @@
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
 
             <ImageView
+              android:id="@+id/tab_perm_icon"
               android:layout_width="20dp"
               android:layout_height="20dp"
               android:src="@drawable/permission"
               android:tint="@color/brand"
               android:contentDescription="@string/tab_permissions" />
             <TextView
+              android:id="@+id/tab_perm_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="2dp"
@@ -187,12 +189,14 @@
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
 
             <ImageView
+              android:id="@+id/tab_set_icon"
               android:layout_width="20dp"
               android:layout_height="20dp"
               android:src="@drawable/settings"
               android:tint="@color/ink_2"
               android:contentDescription="@string/settings" />
             <TextView
+              android:id="@+id/tab_set_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="2dp"
@@ -216,12 +220,14 @@
             android:paddingVertical="@dimen/bottom_bar_tab_padding_v">
 
             <ImageView
+              android:id="@+id/tab_prof_icon"
               android:layout_width="20dp"
               android:layout_height="20dp"
               android:src="@drawable/g_accounts"
               android:tint="@color/ink_2"
               android:contentDescription="@string/my_settings" />
             <TextView
+              android:id="@+id/tab_prof_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="2dp"

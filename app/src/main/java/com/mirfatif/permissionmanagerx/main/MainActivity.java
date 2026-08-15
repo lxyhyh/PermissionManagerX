@@ -150,6 +150,7 @@ public class MainActivity extends OnBackPressedCallback {
     // Tab1 权限：回顶+关抽屉；Tab2 设置：SettingsActivityM；Tab3 我的：AboutActivity
     mB.tabPermissions.setOnClickListener(
         v -> {
+          setActivatedTab(0);
           if (mB.getRoot().isDrawerOpen(GravityCompat.START)) {
             mB.getRoot().closeDrawer(GravityCompat.START, true);
           }
@@ -158,8 +159,17 @@ public class MainActivity extends OnBackPressedCallback {
           }
         });
     mB.tabSettings.setOnClickListener(
-        v -> mA.startActivity(new Intent(App.getCxt(), SettingsActivityM.class)));
-    mB.tabProfile.setOnClickListener(v -> AboutActivity.start(mA));
+        v -> {
+          setActivatedTab(1);
+          mA.startActivity(new Intent(App.getCxt(), SettingsActivityM.class));
+        });
+    mB.tabProfile.setOnClickListener(
+        v -> {
+          setActivatedTab(2);
+          AboutActivity.start(mA);
+        });
+    // 默认进入主界面：激活 Tab 0（权限），让首次渲染视觉和 layout 初始状态保持一致（避免 onCreate 恢复瞬时错误）
+    setActivatedTab(0);
 
     MySettings.INS.mPrefsWatcher.observe(mA, this::onPrefChanged);
 
@@ -451,6 +461,69 @@ public class MainActivity extends OnBackPressedCallback {
     switch (pref) {
       case MySettings.PREF_DRAWER_CHANGED -> setBoxesChecked();
       case MySettings.PREF_UI_CHANGED -> mA.recreate();
+    }
+  }
+
+  /**
+   * 切换底部 3 个 Tab 的激活态视觉（HyperOS/SukiSU 风格）： - 激活项：背景 = bg_bottom_tab_active（初音绿 10% 胶囊高亮），图标
+   * tint=brand，文字 color=brand + bold - 非激活项：背景 = 透明，图标 tint=ink_2，文字 color=ink_2（非 bold） 通过
+   * activity_main.xml 里 tab_*_icon / tab_*_label 的 ID 直接引用。 跳转后的 Activity 会进入新栈；返回到主界面时
+   * MainActivityM 生命周期会调 onCreated() 再默认重设 Tab0。
+   */
+  private void setActivatedTab(int idx) {
+    if (mB == null) {
+      return;
+    }
+    // --- Tab 0（权限） ---
+    mB.tabPermissions.setBackgroundResource(
+        idx == 0 ? R.drawable.bg_bottom_tab_active : android.R.color.transparent);
+    if (mB.tabPermIcon != null) {
+      mB.tabPermIcon.setImageResource(R.drawable.permission);
+      mB.tabPermIcon.setImageTintList(
+          androidx.core.content.ContextCompat.getColorStateList(
+              mA, idx == 0 ? R.color.brand : R.color.ink_2));
+    }
+    if (mB.tabPermLabel != null) {
+      mB.tabPermLabel.setTextColor(
+          androidx.core.content.ContextCompat.getColor(
+              mA, idx == 0 ? R.color.brand : R.color.ink_2));
+      mB.tabPermLabel.setTypeface(
+          mB.tabPermLabel.getTypeface(),
+          idx == 0 ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+    }
+    // --- Tab 1（设置） ---
+    mB.tabSettings.setBackgroundResource(
+        idx == 1 ? R.drawable.bg_bottom_tab_active : android.R.color.transparent);
+    if (mB.tabSetIcon != null) {
+      mB.tabSetIcon.setImageResource(R.drawable.settings);
+      mB.tabSetIcon.setImageTintList(
+          androidx.core.content.ContextCompat.getColorStateList(
+              mA, idx == 1 ? R.color.brand : R.color.ink_2));
+    }
+    if (mB.tabSetLabel != null) {
+      mB.tabSetLabel.setTextColor(
+          androidx.core.content.ContextCompat.getColor(
+              mA, idx == 1 ? R.color.brand : R.color.ink_2));
+      mB.tabSetLabel.setTypeface(
+          mB.tabSetLabel.getTypeface(),
+          idx == 1 ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+    }
+    // --- Tab 2（我的） ---
+    mB.tabProfile.setBackgroundResource(
+        idx == 2 ? R.drawable.bg_bottom_tab_active : android.R.color.transparent);
+    if (mB.tabProfIcon != null) {
+      mB.tabProfIcon.setImageResource(R.drawable.g_accounts);
+      mB.tabProfIcon.setImageTintList(
+          androidx.core.content.ContextCompat.getColorStateList(
+              mA, idx == 2 ? R.color.brand : R.color.ink_2));
+    }
+    if (mB.tabProfLabel != null) {
+      mB.tabProfLabel.setTextColor(
+          androidx.core.content.ContextCompat.getColor(
+              mA, idx == 2 ? R.color.brand : R.color.ink_2));
+      mB.tabProfLabel.setTypeface(
+          mB.tabProfLabel.getTypeface(),
+          idx == 2 ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
     }
   }
 

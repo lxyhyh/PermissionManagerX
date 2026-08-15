@@ -12,7 +12,7 @@
   <!-- ===== 文字层级（深色覆盖） ===== -->
   <color name="ink_1">#FFFFFF</color>          <!-- 主文字：纯白 -->
   <color name="ink_2">#B0B0B6</color>          <!-- 次文字：浅灰（对比度 8.1） -->
-  <color name="ink_3">#8A8A90</color>          <!-- 三级：中灰. 原7A7A80对card=3.99/chip_unselected=3.68 <AA4.5, →8A8A90 对bg=5.55 对card=5.15 对chip=4.67 ✓ -->
+  <color name="ink_3">#94949A</color>          <!-- 三级：原8A8A90 vs搜索框search_bg(262628)=4.4 FAIL → 94949A 对bg=6.12 对card=5.01 对search_bg=5.01 对chip=4.56 全AA ✓ -->
   <color name="sharpText">#FFFFFF</color>      <!-- 兼容原 API：同 ink_1 纯白 -->
 
   <!-- ===== 背景/卡片（深色覆盖） ===== -->
@@ -21,11 +21,11 @@
   <color name="card_stroke">#2439C5BB</color>  <!-- 卡片细描边：初音绿 14% rgba(57,197,187,.14) -->
   <color name="chip_unselected">#232325</color> <!-- chip 未激活背景：深灰（比 card 深一点，区分层级） -->
   <color name="search_bg">#262628</color>       <!-- 搜索框背景：接近 #2C2C2E -->
-  <color name="divider">#2A2A2D</color>         <!-- 深色分隔线：背景 +1.5 级灰，避免完全看不见 -->
+  <color name="divider">#222224</color>         <!-- 深色分隔线：原 2A2A2D 对 ink_3=4.17 FAIL → 222224 对 ink_3(94949A)=4.56 ✓（更深，与ink_3差拉开过AA） -->
 
   <!-- ===== 深色模式特定：开关禁用态轨道灰（原 #505050 太暗对比度不够） ===== -->
-  <color name="colorControlNormalDisabled">#55555A</color>  <!-- 从原 505050 提亮 4.5 级，保证可见 -->
-  <!-- Slim Switch 深色未激活：thumb 灰 + track 更深灰（暗黑开关标准） -->
-  <color name="slim_switch_off_thumb">#5A5A60</color>
-  <color name="slim_switch_off_track">#2E2E31</color>
+  <color name="colorControlNormalDisabled">#6B6B72</color>  <!-- 原 55555A 对 bg=2.6 FAIL(AA Large≥3) → 6B6B72 对 bg=3.65 ✓（禁用态开关/控件仍能分辨） -->
+  <!-- Slim Switch 深色未激活：thumb 更亮 + track 更深（AA Large≥3 标准，thumb vs track=3.29）原 5A5A60/2E2E31=1.98 FAIL -->
+  <color name="slim_switch_off_thumb">#72727A</color>
+  <color name="slim_switch_off_track">#232326</color>
 </resources>
