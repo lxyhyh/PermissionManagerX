@@ -1,0 +1,128 @@
+============================================================
+颜色资源引用静态分析报告（严格按用户定义规则）
+生成时间: 2026-08-15 19:00:29
+============================================================
+
+【集合定义规则（严格按用户要求）】
+  集合 A（颜色定义名） = values/colors.xml + values-night/colors.xml 中 <color name="XXX"> 的名称
+  集合 B（颜色引用名） = res/{layout,drawable,color,menu,xml}/*.xml 中 @color/YYY 的名称
+  集合 C（补充说明）   = res/color/*.xml 文件名本身（ColorStateList 定义，Android 编译时有效）
+
+------------------------------------------------------------
+[A] 已定义颜色集合 (<color name="XXX">): 27 个
+------------------------------------------------------------
+  + bg                              来源: values/colors.xml, values-night/colors.xml
+  + brand                           来源: values/colors.xml
+  + brand_10                        来源: values/colors.xml
+  + brand_20                        来源: values/colors.xml
+  + brand_5                         来源: values/colors.xml
+  + brand_50                        来源: values/colors.xml
+  + brand_75                        来源: values/colors.xml
+  + brand_dark                      来源: values/colors.xml
+  + card                            来源: values/colors.xml, values-night/colors.xml
+  + card_stroke                     来源: values/colors.xml, values-night/colors.xml
+  + chip_unselected                 来源: values/colors.xml, values-night/colors.xml
+  + colorControlNormal              来源: values/colors.xml
+  + colorControlNormalA50           来源: values/colors.xml
+  + colorControlNormalDisabled      来源: values/colors.xml, values-night/colors.xml
+  + darkTransBg                     来源: values/colors.xml
+  + green                           来源: values/colors.xml
+  + greenTrans10                    来源: values/colors.xml
+  + greenTrans20                    来源: values/colors.xml
+  + greenTrans5                     来源: values/colors.xml
+  + greenTrans50                    来源: values/colors.xml
+  + greenTrans75                    来源: values/colors.xml
+  + ink_1                           来源: values/colors.xml, values-night/colors.xml
+  + ink_2                           来源: values/colors.xml, values-night/colors.xml
+  + ink_3                           来源: values/colors.xml, values-night/colors.xml
+  + orangeState                     来源: values/colors.xml
+  + search_bg                       来源: values/colors.xml, values-night/colors.xml
+  + sharpText                       来源: values/colors.xml, values-night/colors.xml
+
+------------------------------------------------------------
+[B] 被引用颜色集合 (@color/YYY): 6 个
+------------------------------------------------------------
+  active_disabled, colorControlNormal, colorControlNormalDisabled, darkTransBg, sharpText, slim_switch
+
+------------------------------------------------------------
+[C] res/color/*.xml ColorStateList 文件名（Android 等效 color 定义）: 2 个
+------------------------------------------------------------
+  * active_disabled                 来源: color/active_disabled.xml
+  * slim_switch                     来源: color/slim_switch.xml
+
+============================================================
+B - A: 引用了但在 A 中未定义的颜色名（集合差集）
+  共 2 个
+============================================================
+
+  🟡 在 A 中未定义但在 C 中存在（ColorStateList，Android 编译时合法，不报错）:
+    ~ active_disabled
+         ColorStateList 定义: color/active_disabled.xml
+         被引用文件: layout/activity_crash_report.xml
+    ~ slim_switch
+         ColorStateList 定义: color/slim_switch.xml
+         被引用文件: drawable/slim_switch_thumb.xml, drawable/slim_switch_track.xml
+
+============================================================
+A - B: 在 A 中定义了但未被 B 引用的颜色名（集合差集）
+  共 23 个（可用于后续清理/规划）
+============================================================
+  - bg                              来源: values/colors.xml, values-night/colors.xml
+  - brand                           来源: values/colors.xml
+  - brand_10                        来源: values/colors.xml
+  - brand_20                        来源: values/colors.xml
+  - brand_5                         来源: values/colors.xml
+  - brand_50                        来源: values/colors.xml
+  - brand_75                        来源: values/colors.xml
+  - brand_dark                      来源: values/colors.xml
+  - card                            来源: values/colors.xml, values-night/colors.xml
+  - card_stroke                     来源: values/colors.xml, values-night/colors.xml
+  - chip_unselected                 来源: values/colors.xml, values-night/colors.xml
+  - colorControlNormalA50           来源: values/colors.xml
+  - green                           来源: values/colors.xml
+  - greenTrans10                    来源: values/colors.xml
+  - greenTrans20                    来源: values/colors.xml
+  - greenTrans5                     来源: values/colors.xml
+  - greenTrans50                    来源: values/colors.xml
+  - greenTrans75                    来源: values/colors.xml
+  - ink_1                           来源: values/colors.xml, values-night/colors.xml
+  - ink_2                           来源: values/colors.xml, values-night/colors.xml
+  - ink_3                           来源: values/colors.xml, values-night/colors.xml
+  - orangeState                     来源: values/colors.xml
+  - search_bg                       来源: values/colors.xml, values-night/colors.xml
+
+============================================================
+附录 A ∩ B: 定义了且被引用的交集
+============================================================
+  共 4 个:
+  colorControlNormal, colorControlNormalDisabled, darkTransBg, sharpText
+
+============================================================
+附录: 文件级引用映射
+============================================================
+  📄 color/slim_switch.xml:
+     colorControlNormal, colorControlNormalDisabled
+  📄 drawable/slim_switch_thumb.xml:
+     slim_switch
+  📄 drawable/slim_switch_track.xml:
+     slim_switch
+  📄 layout/about_privileges_dialog.xml:
+     sharpText
+  📄 layout/about_privileges_item.xml:
+     sharpText
+  📄 layout/activity_crash_report.xml:
+     active_disabled, sharpText
+  📄 layout/activity_main.xml:
+     darkTransBg, sharpText
+  📄 layout/activity_main_moving_container.xml:
+     sharpText
+  📄 layout/adb_connect_dialog.xml:
+     sharpText
+  📄 layout/backup_restore_dialog.xml:
+     sharpText
+  📄 layout/feedback_dialog.xml:
+     sharpText
+  📄 layout/progress_dialog.xml:
+     sharpText
+  📄 layout/trans_credits_row.xml:
+     sharpText
