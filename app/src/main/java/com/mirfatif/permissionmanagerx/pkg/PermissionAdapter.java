@@ -4,6 +4,7 @@ import static com.mirfatif.permissionmanagerx.util.ApiUtils.getString;
 
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
@@ -15,6 +16,7 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,19 +107,41 @@ public class PermissionAdapter extends MyListAdapter<Permission, ItemViewHolder>
         permName = TextUtils.concat(permName, " (", perm.getDependsOnName(), ")");
       }
       mB.permNameV.setText(permName);
-      mB.appOpsTimeV.setVisibility(View.GONE);
 
+      // ===== K-3 保护级别胶囊：根据语义染色（Normal灰 / Dangerous红 / Signature绿 / AppOps橙 / 其他=ink_3 中性灰）
+      // 染色方案：backgroundTintList，不改动原文字 Spannable（保持对 fixed/privileged 的红高亮效果）。
+      CharSequence protLevelCharSeq;
       if (perm.isCritical() && perm.isChangeable()) {
-        mB.protLevelV.setText(
+        protLevelCharSeq =
             StringUtils.getHighlightString(
                 perm.getLocalizedProtLevelString(),
                 mRedTextSpan,
                 true,
                 getString(R.string.prot_lvl_fixed),
-                getString(R.string.prot_lvl_privileged)));
+                getString(R.string.prot_lvl_privileged));
       } else {
-        mB.protLevelV.setText(perm.getLocalizedProtLevelString());
+        protLevelCharSeq = perm.getLocalizedProtLevelString();
       }
+      mB.protLevelV.setText(protLevelCharSeq);
+
+      String lvlStr = protLevelCharSeq.toString();
+      int capsuleTint;
+      Context ctx = mB.protLevelV.getContext();
+      if (lvlStr.contains(getString(R.string.prot_lvl_dangerous))) {
+        capsuleTint = ctx.getColor(R.color.prot_dangerous_bg);
+      } else if (lvlStr.contains(getString(R.string.prot_lvl_signature))) {
+        capsuleTint = ctx.getColor(R.color.prot_signature_bg);
+      } else if (lvlStr.contains(getString(R.string.prot_lvl_app_ops))) {
+        capsuleTint = ctx.getColor(R.color.prot_appops_bg);
+      } else if (lvlStr.contains(getString(R.string.prot_lvl_normal))) {
+        capsuleTint = ctx.getColor(R.color.prot_normal_bg);
+      } else {
+        // Internal / Development / Privileged / Fixed / Unknown 等：退化为 ink_3 胶囊底色（中性三级色不抢戏）
+        capsuleTint = ctx.getColor(R.color.ink_3);
+      }
+      ViewCompat.setBackgroundTintList(mB.protLevelV, ColorStateList.valueOf(capsuleTint));
+
+      mB.appOpsTimeV.setVisibility(View.GONE);
 
       mB.permStateSwitch.setChecked(perm.isGranted());
       mB.permStateSwitch.setEnabled(perm.isChangeable());

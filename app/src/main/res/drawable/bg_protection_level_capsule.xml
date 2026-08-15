@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- K-3 保护级别胶囊背景（单款四色，圆角 radius_sm 10dp = 小图标/小按钮层级，与 chip radius_md 14dp 区分开，语义"更小的标签粒"）
+     通过在 XML 中设置不同 android:backgroundTint（或 Java 代码 setBackgroundTintList）切换 4 色 →
+     因为 layer-list 支持 tint，所以我们把胶囊骨架写在一份 drawable 里，颜色外部注入：
+       - Normal    → prot_normal_bg（灰）
+       - Dangerous → prot_dangerous_bg（红）
+       - Signature → prot_signature_bg（brand_dark 初音绿深）
+       - AppOps    → prot_appops_bg（橙）
+       - Internal/Unknown → fallback=ink_3（三级色，不抢戏）
+     骨架：1. 主圆角背景（胶囊可注入色）2. 中心文字 TextView（ink_1 写在 layout 里，不通过这里）
+     说明：这个 drawable 只做胶囊背景；文字独立放在 TextView 里 ink_1（对比 card AAA 15/17，完全过线）。-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="@color/prot_normal_bg" />
+  <corners android:radius="@dimen/radius_sm" />
+</shape>

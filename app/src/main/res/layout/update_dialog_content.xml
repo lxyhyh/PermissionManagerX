@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- O-3 更新检查弹窗自定义视图（AboutActivity.showAppUpdateDialog 使用）
+     结构：
+       1) 顶部：装饰竖条 LX + 大标题（"更新"/"Update"）+ 小圆点光晕 section 副标题行（版本号）
+       2) 中部：32dp 圆 brand_10 背景 + download 图标 brand 色（左） + 标题（"新版本可用：X"）+ 描述（"新版本可用"文案）（右）
+       3) 底部：两按钮（Download 主胶囊 / Cancel 次级胶囊），两按钮高度一致
+     所有对齐：paddingStart/End = align_LX；装饰竖条 marginStart=0 → 父容器 padding=LX，实际位置=LX
+     文案 id：update_title_v（主标题，R.string.update）/ update_version_v（新版本号，res.version）/ update_desc_v（描述 R.string.new_version_available）
+     按钮 id：update_dl_btn_v（Download，主胶囊）/ update_cancel_btn_v（Cancel，次级胶囊）-->
+<com.mirfatif.permissionmanagerx.fwk.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:background="@drawable/bg_about_card"
+  android:paddingStart="@dimen/align_LX"
+  android:paddingEnd="@dimen/align_LX"
+  android:paddingTop="18dp"
+  android:paddingBottom="18dp">
+
+  <!-- ===== 顶部品牌装饰：初音绿竖条 + 大标题「更新」+ 小圆点 section 副标题行（版本号） ===== -->
+  <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="12dp">
+
+    <!-- 初音绿装饰竖条：4dp × 22dp 圆角 4dp -->
+    <View
+      android:layout_width="4dp"
+      android:layout_height="22dp"
+      android:layout_marginStart="0dp"
+      android:layout_marginTop="0dp"
+      android:background="@drawable/decor_brand_vert_line" />
+
+    <!-- 大标题：paddingStart=14dp（装饰条右侧 10dp 起）17sp ink_1 bold -->
+    <TextView
+      android:id="@+id/update_title_v"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="-16dp"
+      android:paddingStart="14dp"
+      android:layout_marginBottom="4dp"
+      android:text="@string/update"
+      android:textColor="@color/ink_1"
+      android:textSize="17sp"
+      android:textStyle="bold"
+      android:fontFamily="sans-serif-black" />
+
+    <!-- Section 副标题：小圆点光晕 + 新版本号（section 标题 13sp ink_2） -->
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:paddingStart="14dp"
+      android:paddingEnd="4dp">
+
+      <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:background="@drawable/decor_section_header_dot"
+        android:contentDescription="@null" />
+
+      <TextView
+        android:id="@+id/update_version_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/ink_2"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif-medium"
+        tools:text="v8.9.2-foss" />
+    </FrameLayout>
+
+  </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+  <!-- ===== 中部：图标圆 + 标题 + 描述 ===== -->
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="16dp">
+
+    <!-- 左：32dp 圆 brand_10 背景 + 0.5dp card_stroke 描边 → decor_update_dialog_icon_circle；居中放 download 图标 brand 色 18dp -->
+    <FrameLayout
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_marginEnd="12dp"
+      android:background="@drawable/decor_update_dialog_icon_circle"
+      android:foregroundGravity="center">
+
+      <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/update"
+        app:tint="@color/brand"
+        android:contentDescription="@null"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+    </FrameLayout>
+
+    <!-- 右：标题（新版本可用 + 版本号）14sp ink_1 bold + 描述（Tap to download）12sp ink_2 -->
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/update_desc_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/ink_1"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="New version available" />
+
+      <TextView
+        android:id="@+id/update_hint_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/tap_to_download"
+        android:textColor="@color/ink_2"
+        android:textSize="12sp" />
+
+    </LinearLayout>
+  </LinearLayout>
+
+  <!-- ===== 底部：两按钮（Download 主胶囊 / Cancel 次级胶囊），两列等宽，间距 12dp ===== -->
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="end"
+    android:baselineAligned="false">
+
+    <!-- Cancel 次级胶囊：bg_capsule_button_secondary（brand_10 背景 + 0.5dp stroke）；文字 ink_1 14sp bold；minHeight 42dp；点击后 dismiss -->
+    <Button
+      android:id="@+id/update_cancel_btn_v"
+      style="@style/Widget.AppCompat.Button.Borderless"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="12dp"
+      android:minHeight="42dp"
+      android:background="@drawable/bg_capsule_button_secondary"
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:text="@string/cancel_button"
+      android:textColor="@color/ink_1"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      android:textAllCaps="false" />
+
+    <!-- Download 主胶囊：bg_capsule_button；文字 brand 14sp bold；minHeight 42dp；点击跳转源码下载页 -->
+    <Button
+      android:id="@+id/update_dl_btn_v"
+      style="@style/Widget.AppCompat.Button.Borderless"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:minHeight="42dp"
+      android:background="@drawable/bg_capsule_button"
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:text="@string/download"
+      android:textColor="@color/brand"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      android:textAllCaps="false" />
+
+  </LinearLayout>
+
+</com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>

@@ -5,7 +5,10 @@
   android:orientation="vertical"
   android:background="@color/bg">
 
-  <!-- ===== 顶部：初音绿装饰竖条 + 大标题「应用名」===== -->
+  <!-- ===== 顶部：小圆点光晕装饰 + 品牌大标题「应用名」+ 品牌 section 副标题行（包名/权限数）
+           对齐：paddingStart/End = align_LX；装饰竖线 marginStart=0（父容器 padding=LX，实际位置=LX）
+           大标题：26sp text_title ink_1 bold；副标题 FrameLayout（小圆点+12sp 次文字），与 toolbar_subtitle 主界面同款一致
+           横线：brand_20 初音绿描边 1dp（与主界面 top_accent_stroke 同款；不再用 ?attr/accentColor 直接引用 brand_20 一致）-->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,6 +18,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="4dp">
 
+    <!-- 初音绿装饰竖条（品牌指示）：4dp × 22dp 圆角 4dp，brand→brand_dark 渐变，LX 对齐 -->
     <View
       android:layout_width="4dp"
       android:layout_height="22dp"
@@ -22,6 +26,8 @@
       android:layout_marginTop="6dp"
       android:background="@drawable/decor_brand_vert_line" />
 
+    <!-- 大标题：26sp 字重800（按 dimens text_title），文字从装饰条右边 10dp 起 → paddingStart=14dp
+         （装饰条 4dp + 间距 10dp = 14dp，与主界面 toolbar_title 对齐一致）-->
     <TextView
       android:id="@+id/pkg_name_title_v"
       android:layout_width="match_parent"
@@ -36,10 +42,43 @@
       android:fontFamily="sans-serif-black"
       android:letterSpacing="-0.02" />
 
+    <!-- Section 副标题：小圆点光晕 + 包名/权限数（占位文案真实由 Java 写入；与主界面 toolbar_subtitle 同款 FrameLayout）
+         对齐：paddingStart=14dp（装饰条右侧 10dp 起）；小圆点与文字 baseline 居中对齐 -->
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="6dp"
+      android:paddingStart="14dp"
+      android:paddingEnd="4dp">
+
+      <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:background="@drawable/decor_section_header_dot"
+        android:contentDescription="@null" />
+
+      <TextView
+        android:id="@+id/pkg_name_subtitle_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        tools:text="com.example.app · 24 项权限"
+        android:textColor="@color/ink_2"
+        android:textSize="@dimen/text_section_header"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif-medium"
+        xmlns:tools="http://schemas.android.com/tools" />
+    </FrameLayout>
+
+    <!-- 品牌分隔线：与主界面 top_accent_stroke 同款（初音绿 brand_20 描边 1dp，视觉一致的品牌横线） -->
     <View
+      android:id="@+id/top_accent_stroke"
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="6dp"
       android:background="?attr/accentColor" />
 
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>

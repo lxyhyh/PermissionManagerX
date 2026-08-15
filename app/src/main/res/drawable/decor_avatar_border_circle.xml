@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- N-2 用户卡头像：圆形 48/72dp + 0.5dp brand 描边。
+     layer-list：
+       - 外层：0.5dp 宽的 brand 描边圆（背景=透明，只画 stroke）→ 品牌描边环
+       - 内层：用户头像 ImageView 自己的 src，会在 FrameLayout 里居中放这层下面。
+     用在 FrameLayout 的前景/背景上，把 src 头像放在下层、描边在上层。
+     注意：因为是 stroke（描边宽度），要在 <shape> 内 <stroke>，不要在 layer-list item 顶部写 stroke。-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- 外层描边环（直径=外层直径，实际画圆边框宽 0.5dp brand 色） -->
+  <item>
+    <shape android:shape="oval">
+      <stroke android:width="0.5dp" android:color="@color/avatar_border" />
+      <solid android:color="@android:color/transparent" />
+    </shape>
+  </item>
+</layer-list>

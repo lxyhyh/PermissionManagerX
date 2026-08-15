@@ -62,7 +62,13 @@
       android:paddingStart="@dimen/align_LX"
       android:paddingEnd="@dimen/align_LX">
 
-      <!-- ===== App 头部卡片：图标 + 名称 + 版本 ===== -->
+      <!-- ===== App 头部用户卡品牌化（N-2）：
+               FrameLayout 包两层：
+               - 内层：72dp 圆形 ImageView(icon 原 src) + gravity=center_horizontal
+               - 外层：decor_avatar_border_circle（0.5dp brand 描边环）前景，套在内层上面
+               卡片：bg_list_card（与主界面列表卡同款：大圆角 radius_lg + 0.5dp card_stroke + 按下 brand_10 蒙层）+ elevation=3dp → 柔和阴影
+               文字：App名称 ink_1 17sp bold；版本 ink_2 12.5sp
+               所有ID保留（icon / version），文案不改变；仅样式 brand 化 -->
       <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,14 +76,24 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="12dp"
         android:paddingVertical="18dp"
-        android:background="@drawable/bg_about_card">
+        android:background="@drawable/bg_list_card"
+        android:elevation="3dp"
+        android:outlineProvider="background">
 
-        <ImageView
-          android:id="@+id/icon"
+        <FrameLayout
           android:layout_width="72dp"
           android:layout_height="72dp"
-          android:src="@drawable/icon"
-          tools:ignore="ContentDescription" />
+          android:foreground="@drawable/decor_avatar_border_circle">
+
+          <ImageView
+            android:id="@+id/icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon"
+            tools:ignore="ContentDescription"
+            xmlns:tools="http://schemas.android.com/tools" />
+        </FrameLayout>
 
         <TextView
           android:layout_width="wrap_content"
@@ -86,7 +102,8 @@
           android:text="@string/app_name"
           android:textColor="@color/ink_1"
           android:textSize="17sp"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:fontFamily="sans-serif-black" />
 
         <TextView
           android:id="@+id/version"
@@ -95,7 +112,8 @@
           android:layout_marginTop="4dp"
           android:textColor="@color/ink_2"
           android:textSize="12.5sp"
-          tools:text="Version: 8.9.2" />
+          tools:text="Version: 8.9.2"
+          xmlns:tools="http://schemas.android.com/tools" />
 
       </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 

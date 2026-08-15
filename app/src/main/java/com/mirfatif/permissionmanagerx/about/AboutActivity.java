@@ -23,6 +23,7 @@ import com.mirfatif.permissionmanagerx.R;
 import com.mirfatif.permissionmanagerx.app.App;
 import com.mirfatif.permissionmanagerx.base.AlertDialogFragment;
 import com.mirfatif.permissionmanagerx.databinding.ActivityAboutBinding;
+import com.mirfatif.permissionmanagerx.databinding.UpdateDialogContentBinding;
 import com.mirfatif.permissionmanagerx.fwk.AboutActivityM;
 import com.mirfatif.permissionmanagerx.help.HelpActivity;
 import com.mirfatif.permissionmanagerx.main.FeedbackDialogFrag;
@@ -181,17 +182,28 @@ public class AboutActivity {
   }
 
   public static void showAppUpdateDialog(FragmentActivity act, String version, boolean showCancel) {
-    Builder builder =
-        new Builder(act)
-            .setTitle(R.string.update)
-            .setMessage(getString(R.string.new_version_available) + ": " + version)
-            .setPositiveButton(
-                R.string.download,
-                (d, w) -> ApiUtils.openWebUrl(act, getString(R.string.source_url)));
+    // 使用自定义视图 update_dialog_content.xml（品牌装饰条 + 小圆点 section 行 + 两胶囊按钮）
+    UpdateDialogContentBinding vb = UpdateDialogContentBinding.inflate(act.getLayoutInflater());
+    vb.updateVersionV.setText(version);
+    vb.updateDescV.setText(getString(R.string.new_version_available) + ": " + version);
+
+    Builder builder = new Builder(act).setView(vb.getRoot());
+
+    // 两按钮：Download（主）→ 跳转 source_url；Cancel（次）→ dismiss。
+    // AlertDialogFragment 要求 Builder 生成 Dialog；我们用自定义视图，不再用
+    // setTitle/setMessage/setPositive/setNegative。
+    AlertDialog dialog = builder.create();
+    vb.updateDlBtnV.setOnClickListener(
+        v -> {
+          ApiUtils.openWebUrl(act, getString(R.string.source_url));
+          dialog.dismiss();
+        });
     if (showCancel) {
-      builder.setNegativeButton(R.string.cancel_button, null);
+      vb.updateCancelBtnV.setOnClickListener(v -> dialog.dismiss());
+    } else {
+      vb.updateCancelBtnV.setVisibility(View.GONE);
     }
-    AlertDialogFragment.show(act, builder.create(), "APP_UPDATE");
+    AlertDialogFragment.show(act, dialog, "APP_UPDATE");
   }
 
   public static void sendShareIntent(Activity activity) {

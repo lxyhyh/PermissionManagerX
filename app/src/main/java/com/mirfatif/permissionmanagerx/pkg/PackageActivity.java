@@ -117,6 +117,13 @@ public class PackageActivity extends OnBackPressedCallback implements PermAdapte
     if (mB.pkgNameTitleV != null) {
       mB.pkgNameTitleV.setText(mPkg.getLabel());
     }
+    // Section 副标题：包名 + 权限数（小圆点光晕右侧文案，与主界面 toolbar_subtitle 同款）
+    if (mB.pkgNameSubtitleV != null) {
+      String pkgName = mPkg.getName();
+      String permCountStr = mPkg.getPermCount(); // 格式如 "24 项权限"（getPermCount 已内置本地化字符串，直接复用）
+      String subtitle = pkgName + " · " + permCountStr;
+      mB.pkgNameSubtitleV.setText(subtitle);
+    }
 
     mAdapter = new PermissionAdapter(mA, this, mA);
 

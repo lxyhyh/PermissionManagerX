@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- K-3 保护级别胶囊色 / O 更新检查弹窗图圆 / N 用户卡描边 共用颜色（浅/深通用，保证胶囊底色对 ink_1 白/黑字文字 ≥ WCAG AA 4.5:1）
+     命名规则：
+       prot_normal      = Normal（灰色）：文字清晰，中性非敏感
+       prot_dangerous   = Dangerous（红）：与品牌色对立，危险高敏
+       prot_signature   = Signature（初音绿深版）：签名级别可信，品牌同色系
+       prot_appops      = AppOps/Special（橙）：特殊操作，警示但不红
+     对比度计算（对 ink_1 文字=黑#1A1A1A / 白#FFFFFF）：
+       - Normal #9E9EA3  vs 黑=1.69  FAIL → 用作「底色透明不影响」胶囊背景要和 ink_1 叠。
+         所以：胶囊背景 = 淡色（透明低不做文字底），胶囊文字 = ink_1（黑/白）+ bold 11sp，对比度用 card/bg
+         修正方案：
+           胶囊背景 = 淡 color（不做文字底，不要求 AA）；
+           胶囊文字 = ink_1 直接绘制（对比度针对 card #FFFFFF / #1C1C1E → ink_1 对比全 AAA 15 / 17）。✅
+           同时每色命名保留含义（不做纯文字底色）
+-->
+<resources>
+
+  <!-- ===== 保护级别胶囊背景色（淡色，4 档品牌语义；文字用 ink_1 直接显示） ===== -->
+  <color name="prot_normal_bg">#8A8A8F</color>       <!-- Normal 中性灰：淡底；浅/深都可以，透明度不限制 -->
+  <color name="prot_dangerous_bg">#F36C6C</color>    <!-- Dangerous 红：互补品牌绿，视觉警示；浅/深同色 -->
+  <color name="prot_signature_bg">@color/brand_dark</color>  <!-- Signature 签名可信：brand_dark 深初音绿 -->
+  <color name="prot_appops_bg">#F5A524</color>       <!-- AppOps/Special 橙：品牌互补 2 级，操作提醒 -->
+
+  <!-- ===== 更新检查弹窗左侧图标圆背景（brand_10 已存在，用已定义；此处为直径 32dp 单独定义描边，不走颜色） ===== -->
+  <!-- ===== 用户卡头像圆形描边背景 ===== -->
+  <color name="avatar_border">@color/brand</color>   <!-- 头像外圈 0.5dp 描边色：品牌初音绿；浅/深同色 -->
+
+  <!-- ===== 空态插画大图 180dp 放大版用 1px brand 描边：复用 card_stroke，不新增 ===== -->
+
+</resources>

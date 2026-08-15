@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- O-2 崩溃报告页顶部大插画占位（180dp，比主空态 140dp 再放大 40dp，品牌标识更强）
+     与 decor_empty_state_placeholder 同 design token：
+       - 外层：card 大圆 + 0.5dp card_stroke 描边（180dp 直径 = 半径 90dp）
+       - 内层：品牌装饰竖线居中放大版（宽 8dp × 高 80dp，brand→brand_dark 渐变 4dp 圆角，比空态再粗 2dp/长 20dp）-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- 外层大圆：180dp -->
+  <item>
+    <shape android:shape="oval">
+      <solid android:color="@color/card" />
+      <stroke android:width="0.5dp" android:color="@color/card_stroke" />
+      <size android:width="180dp" android:height="180dp" />
+    </shape>
+  </item>
+  <!-- 内层：装饰竖线居中（宽8dp 高80dp） -->
+  <item android:gravity="center" android:width="8dp" android:height="80dp">
+    <shape android:shape="rectangle">
+      <gradient
+        android:angle="270"
+        android:startColor="@color/brand"
+        android:endColor="@color/brand_dark" />
+      <corners android:radius="4dp" />
+    </shape>
+  </item>
+</layer-list>

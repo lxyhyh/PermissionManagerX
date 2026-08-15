@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- O-3 更新检查弹窗左侧图标圆：32dp 直径 × brand_10 背景 + 0.5dp card_stroke 描边
+     → 与 Snackbar/Chip 非激活描边同款（一致的"小圆形图标底"），圆角=oval（32dp 圆）
+     内部居中放 ImageView(download 图标 brand 色 18dp)，由 layout 做 FrameLayout gravity=center -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="oval">
+  <solid android:color="@color/brand_10" />
+  <stroke android:width="0.5dp" android:color="@color/card_stroke" />
+  <size android:width="32dp" android:height="32dp" />
+</shape>

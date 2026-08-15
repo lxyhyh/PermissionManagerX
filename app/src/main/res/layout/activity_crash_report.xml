@@ -10,7 +10,11 @@
   android:orientation="vertical"
   android:background="@color/bg">
 
-  <!-- ===== 顶部：初音绿装饰竖条 + 大标题 ===== -->
+  <!-- ===== 顶部：初音绿装饰竖条 + 小圆点光晕大标题 + 180dp 品牌空态插画占位（O-2）
+           对齐：paddingStart/End = align_LX；装饰竖条 marginStart=0
+           插画：居中 180dp decor_crash_report_illu_placeholder（比主空态 140dp 放大 40dp）+ marginTop 14dp
+           标题：submit_report_button / crash_report 文案 crashPageTitleV；描述："send_crash_report_summary" ink_2 13sp；
+           大标题下方再 section 小圆点：18sp → 对应 text_title，和权限详情页 section header 同款一致 -->
   <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,35 +22,85 @@
     android:paddingStart="@dimen/align_LX"
     android:paddingEnd="@dimen/align_LX"
     android:paddingTop="16dp"
-    android:paddingBottom="4dp">
+    android:paddingBottom="10dp"
+    android:gravity="center_horizontal">
 
-    <View
-      android:layout_width="4dp"
-      android:layout_height="22dp"
-      android:layout_marginStart="0dp"
-      android:layout_marginTop="6dp"
-      android:background="@drawable/decor_brand_vert_line" />
-
-    <TextView
-      android:id="@+id/crash_page_title_v"
+    <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="-16dp"
-      android:paddingStart="14dp"
-      android:text="@string/submit_report_button"
-      android:textColor="@color/ink_1"
-      android:textSize="@dimen/text_title"
-      android:textStyle="bold"
-      android:fontFamily="sans-serif-black"
-      android:letterSpacing="-0.02"
-      tools:ignore="MissingPrefix"
-      xmlns:tools="http://schemas.android.com/tools" />
+      android:orientation="vertical">
 
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginTop="8dp"
-      android:background="?attr/accentColor" />
+      <!-- 初音绿装饰竖条：4dp × 22dp 圆角 4dp（同主界面/权限详情页） -->
+      <View
+        android:layout_width="4dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/decor_brand_vert_line" />
+
+      <!-- 大标题：18sp ink_1 bold（比 26sp text_title 小一级；O-2 崩溃报告页不是主标题，更紧凑精致）
+           paddingStart=14dp（装饰条右侧 10dp 起，与权限详情页/主界面保持） -->
+      <TextView
+        android:id="@+id/crash_page_title_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-16dp"
+        android:paddingStart="14dp"
+        android:text="@string/submit_report_button"
+        android:textColor="@color/ink_1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="-0.01" />
+
+      <!-- Section 副标题：小圆点光晕 + send_crash_report_summary（"Send crash logs to the developers"）
+           对齐：paddingStart=14dp；13sp ink_2；小圆点与文字基线居中对齐 -->
+      <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="4dp">
+
+        <View
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start|center_vertical"
+          android:background="@drawable/decor_section_header_dot"
+          android:contentDescription="@null" />
+
+        <TextView
+          android:id="@+id/crash_page_subtitle_v"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="@string/send_crash_report_summary"
+          android:textColor="@color/ink_2"
+          android:textSize="13sp"
+          android:textStyle="normal"
+          android:fontFamily="sans-serif-medium" />
+      </FrameLayout>
+
+      <!-- 品牌分隔线：1dp brand_20（与主界面/权限详情页同款） -->
+      <View
+        android:id="@+id/top_accent_stroke"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="?attr/accentColor" />
+
+    </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+    <!-- O-2 大插画占位：180dp 居中 + marginTop 14dp
+         decor_crash_report_illu_placeholder（card 大圆 + 0.5dp stroke + 中心 8×80dp 品牌竖线渐变）-->
+    <ImageView
+      android:layout_width="180dp"
+      android:layout_height="180dp"
+      android:layout_marginTop="14dp"
+      android:src="@drawable/decor_crash_report_illu_placeholder"
+      android:contentDescription="@null" />
 
   </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
 
@@ -125,7 +179,9 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- 提交按钮行：右对齐，初音绿 bold 文字 -->
+    <!-- 提交按钮行：右对齐，初音绿 bold 文字（胶囊按钮 bg_capsule_button）
+         submit_button 老 ID 保留；enabled=false 时显示 chip_unselected 禁用态（bg_capsule_button 已处理）
+         paddingHorizontal 16dp paddingVertical 8dp；胶囊内文字 14sp brand bold，textAllCaps=false -->
     <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -144,7 +200,11 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:textAllCaps="false"
-        android:backgroundTint="@android:color/transparent" />
+        android:background="@drawable/bg_capsule_button"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
 
     </FrameLayout>
 

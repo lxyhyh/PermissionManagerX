@@ -3,6 +3,7 @@
   单个权限详情对话框（Permission 点击弹出，PermDetailDialog.java 使用）
   - 整体 bg_about_card 大圆角（外层调用的 Dialog windowBackground 需配合；
     这里至少保证内容区卡片风格一致 + LX 对齐 + 文字层级 ink_1/2/3）
+  - K-4：顶部 4dp×22dp 圆角装饰竖条 LX 对齐 + 小圆点光晕+品牌section标题（与权限详情页/主界面同款一致）
   - 6 个老 ID 完整保留：
     perm_name_v / perm_name_sub_v
     depends_perm_name_cont / depends_perm_name_v
@@ -19,32 +20,70 @@
   android:paddingTop="18dp"
   android:paddingBottom="18dp">
 
-  <!-- 1) 权限名称大标题（17sp bold ink_1） -->
-  <TextView
-    android:id="@+id/perm_name_v"
+  <!-- ===== K-4 顶部品牌装饰：初音绿竖条 + 大标题 perm_name_v + 小圆点光晕 section 副标题行 ===== -->
+  <com.mirfatif.permissionmanagerx.fwk.MyLinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="6dp"
-    android:ellipsize="end"
-    android:maxLines="2"
-    android:textAlignment="viewStart"
-    android:textColor="@color/ink_1"
-    android:textSize="17sp"
-    android:textStyle="bold"
-    android:fontFamily="sans-serif-black" />
+    android:orientation="vertical"
+    android:layout_marginBottom="6dp">
 
-  <!-- 2) 权限名称副标题（默认 gone，13sp ink_2） -->
-  <TextView
-    android:id="@+id/perm_name_sub_v"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:ellipsize="end"
-    android:maxLines="2"
-    android:textAlignment="viewStart"
-    android:textColor="@color/ink_2"
-    android:textSize="13sp"
-    android:visibility="gone" />
+    <!-- 初音绿装饰竖条：4dp × 22dp，圆角 4dp，与权限详情页/主界面顶部装饰竖条同款 -->
+    <View
+      android:layout_width="4dp"
+      android:layout_height="22dp"
+      android:layout_marginStart="0dp"
+      android:layout_marginTop="0dp"
+      android:background="@drawable/decor_brand_vert_line" />
+
+    <!-- 1) 权限名称大标题（17sp bold ink_1）：paddingStart=14dp 与装饰条右侧 10dp 起（4dp+10dp=14dp） -->
+    <TextView
+      android:id="@+id/perm_name_v"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="-16dp"
+      android:paddingStart="14dp"
+      android:layout_marginBottom="4dp"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:textAlignment="viewStart"
+      android:textColor="@color/ink_1"
+      android:textSize="17sp"
+      android:textStyle="bold"
+      android:fontFamily="sans-serif-black" />
+
+    <!-- Section 副标题：小圆点光晕 + 次文字（perm_name_sub_v 放在小圆点右侧，13sp ink_2） -->
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:paddingStart="14dp"
+      android:paddingEnd="4dp">
+
+      <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:background="@drawable/decor_section_header_dot"
+        android:contentDescription="@null" />
+
+      <TextView
+        android:id="@+id/perm_name_sub_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
+        android:textColor="@color/ink_2"
+        android:textSize="13sp"
+        android:visibility="gone" />
+    </FrameLayout>
+
+  </com.mirfatif.permissionmanagerx.fwk.MyLinearLayout>
+
+  <!-- 2) 权限名称副标题（默认 gone，13sp ink_2）— ⚠️ 老 ID 兼容：原 ID perm_name_sub_v 已挪到上方 section 行，保留不重复定义 -->
 
   <!-- 3) 依赖权限（默认 gone） -->
   <LinearLayout

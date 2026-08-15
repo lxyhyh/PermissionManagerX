@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- K-3 胶囊文字颜色：胶囊内文字=ink_1 但胶囊底色有变化（深红/深绿/深橙）
+     → 默认 ink_1（黑/白）直接显示在胶囊上，不跟随 state，单独做一个 color selector 防以后扩展 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:color="@color/ink_1" />
+</selector>
