@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PMX UI 重构 · 三方案高保真对比</title>
+<style>
+  :root {
+    --brand: #39C5BB;          /* 初音绿 */
+    --brand-10: rgba(57,197,187,.10);
+    --brand-20: rgba(57,197,187,.20);
+    --ink-1: #1A1A1A;
+    --ink-2: #8E8E93;
+    --ink-3: #C7C7CC;
+    --bg: #F2F2F7;
+    --card: #FFFFFF;
+    --line: rgba(0,0,0,.06);
+    --ok: #34C759;
+    --warn: #FF9F0A;
+    --bad: #FF3B30;
+    --info: #007AFF;
+    --radius: 20px;
+    --shadow: 0 2px 10px rgba(0,0,0,.04), 0 20px 50px rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink-1);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", sans-serif;
+    padding: 40px 28px 80px;
+  }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .sub { color: var(--ink-2); margin-bottom: 32px; font-size: 14px; }
+  .hero {
+    background: linear-gradient(135deg, #fff 0%, #F6FFFE 100%);
+    border-radius: 28px; padding: 22px 24px; margin-bottom: 28px;
+    border: 1px solid var(--brand-10); box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;
+  }
+  .hero h2 { margin: 0 0 4px; font-size: 20px; letter-spacing: -.01em; }
+  .hero p  { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.7; }
+  .pill { display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; border-radius:999px;
+    background: var(--brand-10); color: #0D7F77; font-weight: 700; font-size: 12px; }
+  .pill::before { content:"★"; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } }
+
+  .scheme {
+    background: var(--card); border-radius: 28px; overflow: hidden; box-shadow: var(--shadow);
+    border: 2px solid transparent;
+  }
+  .scheme.a { border-color: var(--brand); }
+  .scheme .head { padding: 20px 20px 12px; display:flex; align-items:flex-start; justify-content: space-between; gap:12px; }
+  .scheme .head h3 { margin: 0 0 6px; font-size: 20px; letter-spacing:-.01em; }
+  .scheme .tag { padding: 2px 10px; border-radius:999px; font-weight:700; font-size:11px; }
+  .a .tag { background: var(--brand-10); color: var(--brand); }
+  .b .tag { background: rgba(142,45,226,.12); color: #8E2DE2; }
+  .c .tag { background: rgba(0,122,255,.12); color: var(--info); }
+  .desc { color: var(--ink-2); font-size: 13px; line-height: 1.6; padding: 0 20px 16px; }
+
+  .screens { padding: 0 20px 20px; display: flex; flex-direction: column; gap: 20px; }
+  .phone-wrap { display: flex; gap: 20px; flex-wrap: wrap; }
+  .phone {
+    position: relative; width: 300px; aspect-ratio: 9/19.5;
+    padding: 18px 14px 22px; border-radius: 40px; background: linear-gradient(180deg,#0f0f10,#1a1a1c);
+    border: 1px solid rgba(255,255,255,.08); box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  }
+  .statusbar { display:flex; justify-content:space-between; align-items:center; font-size: 12px; font-weight:700; margin-bottom:8px; padding: 0 6px; }
+  .dots { display:flex; gap:3px; align-items:center; }
+  .dots span { width:4px; height:4px; border-radius:50%; background: currentColor; opacity:.8; }
+  .screen { height: calc(100% - 22px); border-radius: 26px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+  .label {
+    position: absolute; top: 8px; left: 16px; padding: 2px 10px; border-radius:999px;
+    background: rgba(0,0,0,.75); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .02em;
+  }
+
+  /* ---------- 通用 UI Kit ---------- */
+  .titlebar { padding: 16px 16px 8px; }
+  .titlebar .huge { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+  .titlebar .small { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .search { margin: 4px 12px 10px; border-radius: 22px; padding: 9px 14px; background: #F2F2F7; color: var(--ink-2); font-size: 12px; display:flex; align-items:center; gap: 8px; }
+  .chips-row { display:flex; gap:6px; padding: 0 14px 10px; overflow-x:auto; }
+  .chip { padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space:nowrap; }
+  .chip.b-active { background: var(--brand); color: #fff; }
+  .chip.b-idle { background: #F0F0F2; color: var(--ink-1); }
+
+  .list { flex: 1; padding: 4px 10px 12px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+  .row {
+    border-radius: 18px; padding: 10px 12px; background: #fff;
+    display:flex; gap: 10px; align-items: center; border: 1px solid var(--line);
+  }
+  .ref { width: 3px; align-self: stretch; border-radius: 4px; flex:none; background: var(--brand); }
+  .ref.r { background: var(--bad); }
+  .ico {
+    width: 36px; height: 36px; border-radius: 10px; flex:none; display:flex; align-items:center;
+    justify-content:center; color:#fff; font-weight: 800; font-size: 14px;
+  }
+  .m-block { flex:1; min-width:0; }
+  .m-t { font-weight: 700; font-size: 12px; line-height: 1.15; }
+  .m-s { font-size: 10px; color: var(--ink-2); margin-top: 2px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis; }
+  .tags { display:flex; gap:4px; margin-top: 4px; flex-wrap: wrap; }
+  .t { padding: 1px 6px; border-radius: 999px; font-size: 9px; font-weight: 700; }
+  .t.b { background: var(--brand-10); color: #0D7F77; }
+  .t.g { background: rgba(52,199,89,.12); color: #1A7F37; }
+  .t.o { background: rgba(255,159,10,.12); color: #9A5E00; }
+  .t.r { background: rgba(255,59,48,.12); color: #B4261E; }
+
+  .section-title {
+    padding: 10px 16px 4px; font-size: 10px; font-weight: 700; color: var(--ink-2); letter-spacing: .08em; text-transform: uppercase;
+  }
+
+  /* 底部 Tab Bar */
+  .tabbar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 8px 8px 14px; background: rgba(255,255,255,.92); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--line);
+  }
+  .tab {
+    display:flex; flex-direction:column; align-items:center; gap:2px; padding: 4px; color: var(--ink-2); font-size: 10px; font-weight: 600;
+  }
+  .tab.on { color: var(--brand); }
+  .tab .i { font-size: 18px; }
+
+  /* 抽屉 Drawer */
+  .drawer-mask { position:absolute; inset: 0; background: rgba(0,0,0,.35); }
+  .drawer-panel {
+    position:absolute; top:0; bottom:0; left:0; width: 78%;
+    background: #fff; border-radius: 0 28px 28px 0; padding: 18px 14px;
+    box-shadow: 20px 0 50px rgba(0,0,0,.25);
+  }
+  .drawer-head { display:flex; align-items:center; gap:10px; padding: 4px 4px 14px; }
+  .drawer-av { width:44px; height:44px; border-radius:14px; background: linear-gradient(135deg,var(--brand),#2A9A91); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .drawer-title { font-size: 14px; font-weight: 800; }
+  .drawer-sub { font-size: 11px; color: var(--ink-2); }
+  .drawer-section { padding: 10px 0 6px; }
+  .drawer-section-title { font-size: 10px; font-weight: 700; color: var(--ink-2); letter-spacing:.08em; text-transform: uppercase; padding: 0 6px 6px; }
+  .drawer-item { padding: 10px 8px; border-radius: 14px; display:flex; align-items:center; gap:10px; color: var(--ink-1); font-size: 12px; font-weight: 600; }
+  .drawer-item.act { background: var(--brand-10); color: #0D7F77; }
+  .drawer-item .i { width:24px; text-align:center; }
+
+  /* ---------- 权限详情页 Sectioned ---------- */
+  .detail-body { flex:1; overflow:auto; padding: 2px 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .card-section { background: #fff; border-radius: var(--radius); padding: 2px 14px; border: 1px solid var(--line); }
+  .card-title { padding: 12px 0 8px; font-size: 11px; font-weight: 800; color: var(--ink-2); letter-spacing: .08em; text-transform: uppercase; }
+  .hr { height:1px; background: var(--line); margin: 0 -14px; }
+  .d-row { display:flex; align-items: center; gap: 10px; padding: 10px 0; }
+  .d-row .k { font-size: 11px; color: var(--ink-2); width: 60px; flex:none; }
+  .d-row .v { flex:1; font-size: 12px; font-weight: 700; }
+  .switch {
+    width:34px; height:20px; border-radius:999px; background: #E9E9EA; position: relative; flex:none;
+    transition: background .2s;
+  }
+  .switch::after { content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+  .switch.on { background: var(--brand); }
+  .switch.on::after { left: 16px; }
+
+  .perm-row { display:flex; align-items:center; gap:10px; padding: 10px 0; }
+  .perm-ico { width:28px; height:28px; border-radius:8px; background: var(--brand-10); color: #0D7F77; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .perm-body { flex:1; min-width:0; }
+  .perm-name { font-size: 12px; font-weight: 700; }
+  .perm-desc { font-size: 10px; color: var(--ink-2); margin-top: 2px; }
+  .perm-mode { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight:700; }
+  .perm-mode.a { background: rgba(52,199,89,.12); color:#1A7F37; }
+  .perm-mode.d { background: rgba(255,59,48,.12); color:#B4261E; }
+  .perm-mode.f { background: rgba(255,159,10,.12); color:#9A5E00; }
+
+  /* ---------- 指标雷达（简化条形图） ---------- */
+  .metrics { padding: 16px 20px 20px; border-top: 1px dashed var(--line); }
+  .metric-row { display:grid; grid-template-columns: 70px 1fr 38px; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+  .metric-bar { height: 8px; border-radius: 999px; background: #F0F0F2; overflow: hidden; }
+  .metric-bar > i { display:block; height: 100%; border-radius: 999px; }
+  .a .metric-bar > i { background: var(--brand); }
+  .b .metric-bar > i { background: linear-gradient(90deg,#8E2DE2,#00C6FF); }
+  .c .metric-bar > i { background: var(--info); }
+
+  .compare-table { margin-top: 32px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 14px 16px; text-align: left; vertical-align: top; }
+  thead th { background: #F9FAFB; font-size: 11px; letter-spacing: .06em; color: var(--ink-2); text-transform: uppercase; border-bottom: 1px solid var(--line); }
+  tbody tr + tr td { border-top: 1px solid var(--line); }
+  td:first-child { font-weight: 700; color: var(--ink-1); width: 20%; }
+  .ok { color: #1A7F37; font-weight: 700; }
+  .warn { color: #9A5E00; font-weight: 700; }
+  .bad { color: #B4261E; font-weight: 700; }
+
+  .call {
+    margin-top: 32px; border-radius: 24px; padding: 22px 24px;
+    background: linear-gradient(135deg, #F6FFFE 0%, #FFFFFF 60%, #EEFFFE 100%);
+    border: 1px solid var(--brand-20); box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  }
+  .call h4 { margin: 0 0 4px; font-size: 18px; letter-spacing: -.01em; color: #0D7F77; }
+  .call p { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.7; }
+  .btn {
+    padding: 12px 20px; background: var(--brand); color: #fff; border-radius: 16px; font-weight: 800;
+    box-shadow: 0 6px 16px var(--brand-20); text-align: center; white-space: nowrap;
+  }
+
+  .footnote { margin-top: 32px; padding: 14px 18px; border-radius: 16px; background: #fff; border: 1px dashed var(--ink-3); color: var(--ink-2); font-size: 12px; line-height: 1.8; }
+  .footnote code { background: #F2F2F7; padding: 1px 6px; border-radius: 6px; color: var(--brand); font-family: ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div>
+      <span class="pill">推荐方向：方案一 渐进式重构</span>
+      <h2>PermissionManagerX · UI 全面重构 · 三方案对比</h2>
+      <p>点击预览链接可在浏览器里查看。每个方案都展示「主界面」「权限详情页」两个关键页面的高保真效果，外加指标对比。<br/>
+         视觉基线统一为：<strong style="color:#0D7F77;">初音绿 #39C5BB</strong> · <strong>MIUI X + Apple 现代混合</strong> · 大圆角 20dp · 低饱和分组卡片。</p>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--ink-2);margin-bottom:6px;">6 个模块全部纳入重构</div>
+      <div style="display:grid;grid-template-columns:repeat(3,auto);gap:6px;">
+        <span class="chip b-idle">主界面Tab</span>
+        <span class="chip b-idle">详情分段</span>
+        <span class="chip b-idle">抽屉改我的</span>
+        <span class="chip b-idle">设置卡片</span>
+        <span class="chip b-idle">关于分组</span>
+        <span class="chip b-idle">其他视觉</span>
+      </div>
+    </div>
+  </div>
+
+  <h1>三种实现方案</h1>
+  <div class="sub">从风险、开发量、视觉完成度三方面权衡，<strong style="color:#0D7F77;">推荐方案一（渐进式重构）</strong></div>
+
+  <div class="grid">
+
+    <!-- 方案 A · 渐进式重构（推荐） -->
+    <div class="scheme a">
+      <div class="head">
+        <div>
+          <span class="tag">方案一 · 推荐</span>
+          <h3>渐进式重构</h3>
+        </div>
+      </div>
+      <div class="desc">
+        <b>两阶段走：</b>① 资源层先落地（颜色/圆角/drawable/适配器分支清理/外观开关移除）
+        ② 信息架构追加（主界面底部 Tab + 抽屉为次级导航 / 权限详情 SectionHeader 多类型 / 设置套 iOS 卡片主题 / 关于分组）。<br/>
+        优点：每阶段独立可验证、编译失败好定位、生命周期链路零风险。
+      </div>
+
+      <div class="screens">
+        <!-- 主界面：Tab + Drawer（保留） -->
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">主界面 · Drawer + BottomTab</span>
+            <div class="statusbar" style="color:var(--ink-1);"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen">
+              <div class="titlebar">
+                <p class="huge">权限管理器</p>
+                <div class="small">148 个应用 · 3 待处理</div>
+              </div>
+              <div class="search">🔍 搜索应用或权限名</div>
+              <div class="chips-row">
+                <span class="chip b-active">全部</span>
+                <span class="chip b-idle">用户应用</span>
+                <span class="chip b-idle">系统应用</span>
+                <span class="chip b-idle">待处理</span>
+              </div>
+              <div class="list">
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:var(--brand)">微</div>
+                  <div class="m-block"><div class="m-t">微信</div><div class="m-s">com.tencent.mm</div>
+                    <div class="tags"><span class="t b">12 权限</span><span class="t g">已引用</span></div></div></div>
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:#1677FF">支</div>
+                  <div class="m-block"><div class="m-t">支付宝</div><div class="m-s">com.eg.AlipayGphone</div>
+                    <div class="tags"><span class="t b">18 权限</span><span class="t o">2 待审</span></div></div></div>
+                <div class="row"><div class="ref r"></div>
+                  <div class="ico" style="background:#222">抖</div>
+                  <div class="m-block"><div class="m-t">抖音</div><div class="m-s">com.ss.ugc.aweme</div>
+                    <div class="tags"><span class="t b">24 权限</span><span class="t r">未引用</span></div></div></div>
+              </div>
+              <div class="tabbar">
+                <div class="tab on"><div class="i">📱</div>应用</div>
+                <div class="tab"><div class="i">🛡️</div>权限</div>
+                <div class="tab"><div class="i">⚙️</div>扩展</div>
+                <div class="tab"><div class="i">👤</div>我的</div>
+              </div>
+              <div class="drawer-mask" style="opacity:.4;">
+                <div class="drawer-panel" style="left:8%">
+                  <div class="drawer-head">
+                    <div class="drawer-av">PMX</div>
+                    <div><div class="drawer-title">PermissionManagerX</div><div class="drawer-sub">v1.30 · 初音绿主题</div></div>
+                  </div>
+                  <div class="drawer-section"><div class="drawer-section-title">快捷入口</div>
+                    <div class="drawer-item act"><span class="i">🔄</span>刷新列表</div>
+                    <div class="drawer-item"><span class="i">🔎</span>高级搜索</div>
+                    <div class="drawer-item"><span class="i">🧹</span>重置全部引用</div>
+                  </div>
+                  <div class="drawer-section"><div class="drawer-section-title">系统</div>
+                    <div class="drawer-item"><span class="i">📖</span>帮助与说明</div>
+                    <div class="drawer-item"><span class="i">ℹ️</span>关于 PMX</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 权限详情：Sectioned RecyclerView（不改布局容器） -->
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">详情页 · Sectioned 分段</span>
+            <div class="statusbar" style="color:var(--ink-1);"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen">
+              <div class="titlebar">
+                <p class="huge">微信</p>
+                <div class="small">com.tencent.mm · v8.0.49</div>
+              </div>
+              <div class="detail-body">
+
+                <div class="card-section">
+                  <div class="card-title">基本信息</div>
+                  <div class="d-row"><div class="k">UID</div><div class="v">10086</div></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><div class="k">安装于</div><div class="v">2024-11-03</div></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><div class="k">版本</div><div class="v">24031301 (8.0.49)</div></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><div class="k">系统应用</div><div class="v">否</div><div class="switch"></div></div>
+                </div>
+
+                <div class="card-section">
+                  <div class="card-title">危险权限 · 3</div>
+                  <div class="perm-row"><div class="perm-ico">📍</div>
+                    <div class="perm-body"><div class="perm-name">位置信息</div><div class="perm-desc">ACCESS_FINE_LOCATION</div></div>
+                    <span class="perm-mode a">始终允许</span></div>
+                  <div class="hr"></div>
+                  <div class="perm-row"><div class="perm-ico">📷</div>
+                    <div class="perm-body"><div class="perm-name">相机</div><div class="perm-desc">CAMERA</div></div>
+                    <span class="perm-mode f">询问</span></div>
+                  <div class="hr"></div>
+                  <div class="perm-row"><div class="perm-ico">🎤</div>
+                    <div class="perm-body"><div class="perm-name">麦克风</div><div class="perm-desc">RECORD_AUDIO</div></div>
+                    <span class="perm-mode d">已拒绝</span></div>
+                </div>
+
+                <div class="card-section">
+                  <div class="card-title">AppOps 操作权限 · 2</div>
+                  <div class="perm-row"><div class="perm-ico">📝</div>
+                    <div class="perm-body"><div class="perm-name">读取应用列表</div><div class="perm-desc">GET_USAGE_STATS</div></div>
+                    <span class="perm-mode f">默认忽略</span></div>
+                  <div class="hr"></div>
+                  <div class="perm-row"><div class="perm-ico">🔗</div>
+                    <div class="perm-body"><div class="perm-name">悬浮窗</div><div class="perm-desc">SYSTEM_ALERT_WINDOW</div></div>
+                    <span class="perm-mode a">已允许</span></div>
+                </div>
+
+                <div class="card-section">
+                  <div class="d-row"><div class="k" style="width:auto;color:#0D7F77;font-weight:700;">💡</div><div class="v" style="font-size:11px;color:var(--ink-2);font-weight:500;">若长期拒绝敏感权限，可长按配置「每次询问时自动拒绝」。</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-row"><span>开发量</span><div class="metric-bar"><i style="width:55%"></i></div><span>55%</span></div>
+        <div class="metric-row"><span>风险</span><div class="metric-bar"><i style="width:25%"></i></div><span style="color:#1A7F37;">低</span></div>
+        <div class="metric-row"><span>可回滚</span><div class="metric-bar"><i style="width:95%"></i></div><span>强</span></div>
+        <div class="metric-row"><span>视觉完成度</span><div class="metric-bar"><i style="width:92%"></i></div><span>92%</span></div>
+        <div class="metric-row"><span>原生链风险</span><div class="metric-bar"><i style="width:15%"></i></div><span style="color:#1A7F37;">极低</span></div>
+      </div>
+    </div>
+
+    <!-- 方案 B · 大爆炸替换 -->
+    <div class="scheme b">
+      <div class="head">
+        <div>
+          <span class="tag">方案二</span>
+          <h3>大爆炸式全面替换</h3>
+        </div>
+      </div>
+      <div class="desc">
+        <b>一次性重写：</b>主界面 NavHostFragment + 4 Fragment（废弃 Drawer）/ 权限详情 NestedScrollView 4 段独立 section （废弃单一 RecyclerView）/ 设置自建 iOS 分组 Fragment 废弃 PreferenceScreen XML / MotionLayout 全局动画。<br/>
+        优点：结果最干净；缺点：改动量 2.5x，可能冲击 Daemon 绑定与生命周期。
+      </div>
+
+      <div class="screens">
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">主界面 · 纯 BottomTab 无 Drawer</span>
+            <div class="statusbar" style="color:var(--ink-1);"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen" style="background:linear-gradient(180deg,#F6FFFE 0%, #F2F2F7 30%);">
+              <div class="titlebar">
+                <p class="huge">权限管理器</p>
+                <div class="small">148 应用 · 82% 权限健康</div>
+              </div>
+              <div style="padding:0 14px 10px;">
+                <div style="background:linear-gradient(135deg,#39C5BB,#2A9A91);color:#fff;border-radius:20px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div><div style="font-size:10px;opacity:.85;">今日检查</div><div style="font-size:18px;font-weight:800;margin-top:2px;">3 项待处理</div></div>
+                  <div style="background:rgba(255,255,255,.2);padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;">立即修复 →</div>
+                </div>
+              </div>
+              <div class="search">🔍 搜索应用、权限、AppOps 操作</div>
+              <div class="chips-row">
+                <span class="chip b-active">全部应用</span>
+                <span class="chip b-idle">健康度低</span>
+                <span class="chip b-idle">系统级</span>
+                <span class="chip b-idle">最近安装</span>
+              </div>
+              <div class="list">
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:var(--brand)">微</div>
+                  <div class="m-block"><div class="m-t">微信</div><div class="m-s">12 权限 · 2 待审</div>
+                    <div style="margin-top:4px;height:4px;background:#F0F0F2;border-radius:999px;overflow:hidden;"><i style="width:68%;height:100%;display:block;background:var(--brand);"></i></div>
+                  </div></div>
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:#1677FF">支</div>
+                  <div class="m-block"><div class="m-t">支付宝</div><div class="m-s">18 权限 · 0 异常</div>
+                    <div style="margin-top:4px;height:4px;background:#F0F0F2;border-radius:999px;overflow:hidden;"><i style="width:94%;height:100%;display:block;background:var(--ok);"></i></div>
+                  </div></div>
+                <div class="row"><div class="ref r"></div>
+                  <div class="ico" style="background:#222">抖</div>
+                  <div class="m-block"><div class="m-t">抖音</div><div class="m-s">24 权限 · 6 异常</div>
+                    <div style="margin-top:4px;height:4px;background:#F0F0F2;border-radius:999px;overflow:hidden;"><i style="width:32%;height:100%;display:block;background:var(--bad);"></i></div>
+                  </div></div>
+              </div>
+              <div class="tabbar">
+                <div class="tab on"><div class="i">📱</div>应用</div>
+                <div class="tab"><div class="i">🛡️</div>权限</div>
+                <div class="tab"><div class="i">🧭</div>扫描</div>
+                <div class="tab"><div class="i">👤</div>我的</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">详情页 · 视差头 + 分段视图</span>
+            <div class="statusbar" style="color:#fff;"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen">
+              <div style="padding:28px 16px 18px;background:linear-gradient(160deg,#39C5BB 0%, #2E9A91 50%, #1F6F69 100%);color:#fff;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;">微</div>
+                  <div><div style="font-size:22px;font-weight:800;letter-spacing:-.02em;">微信</div><div style="font-size:11px;opacity:.85;margin-top:2px;">com.tencent.mm · 已安装 256 天</div></div>
+                </div>
+                <div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+                  <div style="background:rgba(255,255,255,.18);border-radius:14px;padding:8px;text-align:center;"><div style="font-size:18px;font-weight:800;">12</div><div style="font-size:10px;opacity:.85;">权限</div></div>
+                  <div style="background:rgba(255,255,255,.18);border-radius:14px;padding:8px;text-align:center;"><div style="font-size:18px;font-weight:800;">3</div><div style="font-size:10px;opacity:.85;">危险</div></div>
+                  <div style="background:rgba(255,255,255,.18);border-radius:14px;padding:8px;text-align:center;"><div style="font-size:18px;font-weight:800;">68%</div><div style="font-size:10px;opacity:.85;">健康</div></div>
+                </div>
+              </div>
+              <div class="detail-body">
+                <div class="card-section">
+                  <div class="card-title">危险权限 · 快捷控制</div>
+                  <div class="perm-row"><div class="perm-ico">📍</div>
+                    <div class="perm-body"><div class="perm-name">位置信息</div><div class="perm-desc">仅使用期间允许</div></div>
+                    <div class="switch on"></div></div>
+                  <div class="hr"></div>
+                  <div class="perm-row"><div class="perm-ico">📷</div>
+                    <div class="perm-body"><div class="perm-name">相机</div><div class="perm-desc">每次询问</div></div>
+                    <div class="switch"></div></div>
+                  <div class="hr"></div>
+                  <div class="perm-row"><div class="perm-ico">🎤</div>
+                    <div class="perm-body"><div class="perm-name">麦克风</div><div class="perm-desc">已拒绝</div></div>
+                    <div class="switch"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-row"><span>开发量</span><div class="metric-bar"><i style="width:100%"></i></div><span>100%</span></div>
+        <div class="metric-row"><span>风险</span><div class="metric-bar"><i style="width:75%"></i></div><span style="color:#B4261E;">高</span></div>
+        <div class="metric-row"><span>可回滚</span><div class="metric-bar"><i style="width:50%"></i></div><span>中</span></div>
+        <div class="metric-row"><span>视觉完成度</span><div class="metric-bar"><i style="width:99%"></i></div><span>99%</span></div>
+        <div class="metric-row"><span>原生链风险</span><div class="metric-bar"><i style="width:70%"></i></div><span style="color:#B4261E;">高</span></div>
+      </div>
+    </div>
+
+    <!-- 方案 C · 折中 -->
+    <div class="scheme c">
+      <div class="head">
+        <div>
+          <span class="tag">方案三 · 折中</span>
+          <h3>轻量架构 + 视觉升级</h3>
+        </div>
+      </div>
+      <div class="desc">
+        <b>资源层全量 = 方案一；信息架构只做 4 项高价值：</b>① 底部 Tab（4 Tab）+ Drawer 快捷 ② 详情 SectionHeader 分段 ③ 设置仅套 iOS 卡片主题 ④ 关于分组。不做独立 Me Fragment、不做 NavHost。<br/>
+        优点：开发量比方案一少 20%；缺点：我的 Tab 与 Drawer 功能重复。
+      </div>
+
+      <div class="screens">
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">主界面 · 轻量 Tab（无健康卡）</span>
+            <div class="statusbar" style="color:var(--ink-1);"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen">
+              <div class="titlebar">
+                <p class="huge">权限管理器</p>
+                <div class="small">148 个应用</div>
+              </div>
+              <div class="search">🔍 搜索应用 / 权限</div>
+              <div class="list">
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:var(--brand)">微</div>
+                  <div class="m-block"><div class="m-t">微信</div><div class="m-s">com.tencent.mm</div>
+                    <div class="tags"><span class="t b">12 权限</span><span class="t g">已引用</span></div></div></div>
+                <div class="row"><div class="ref"></div>
+                  <div class="ico" style="background:#1677FF">支</div>
+                  <div class="m-block"><div class="m-t">支付宝</div><div class="m-s">com.eg.AlipayGphone</div>
+                    <div class="tags"><span class="t b">18 权限</span><span class="t o">2 待审</span></div></div></div>
+                <div class="row"><div class="ref r"></div>
+                  <div class="ico" style="background:#222">抖</div>
+                  <div class="m-block"><div class="m-t">抖音</div><div class="m-s">com.ss.ugc.aweme</div>
+                    <div class="tags"><span class="t b">24 权限</span><span class="t r">未引用</span></div></div></div>
+              </div>
+              <div class="tabbar" style="grid-template-columns: repeat(4,1fr);">
+                <div class="tab on"><div class="i">📱</div>应用</div>
+                <div class="tab"><div class="i">🛡️</div>权限</div>
+                <div class="tab"><div class="i">⚙️</div>扩展</div>
+                <div class="tab"><div class="i">👤</div>我的</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="label">我的 Tab · Drawer 功能搬过来</span>
+            <div class="statusbar" style="color:var(--ink-1);"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+            <div class="screen">
+              <div class="titlebar"><p class="huge">我的</p></div>
+              <div class="detail-body">
+                <div class="card-section">
+                  <div class="d-row"><div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--brand),#2A9A91);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;">PMX</div>
+                    <div class="v" style="margin-left:10px;">PermissionManagerX<div style="font-size:11px;color:var(--ink-2);font-weight:500;margin-top:2px;">v1.30 · 初音绿 · UI 全面改版</div></div></div>
+                </div>
+                <div class="card-section">
+                  <div class="d-row"><span class="i" style="width:24px;">🔄</span><div class="v">刷新应用列表</div><span style="font-size:12px;color:var(--ink-2);">›</span></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><span class="i">🧹</span><div class="v">重置全部引用</div><span style="font-size:12px;color:var(--ink-2);">›</span></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><span class="i">⚡</span><div class="v">守护进程状态</div><span style="font-size:11px;font-weight:700;color:#1A7F37;">已连接</span></div>
+                </div>
+                <div class="card-section">
+                  <div class="d-row"><span class="i">🎨</span><div class="v">主题与外观</div><span style="font-size:12px;color:var(--ink-2);">初音绿 ›</span></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><span class="i">⚙️</span><div class="v">通用设置</div><span style="font-size:12px;color:var(--ink-2);">›</span></div>
+                </div>
+                <div class="card-section">
+                  <div class="d-row"><span class="i">📖</span><div class="v">帮助与说明</div><span style="font-size:12px;color:var(--ink-2);">›</span></div>
+                  <div class="hr"></div>
+                  <div class="d-row"><span class="i">ℹ️</span><div class="v">关于 PMX</div><span style="font-size:12px;color:var(--ink-2);">›</span></div>
+                </div>
+              </div>
+              <div class="tabbar">
+                <div class="tab"><div class="i">📱</div>应用</div>
+                <div class="tab"><div class="i">🛡️</div>权限</div>
+                <div class="tab"><div class="i">⚙️</div>扩展</div>
+                <div class="tab on"><div class="i">👤</div>我的</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-row"><span>开发量</span><div class="metric-bar"><i style="width:45%"></i></div><span>45%</span></div>
+        <div class="metric-row"><span>风险</span><div class="metric-bar"><i style="width:20%"></i></div><span style="color:#1A7F37;">低</span></div>
+        <div class="metric-row"><span>可回滚</span><div class="metric-bar"><i style="width:95%"></i></div><span>强</span></div>
+        <div class="metric-row"><span>视觉完成度</span><div class="metric-bar"><i style="width:86%"></i></div><span>86%</span></div>
+        <div class="metric-row"><span>原生链风险</span><div class="metric-bar"><i style="width:12%"></i></div><span style="color:#1A7F37;">极低</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对比表 -->
+  <div class="compare-table">
+    <table>
+      <thead>
+        <tr><th>维度</th><th>方案一 · 渐进式重构（推荐）</th><th>方案二 · 大爆炸替换</th><th>方案三 · 折中</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>资源层 Token 统一</td><td class="ok">✅ 阶段 1 完成</td><td class="ok">✅ 同期完成</td><td class="ok">✅ 同期完成</td></tr>
+        <tr><td>主界面底部 Tab</td><td class="ok">✅ Drawer 保留快捷 + Tab 主导航</td><td class="ok">✅ 纯 Tab（废弃 Drawer）</td><td class="ok">✅ Drawer 功能迁入我的 Tab</td></tr>
+        <tr><td>权限详情分段</td><td class="ok">✅ 多类型 ViewHolder + SectionHeader</td><td class="ok">✅ NestedScrollView 4 段独立容器</td><td class="ok">✅ SectionHeader 分段（高价值）</td></tr>
+        <tr><td>设置页 iOS 卡片化</td><td class="ok">✅ 自定义主题覆盖 PreferenceScreen</td><td class="ok">✅ 自建 Fragment 分组 RecyclerView</td><td class="ok">✅ 仅套 iOS 卡片主题</td></tr>
+        <tr><td>关于页分组化</td><td class="ok">✅ AboutActivityItemContainer → 20dp 卡片分段</td><td class="ok">✅ Fragment 独立 3 段</td><td class="ok">✅ 卡片化 + 分组标题</td></tr>
+        <tr><td>动效 / 视差</td><td class="warn">⚡️ 卡片按压 + Tab 切换（轻）</td><td class="ok">✨ MotionLayout 视差/共享元素</td><td>卡片按压 + 淡入淡出</td></tr>
+        <tr><td>冲击 Daemon / MainActivityM 框架</td><td class="ok">🏆 几乎零风险（两阶段独立验证）</td><td class="bad">⚠️ 高风险（框架类大量改）</td><td class="ok">🏆 几乎零风险</td></tr>
+        <tr><td>开发量（相对）</td><td>1x</td><td>2.5x</td><td>0.8x</td></tr>
+        <tr><td>回归测试难度</td><td class="ok">低</td><td class="bad">高</td><td class="ok">低</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call">
+    <div>
+      <h4>最终推荐：方案一（渐进式重构）</h4>
+      <p>
+        PMX 原生守护进程（DaemonHandler/NativeDaemon）对 Activity 生命周期敏感，<b>大爆炸式（方案二）</b>改框架类容易造成守护绑定与结果回调链路回归。<br/>
+        方案一的两阶段走法可让我们<b>阶段 1 完成就编译验证 + 出 APK</b>，<b>阶段 2 逐项验证信息架构</b>，风险最低、可回滚最强，同时视觉完成度达 92%，满足你全部 6 个模块的重构目标。
+      </p>
+    </div>
+    <div class="btn">✅ 就选方案一</div>
+  </div>
+
+  <div class="footnote">
+    <strong>下一步：</strong>请在浏览器里确认方案。选定后我会按 brainstorming 流程分段呈现详细设计（架构 / 组件 / 数据 / 动效），每段确认一次，最后写入 <code>docs/superpowers/specs/2026-08-15-ui-redesign-spec.md</code> spec，<code>用户审阅通过 → writing-plans 技能出实施计划</code>。
+  </div>
+
+</body>
+</html>
