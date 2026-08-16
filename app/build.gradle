@@ -74,9 +74,12 @@ android {
         release {
             postprocessing.obfuscate = false
             signingConfig = signingConfigs.release
-            // 不压缩资源（我们没配 ProGuard keep，先不开启，避免断功能）
-            shrinkResources = false
-            minifyEnabled = false
+            // S-4a：开启真 release R8 混淆 + 资源压缩（apk-conventions 默认 isMinifyEnabled=true / isShrinkResources=true，我们显式写 true 对齐）
+            //   - proguardFiles = proguard-android-optimize.txt（AGP 自带） + app/proguard-rules.pro（项目自定义）
+            //   - shrinkResources=true 前提：minifyEnabled=true（先混淆，再根据混淆后的引用图删无用资源，顺序 AGP 保证）
+            //   - 如混淆后崩溃/缺资源：补 keep 规则 或 res/raw/keep.xml 保留资源
+            minifyEnabled = true
+            shrinkResources = true
         }
     }
 
