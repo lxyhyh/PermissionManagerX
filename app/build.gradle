@@ -19,13 +19,65 @@ android {
         versionNameSuffix '-foss'
     }
 
+    // S-0b 签名配置（仅本机安装测试，非正式发布）
+    // - debug: 沿用系统默认 ~/.android/debug.keystore（AGP 自动，此处显式写出方便对齐）
+    // - release: ~/.android/pmx_release.jks（新生成 RSA 2048，有效期 10000 天；SHA256=96:29:FB:72）
+    signingConfigs {
+        debug {
+            storeFile file(System.getenv('HOME') + '/.android/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            storeFile file(System.getenv('HOME') + '/.android/pmx_release.jks')
+            storePassword 'pmx2026test'
+            keyAlias 'pmx_release'
+            keyPassword 'pmx2026test'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-debug'
+            applicationIdSuffix = '.debug'
+            versionNameSuffix = '-debug'
+            signingConfig = signingConfigs.debug
         }
 
-        release.postprocessing.obfuscate = false
+        // S-0d 轻量 release buildType（用于安装测试，不跑 R8/ProGuard/资源压缩=沿用 debug 成功路径，避免 daemon OOM）
+        //  - applicationId = 纯 namespace（无 .debug 后缀 = 和商店/正式版同包名，可覆盖安装）
+        //  - signingConfig = release 独立 keystore pmx_release.jks（SHA256=96:29:FB:72）
+        //  - minifyEnabled=false / shrinkResources=false / isCoreLibraryDesugaringEnabled 沿用全局 true（debug 也开=已在 assembleDebug 验证过 desugar 成功）
+        releaseNoR8 {
+            // 与 release buildType 相同的 sourceSet/依赖处理：使用 release 产物的变体命名（ReleaseNoR8），但不做混淆
+            initWith(buildTypes.release)
+            // 关键：子模块 :priv_library / :priv_daemon / :hidden_apis 只有 debug/release 两 buildType
+            // 当本模块 releaseNoR8 去消费它们的 variant 时，找不到对应 buildType → 回退匹配 release（生产代码）
+            matchingFallbacks = ['release']
+            // 覆盖 apk-conventions 插件给 release 设置的 minifyEnabled=true / shrinkResources=true
+            minifyEnabled = false
+            shrinkResources = false
+            postprocessing.obfuscate = false
+            // 去掉 debug 后缀 → 纯 applicationId=com.mirfatif.permissionmanagerx（用于真实安装覆盖测试）
+            applicationIdSuffix = ''
+            // defaultConfig 已加 versionNameSuffix '-foss'，这里不要再重复（否则会变成 -foss-foss）
+            versionNameSuffix = ''
+            signingConfig = signingConfigs.release
+            // 匹配 debug/默认：让 lint/debuggable 行为保持发布前测试安全
+            debuggable = false
+            isDefault = false
+            // 签名包（v1+v2）已在 signingConfigs.release 配好
+        }
+
+        release {
+            postprocessing.obfuscate = false
+            signingConfig = signingConfigs.release
+            // 不压缩资源（我们没配 ProGuard keep，先不开启，避免断功能）
+            shrinkResources = false
+            minifyEnabled = false
+        }
     }
 
     packagingOptions {
