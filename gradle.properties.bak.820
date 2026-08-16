@@ -1,0 +1,45 @@
+# Project-wide Gradle settings.
+# IDE (e.g. Android Studio) users:
+# Gradle settings configured through the IDE *will override*
+# any settings specified in this file.
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+# ⚠️ 按环境实际可用内存（≈2.5G 可用、无 Swap）锁定总占用，堆 1800m 不超你说的 2g 线；
+#    元空间固定、SoftRef LRU 压老年代、SerialGC 低碎片低线程开销，避免 Gradle Daemon OOM。
+org.gradle.jvmargs=-Xmx1800m -XX:MaxMetaspaceSize=384m -XX:+UseSerialGC -XX:SoftRefLRUPolicyMSPerMB=0 -Dfile.encoding=UTF-8 -Dkotlin.compiler.execution.strategy=in-process -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=18080 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=18080
+
+# 避免环境里默认 Java 25（Kotlin/AGP 都解析不了 25.0.2 版本号），强制锁定 JDK17
+# 注意：必须是 JDK 17 的实际绝对路径，由环境搭建阶段生成
+org.gradle.java.home=/root/.local/share/mise/installs/java/17.0.2
+org.gradle.daemon=false
+
+# 单 worker / 单线程，小内存下不争抢；parallel 彻底关
+org.gradle.workers.max=1
+org.gradle.parallel=false
+org.gradle.internal.publish.checksums.insecure=true
+
+# 关 Kotlin daemon，让编译器直接在 Gradle JVM 内跑，少开一个吃内存的 JVM
+kotlin.daemon.enabled=false
+
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+# org.gradle.parallel=true
+
+# AndroidX package structure to make it clearer which packages are bundled with the
+# Android operating system, and which are packaged with your app"s APK
+# https://developer.android.com/topic/libraries/support-library/androidx-rn
+android.useAndroidX=true
+
+# Automatically convert third-party libraries to use AndroidX
+#android.enableJetifier=true
+
+# Improve Compose preview rendering performance.
+#org.gradle.configuration-cache=true
+
+# Show deprecated Gradle features and obsolete APIs
+org.gradle.warning.mode=all
+android.debug.obsoleteApi=true
